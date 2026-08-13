@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en" class="hide-scrollbar">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rau Layug</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/main.js" defer></script>
+</head>
+<body>
+    <div class="header">
+        <div class="header-left">
+            <h1><a href="#writeup">Rau Layug</a></h1>
+        </div>
+        <ul class="header-right">
+            <li><a href="#education">Education</a></li>
+            <li><a href="#leadership">Leadership</a></li>
+            <li><a href="#works">Works</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+    <section id="writeup">
+         <div class="writeup-content">
+            <div class="writeup-left">
+
+                <h1>Machine learning, signal processing, and software development — with a soft spot for audio and media.</h1>
+
+                <p>I'm a CS Masters' graduate specializing in <a id="hero-masters" href="#works">machine learning and signal processing</a>, with hands-on experience in <a id="hero-multimedia" href="#works">audio and visual production</a>. Outside of technical work, I founded and run <a id="hero-raushaus" href="#leadership">RausHaus Productions</a>.</p>
+                
+                <div class="writeup-button-container">
+                    <div class="button"><a href="https://www.linkedin.com/in/rau-layug-564a29207/" class="linkedin" target="_blank"><img src="./assets/icons/linkedin-black.png" alt="" style="margin-right:0.3rem"> LinkedIn</a></div>
+                    <div class="button" style="margin-left: 0.5rem;"><a href="./assets/images/Rau Layug - Resume.pdf" class="resume" target="_blank">Resume <img src="./assets/icons/external.png" alt="" style="margin-left:0.3rem"></a></div>
+                </div>
+            </div>
+            <div class="writeup-right">
+                <img class="box-shadow" src="./assets/images/toga.webp" alt="toga image">
+            </div>
+         </div>
+    </section>
+    <section id="education">
+        <div class="education-content box-shadow">
+            <div class="education-left">
+                <div><img src="./assets/images/ADMU Logo.webp" alt="ADMU Logo"></div>
+            </div>
+            <div class="education-right">
+                <h1>Ateneo de Manila University</h1>
+
+                <h3>Master of Science, Computer Science</h3>
+                <div class="date">June 2024 - June 2026</div>
+                <p><strong>GPA:</strong> 3.67</p>
+                <div class="button"><a id="education-masters" href="#works">Master's Thesis</a></div>
+
+                <h3 style="margin-top: 1rem;">Bachelor of Science, Computer Science</h3>
+                <div class="date">July 2020 - June 2024</div>
+                <p><strong>Specialization:</strong> Interactive Multimedia</p>
+                <p><strong>GPA:</strong> 3.74 (Magna Cum Laude)</p>
+                <div class="button"><a id="education-undergrad" href="#works">Undergraduate Thesis</a></div>
+            </div>
+        </div>
+    </section>
+    <section id="leadership">
+        <div class="leadership-content box-shadow">
+            <div class="leadership-topbar drop-shadow hide-scrollbar">
+                <h3 class="button active" data-target="leadership-raushaus">RausHaus</h3>
+                <h3 class="button" data-target="leadership-amp">Ateneo Musicians' Pool</h3>
+                <h3 class="button" data-target="leadership-kroma">Kroma Entertainment Inc.</h3>
+                <h3 class="button" data-target="leadership-volunteer">Volunteer Work</h3>
+            </div>
+            <div>
+                <!-- RausHaus Tab -->
+                <div id="leadership-raushaus" class="content">
+                    <div class="row">
+                        <img src="" alt="">
+                        <p><b>RausHaus</b> (pronounced as Rau's House) is a Manila-based media collective comprised of young, passionate, and hardworking artists, photographers, and creatives.</p>
+                    </div>
+                    <div class="row">
+
+                    </div>
+                </div>
+
+                <!-- AMP Tab -->
+                <div id="leadership-amp" class="content hidden">AMP</div>
+
+                <!-- Kroma Tab -->
+                <div id="leadership-kroma" class="content hidden">Kroma</div>
+
+                <!-- Volunteer Tab -->
+                <div id="leadership-volunteer" class="content hidden">Volunteer</div>
+            </div>
+        </div>
+    </section>
+    <section id="works">
+        <div class="works-content drop-shadow">
+            <div class="works-header">
+                <h3 class="button active" data-target="works-software">Software</h3>
+                <h3 class="button" data-target="works-multimedia">Multimedia</h3>
+            </div>
+
+            <!-- Software Tab -->
+            <div id="works-software" class="works-body">
+                <!-- Masters Article -->
+                <div id="works-masters" class="article-container open">
+                    <div class="article-title" data-target="masters">Master's Thesis <div class="chip research">research</div></div>
+                    <div class="article-body">
+                        <h3>Real-Time Speaker Sensitive Audio Gating via Supervised Frame-Level Speaker Recognition</h3>
+                        <p>The study presents a modification to the foundation of a noise gate plug-in to create a more intelligent, context-aware system focused on target-speaker speech identification. A supervised, text-independent, and frame-wise personal voice activity detection model based on Ding et al. (2019) is proposed and refined to process audio in real-time with minimal CPU utilization.</p>
+                        <p>The model achieved 87.6% accuracy during batch testing and 72% accuracy on a 5-minute real-world sample under challenging conditions, outperforming a standard noise gate on the same input. Overall, this work demonstrates the feasibility of applying deep learning models in real-time audio systems and demonstrates the potential of personal voice activity detection as a control mechanism for adaptive audio effects, contributing insights to the interdisciplinary fields of computer science and live audio broadcasting.</p>
+                        <p><b>Technologies: </b> Python, PyTorch, Torch, Google Colab, C++, JUCE Framework</p>
+                        <hr>
+                        <p><b>Conference Accceptance: </b> 2026 Joint International Conference on Digital Arts, Media and Technology with ECTI Northern Section Conference on Electrical, Electronics, Computer and Telecommunication Engineering (ECTI DAMT & NCON)</p>
+
+                        <div class="button"><a href="https://ieeexplore.ieee.org/abstract/document/11460001/" target="_blank">Conference Publication</a></div>
+                    </div>
+                </div>
+
+                <!-- Undergraduate Article -->
+                <div id="works-undergrad" class="article-container closed">
+                    <div class="article-title" data-target="undergrad">Undergraduate Thesis <div class="chip research">research</div></div>
+                    <div class="article-body">
+                        <h3>Analyzing Queen's Discography Using K-Means, DBScan, and Affinity Propogation Based on Full and Reduced Musical Feature Sets</h3>
+                        <p>This paper compares K-Means, DBSCAN, and Affinity Propagation clustering on Queen's discography using full and reduced musical feature sets extracted from MIDI data. Each technique-feature set combination was evaluated with Silhouette Score, Davies-Bouldin Index, and the Elbow Method.</p>
+                        <p>Results show the reduced feature set produced more clusters with fewer outliers, and Affinity Propagation generated more analyzable clusters than K-Means, while DBSCAN underperformed due to the small dataset size.</p>
+                        <p>Overall, the reduced feature set paired with Affinity Propagation gave the most analytically valuable results, with qualitative analysis pointing to areas for improvement such as non-deviating clusters and dataset misrepresentation.</p>
+                        <p><b>Technologies: </b> Python, scikit-learn, jSymbolic, Google Sheets</p>
+                    </div>
+                </div>
+
+                <!-- Host OS Hypervisor Comparative Analysis -->
+                <div id="works-comparative-os" class="article-container closed">
+                    <div class="article-title" data-target="works-comparative-os">Host OS Hypervisor Comparative Analysis <div class="chip research">research</div></div>
+                    <div class="article-body">
+                        <h3>Comparative Analysis of the Impact of Host Operating System on the Performance of Type 2 Hypervisors</h3>
+                        <p>This study compares Windows 11, macOS, and Linux Mint as host operating systems for a Type 2 hypervisor, using a triple-boot setup on a single machine. Results show the impact of each host OS on virtual machine performance, thermal behavior, and resource utilization.</p>
+                        <p>Findings highlight trade-offs between raw performance, thermal efficiency, and resource allocation across the three systems, offering guidance and trade-offs on selecting an optimal host OS for virtualization.</p>
+                        <p><b>Technologies: </b> VirtualBox, Boot Camp, Geekbench, PassMark, RAMSpeed, MPrime</p>
+                    </div>
+                </div>
+
+                <!-- Webscraping Article -->
+                <div id="works-webscrape" class="article-container closed">
+                    <div class="article-title" data-target="works-webscrape">Webscraping & Sentiment Analysis<div class="chip research">research</div></div>
+                    <div class="article-body">
+                        <h3>Examining Player Popularity and Fan Discourse Surrounding Gilas Pilipinas on YouTube and Rappler</h3>
+                        <p>This study examines player popularity and fan discourse surrounding Gilas Pilipinas on YouTube and Rappler from July to September 2024. Using web scraping and sentiment analysis, the study identifies the most discussed players, sentiment trends per player, frequently associated keywords and language patterns, and key differences in tone and discourse style between the two platforms.</p>
+                        <p>Findings highlight how platform and audience shape sports discourse, offering insight into the cultural dynamics of Gilas Pilipinas fandom in the Philippines.</p>
+                        <p><b>Technologies: </b> Python, Beautiful Soup, YouTube API, NLTK, scikit-learn</p>
+                    </div>
+                </div>
+
+                <!-- Video Captioning Pipeline -->
+                <div id="works-captioning" class="article-container closed">
+                    <div class="article-title" data-target="works-captioning">Custom YouTube Video Captioning Pipeline<div class="chip program">program</div></div>
+                    <div class="article-body">
+                        <h3>Automated Karaoke-Style Video Captioning Pipeline</h3>
+                        <p>Built privately for RausHaus Productions, this pipeline automates the creation of karaoke-style subtitles for music video releases.</p>
+                        <p>Isolated vocal audio and corresponding lyrics are fed into stable-ts, a Whisper-based forced alignment tool, to generate frame-accurate timing for each line and word. The aligned output is converted to .ass subtitle format, manually verified for accuracy in Aegisub, and finally converted to .ytt for direct upload to YouTube.</p>
+                        <p>This tool has been used and customized privately for RausHaus Productions' kareoke-style video releases, streamlining a process that would otherwise require manual subtitle timing for every release.</p>
+                        <p><b>Technologies: </b> Python, stable-ts, Aegisub, YTSubConverter</p>
+                        <hr>
+                        <h3>Sample: (enable captions)</h3>
+                        <div class="video-wrapper">
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/LPWzZl-3Rhk?si=De_dxzwk64SendiB" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Multimedia Tab -->
+            <div id="works-multimedia" class="works-body hidden">
+                <!-- Music Article -->
+                <div id="works-music-prod" class="article-container open">
+                    <div class="article-title" data-target="music-prod">Music Production</div>
+                    <div class="article-body">
+                        <h3>Songs I've worked on</h3>
+                        <div class="music-prod-cards drop-shadow">
+                            <div class="song-card" data-spotify="1kYQKiIcKlb50gdGV0bQgI">
+                                <div class="song-art"><img src="./assets/images/music-prod/1kYQKiIcKlb50gdGV0bQgI.jpg"></div>
+                                <div class="song-details">
+                                    <div class="song-title">Still Missing</div>
+                                    <div class="song-artist">Kai Buizon, crwn</div>
+                                </div>
+                                <div class="song-chip-container" data-chips="mixing,mastering"></div>
+                            </div>
+                            <div class="song-card" data-spotify="3bpPHTbLo2wiF2x4J4y0Cj">
+                                <div class="song-art"><img src="./assets/images/music-prod/3bpPHTbLo2wiF2x4J4y0Cj.jpg"></div>
+                                <div class="song-details">
+                                    <div class="song-title">Sleepwalk Home</div>
+                                    <div class="song-artist">Lucas Pison</div>
+                                </div>
+                                <div class="song-chip-container" data-chips="mixing,mastering,drums"></div>
+                            </div>
+                            <div class="song-card" data-spotify="0ow5vB5lXD4qgyIxfPpyQM">
+                                <div class="song-art"><img src="./assets/images/music-prod/0ow5vB5lXD4qgyIxfPpyQM.jpg"></div>
+                                <div class="song-details">
+                                    <div class="song-title">Five AM</div>
+                                    <div class="song-artist">Lucas Pison</div>
+                                </div>
+                                <div class="song-chip-container" data-chips="mixing,mastering"></div>
+                            </div>
+                            <div class="song-card" data-spotify="3iagBbwPvqBZ2kFQnemEE6">
+                                <div class="song-art"><img src="./assets/images/music-prod/3iagBbwPvqBZ2kFQnemEE6.jpg"></div>
+                                <div class="song-details">
+                                    <div class="song-title">Weather with You</div>
+                                    <div class="song-artist">Lucas Pison, Chezka</div>
+                                </div>
+                                <div class="song-chip-container" data-chips="mixing,mastering"></div>
+                            </div>
+                            <div class="song-card" data-spotify="32IWTxGjwmhxCUWKBgecsQ">
+                                <div class="song-art"><img src="./assets/images/music-prod/32IWTxGjwmhxCUWKBgecsQ.jpg"></div>
+                                <div class="song-details">
+                                    <div class="song-title">Cooper</div>
+                                    <div class="song-artist">Lucas Pison</div>
+                                </div>
+                                <div class="song-chip-container" data-chips="mixing,mastering,drums"></div>
+                            </div>
+                            <div class="song-card" data-spotify="1juV1TCsmEqNL03TVk8k5x">
+                                <div class="song-art"><img src="./assets/images/music-prod/1juV1TCsmEqNL03TVk8k5x.jpg"></div>
+                                <div class="song-details">
+                                    <div class="song-title">Already / Only</div>
+                                    <div class="song-artist">Lucas Pison</div>
+                                </div>
+                                <div class="song-chip-container" data-chips="mixing,mastering,drums"></div>
+                            </div>
+                            <div class="song-card" data-spotify="2haqjiB5dQSfwovW5oiUn0">
+                                <div class="song-art"><img src="./assets/images/music-prod/2haqjiB5dQSfwovW5oiUn0.jpg"></div>
+                                <div class="song-details">
+                                    <div class="song-title">NASA</div>
+                                    <div class="song-artist">Kai Buizon</div>
+                                </div>
+                                <div class="song-chip-container" data-chips="production,mixing,mastering,drums"></div>
+                            </div>
+                            <div class="song-card" data-spotify="4FaWPZS9dsm8k8sPkd44W1">
+                                <div class="song-art"><img src="./assets/images/music-prod/4FaWPZS9dsm8k8sPkd44W1.jpg"></div>
+                                <div class="song-details">
+                                    <div class="song-title">di ko aaminin</div>
+                                    <div class="song-artist">Franz Guico</div>
+                                </div>
+                                <div class="song-chip-container" data-chips="production,mixing,mastering,drums"></div>
+                            </div>
+                            <div class="song-card" data-spotify="0QCwknZiYdZRHkjac10BOI">
+                                <div class="song-art"><img src="./assets/images/music-prod/0QCwknZiYdZRHkjac10BOI.jpg"></div>
+                                <div class="song-details">
+                                    <div class="song-title">whenimetyou</div>
+                                    <div class="song-artist">Carrot Mayor, Austri</div>
+                                </div>
+                                <div class="song-chip-container" data-chips="production,mixing,mastering"></div>
+                            </div>
+                            <div class="song-card" data-spotify="0MYRK3ocJnenzLJBp1GxmD">
+                                <div class="song-art"><img src="./assets/images/music-prod/0MYRK3ocJnenzLJBp1GxmD.jpg"></div>
+                                <div class="song-details">
+                                    <div class="song-title">Internet</div>
+                                    <div class="song-artist">Chezka</div>
+                                </div>
+                                <div class="song-chip-container" data-chips="drums"></div>
+                            </div>
+                            <div class="song-card" data-spotify="6mQKP6IMP9Qg2g3Ju0bbc2">
+                                <div class="song-art"><img src="./assets/images/music-prod/6mQKP6IMP9Qg2g3Ju0bbc2.jpg"></div>
+                                <div class="song-details">
+                                    <div class="song-title">Milagro</div>
+                                    <div class="song-artist">Kai Buizon</div>
+                                </div>
+                                <div class="song-chip-container" data-chips="production,mixing,mastering,drums"></div>
+                            </div>
+                            <div class="song-card" data-spotify="3E7EsJm3RxeRrnSMiupBrC">
+                                <div class="song-art"><img src="./assets/images/music-prod/3E7EsJm3RxeRrnSMiupBrC.jpg"></div>
+                                <div class="song-details">
+                                    <div class="song-title">Lunar Eclipse</div>
+                                    <div class="song-artist">15J</div>
+                                </div>
+                                <div class="song-chip-container" data-chips="production,mixing,mastering"></div>
+                            </div>
+                            <div class="song-card" data-spotify="2fVtuaYfVXX64mkuAHGBUE">
+                                <div class="song-art"><img src="./assets/images/music-prod/2fVtuaYfVXX64mkuAHGBUE.jpg"></div>
+                                <div class="song-details">
+                                    <div class="song-title">Thousand Winds</div>
+                                    <div class="song-artist">Austri</div>
+                                </div>
+                                    <div class="song-chip-container" data-chips="production,mixing,mastering,drums"></div>
+                            </div>
+                            <div class="song-card" data-spotify="4DCOZFMGjRxtiAwLhyTI6r">
+                                <div class="song-art"><img src="./assets/images/music-prod/4DCOZFMGjRxtiAwLhyTI6r.jpg"></div>
+                                <div class="song-details">
+                                    <div class="song-title">untitled (March)</div>
+                                    <div class="song-artist">Austri</div>
+                                </div>
+                                <div class="song-chip-container" data-chips="production,mixing,mastering,drums"></div>
+                            </div>
+                            <div class="song-card" data-spotify="6omGpXXBK0tM03XOhn5ERV">
+                                <div class="song-art"><img src="./assets/images/music-prod/6omGpXXBK0tM03XOhn5ERV.jpg"></div>
+                                <div class="song-details">
+                                    <div class="song-title">Circling</div>
+                                    <div class="song-artist">Austri</div>
+                                </div>
+                                <div class="song-chip-container" data-chips="production,mixing,mastering"></div>
+                            </div>
+                            <div class="song-card" data-spotify="0QcVotYSMxZqCHhHRcaUqs">
+                                <div class="song-art"><img src="./assets/images/music-prod/0QcVotYSMxZqCHhHRcaUqs.jpg"></div>
+                                <div class="song-details">
+                                    <div class="song-title">takipsilim (twilight)</div>
+                                    <div class="song-artist">Franz Guico</div>
+                                </div>
+                                <div class="song-chip-container" data-chips="production,mixing,mastering"></div>
+                            </div>
+                            <div class="song-card" data-spotify="03B9qkMF0i6rollZHWSvPw">
+                                <div class="song-art"><img src="./assets/images/music-prod/03B9qkMF0i6rollZHWSvPw.jpg"></div>
+                                <div class="song-details">
+                                    <div class="song-title">dahan dahan ka nang nawawala</div>
+                                    <div class="song-artist">Franz Guico</div>
+                                </div>
+                                <div class="song-chip-container" data-chips="production,mixing,mastering,drums"></div>
+                            </div>
+                        </div>
+                        <h3>Full Music Portfolio</h3>
+                        <div class="music-prod-playlists drop-shadow">
+                            <iframe data-testid="embed-iframe" style="border-radius:1rem" src="https://open.spotify.com/embed/playlist/5hkgg5cmy1PIFjER580ldF?utm_source=generator&theme=0&si=23f613b9327b4707" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                            <iframe data-testid="embed-iframe" style="border-radius:1rem" src="https://open.spotify.com/embed/playlist/6H4HWrCZUhFCBH2CpN3uMO?utm_source=generator&theme=0&si=c8d5bcd739e84ca1" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Video Article -->
+                <div id="works-video-prod" class="article-container closed">
+                    <div class="article-title" data-target="video-prod">Video Production</div>
+                    <div class="article-body">
+                        <h3>Videos I've worked on</h3>
+                        <div class="video-prod-cards">
+                            <div class="video-card">
+                                <div class="video-wrapper"><iframe width="560" height="315" src="https://www.youtube.com/embed/Kdvhs_dLAKI?si=enAACYmnoEX1VPee" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+                                <div class="video-chip-container" data-chips="management,audio,editing"></div>
+                            </div>
+                            <div class="video-card">
+                                <div class="video-wrapper"><iframe width="560" height="315" src="https://www.youtube.com/embed/UFdLqlq3BJY?si=OXgTlPdwbi1mfEPu" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+                                <div class="video-chip-container" data-chips="management,audio,editing"></div>
+                            </div>
+                            <div class="video-card">
+                                <div class="video-wrapper"><iframe width="560" height="315" src="https://www.youtube.com/embed/jv45Pl7Kz9s?si=p4ATKKmQAx5dNP4l" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+                                <div class="video-chip-container" data-chips="management,audio,editing"></div>
+                            </div>
+                            <div class="video-card">
+                                <div class="video-wrapper"><iframe width="560" height="315" src="https://www.youtube.com/embed/Cgroqm2gbfA?si=bwIwvYLdg-MGsRaz" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+                                <div class="video-chip-container" data-chips="management,audio,editing"></div>
+                            </div>
+                            <div class="video-card">
+                                <div class="video-wrapper"><iframe width="560" height="315" src="https://www.youtube.com/embed/Ihft8OMU7EU?si=8MmJgubsr0OaCcar" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+                                <div class="video-chip-container" data-chips="management,audio,editing"></div>
+                            </div>
+                            <div class="video-card">
+                                <div class="video-wrapper"><iframe width="560" height="315" src="https://www.youtube.com/embed/o66v2zbVj9c?si=Dz_DsvkcSlj0Wi8t" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+                                <div class="video-chip-container" data-chips="management,audio,editing"></div>
+                            </div>
+                            <div class="video-card">
+                                <div class="video-wrapper"><iframe width="560" height="315" src="https://www.youtube.com/embed/JeVCArN2fTg?si=Rb9wjzAjno3nnrlq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+                                <div class="video-chip-container" data-chips="management,audio,editing"></div>
+                            </div>
+                            <div class="video-card">
+                                <div class="video-wrapper"><iframe width="560" height="315" src="https://www.youtube.com/embed/JfMWOOFmHc4?si=2T4vdgJgtNb-uG2U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+                                <div class="video-chip-container" data-chips="management,audio"></div>
+                            </div>
+                            <div class="video-card">
+                                <div class="video-wrapper"><iframe width="560" height="315" src="https://www.youtube.com/embed/W_HeYRhwxtU?si=O8hpFsGDbcXRSDmH" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+                                <div class="video-chip-container" data-chips="management,audio"></div>
+                            </div>
+                            <div class="video-card">
+                                <div class="video-wrapper"><iframe width="560" height="315" src="https://www.youtube.com/embed/Is81RBml8QI?si=IWe-ZKFdr9q4drkT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+                                <div class="video-chip-container" data-chips="audio"></div>
+                            </div>
+                            <div class="video-card">
+                                <div class="video-wrapper"><iframe width="560" height="315" src="https://www.youtube.com/embed/pXH7eMM07ZE?si=XISgqt8oCu1o2h7K" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+                                <div class="video-chip-container" data-chips="audio"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="skills">
+        <div class="skills-content box-shadow">
+            <div class="skills-left drop-shadow">
+                <h3 class="button active" data-target="skills-course">Courses</h3>
+                <h3 class="button" data-target="skills-administration">Admin</h3>
+                <h3 class="button" data-target="skills-software">Software</h3>
+                <h3 class="button" data-target="skills-visual">Visual</h3>
+                <h3 class="button" data-target="skills-audio">Audio</h3>
+            </div>
+            <div class="skills-right">
+                <div id="skills-course" class="content course-container drop-shadow">
+                    <div class="course">
+                        <div class="course-left">
+                            <img src="./assets/icons/skills/udemy.jpg" alt="">
+                        </div>
+                        <div class="course-right">
+                            <h2 class="title">Speaker Recognition</h2>
+                            <div class="subtitle">by Award Winning Textbook Author Quan Wang</div>
+                            <div class="foundation">Udemy</div>
+                            <div class="desc">Audio processing, feature extraction, speaker recognition, machine learning, and neural networks. Python and PyTorch for machine learning.</div>
+                        </div>
+                    </div>
+
+                    <div class="course">
+                        <div class="course-left">
+                            <img src="./assets/icons/skills/top.png" alt="">
+                        </div>
+                        <div class="course-right">
+                            <h2 class="title">Web Development Foundations</h2>
+                            <div class="foundation">The Odin Project</div>
+                            <div class="desc">HTML, CSS, JavaScript fundamentals, Git, command line basics, and responsible problem-solving for beginning web development.</div>
+                        </div>
+                    </div>
+
+                    <div class="course">
+                        <div class="course-left">
+                            <img src="./assets/icons/skills/top.png" alt="">
+                        </div>
+                        <div class="course-right">
+                            <h2 class="title">Full Stack Ruby on Rails</h2>
+                            <div class="subtitle">(Currently Taking)</div>
+                            <div class="foundation">The Odin Project</div>
+                            <div class="desc">Ruby fundamentals, Rails framework, databases, full-stack web application development, and deployment.</div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div id="skills-administration" class="content hidden icon-container drop-shadow">
+                    <div class="icon">
+                        <img src="./assets/icons/skills/admin/google docs.png">
+                        Google Docs
+                    </div>
+                    <div class="icon">
+                        <img src="./assets/icons/skills/admin/google drive.png">
+                        Google Drive
+                    </div>
+                    <div class="icon">
+                        <img src="./assets/icons/skills/admin/google forms.png">
+                        Google Forms
+                    </div>
+                    <div class="icon">
+                        <img src="./assets/icons/skills/admin/google sheets.png">
+                        Google Sheets
+                    </div>
+                    <div class="icon">
+                        <img src="./assets/icons/skills/admin/google slides.png">
+                        Google Slides
+                    </div>
+                    <div class="icon">
+                        <img src="./assets/icons/skills/admin/onedrive.png">
+                        OneDrive
+                    </div>
+                    <div class="icon">
+                        <img src="./assets/icons/skills/admin/zapier.png">
+                        Zapier
+                    </div>
+                    <div class="icon">
+                        <img src="./assets/icons/skills/admin/zoom.png">
+                        Zoom
+                    </div>
+                </div>
+                <div id="skills-software" class="content hidden icon-container drop-shadow">
+                    <div class="icon">
+                        <img src="./assets/icons/skills/software/google apps script.png">
+                        Google Apps Script
+                    </div>
+                    <div class="icon">
+                        <img src="./assets/icons/skills/software/cpp.png">
+                        C++
+                    </div>
+                    <div class="icon">
+                        <img src="./assets/icons/skills/software/css.png">
+                        CSS
+                    </div>
+                    <div class="icon">
+                        <img src="./assets/icons/skills/software/html.png">
+                        HTML
+                    </div>
+                    <div class="icon">
+                        <img src="./assets/icons/skills/software/java.png">
+                        Java
+                    </div>
+                    <div class="icon">
+                        <img src="./assets/icons/skills/software/javascript.png">
+                        JavaScript
+                    </div>
+                    <div class="icon">
+                        <img src="./assets/icons/skills/software/python.png">
+                        Python
+                    </div>
+                    <div class="icon">
+                        <img src="./assets/icons/skills/software/sql.png">
+                        SQL
+                    </div>
+                </div>
+                <div id="skills-visual" class="content hidden icon-container drop-shadow">
+                    <div class="icon">
+                        <img src="./assets/icons/skills/visual/premiere pro.png">
+                        Premiere Pro
+                    </div>
+                    <div class="icon">
+                        <img src="./assets/icons/skills/visual/after effects.png">
+                        After Effects
+                    </div>
+                    <div class="icon">
+                        <img src="./assets/icons/skills/visual/davinci resolve.png">
+                        DaVinci Resolve
+                    </div>
+                    <div class="icon">
+                        <img src="./assets/icons/skills/visual/final cut pro.png">
+                        Final Cut Pro
+                    </div>
+                    <div class="icon">
+                        <img src="./assets/icons/skills/visual/photoshop.png">
+                        Photoshop
+                    </div>
+                    <div class="icon">
+                        <img src="./assets/icons/skills/visual/illustrator.png">
+                        Illustrator
+                    </div>
+                    <div class="icon">
+                        <img src="./assets/icons/skills/visual/canva.png">
+                        Canva
+                    </div>
+                    <div class="icon">
+                        <img src="./assets/icons/skills/visual/figma.png">
+                        Figma
+                    </div>
+                    <div class="icon">
+                        <img src="./assets/icons/skills/visual/obs studio.png">
+                        OBS Studio
+                    </div>
+                </div>
+                <div id="skills-audio" class="content hidden icon-container drop-shadow">
+                    <div class="icon">
+                        <img src="./assets/icons/skills/audio/ableton live.png">
+                        Ableton Live
+                    </div>
+                    <div class="icon">
+                        <img src="./assets/icons/skills/audio/fl studio.png">
+                        FL Studio
+                    </div>
+                    <div class="icon">
+                        <img src="./assets/icons/skills/audio/logic pro.png">
+                        Logic Pro
+                    </div>
+                    <div class="icon">
+                        <img src="./assets/icons/skills/audio/max.png">
+                        Max 8
+                    </div>
+                    <div class="icon">
+                        <img src="./assets/icons/skills/audio/reaper.png">
+                        Reaper
+                    </div>
+                    <div class="icon">
+                        <img src="./assets/icons/skills/audio/wwise.png">
+                        Wwise
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="contact">
+        <div class="contact-content">
+            <div class="contact-left">
+                <h1>Send me a message!</h1>
+                <h3>Have a project in mind?</h3>
+                <h3>Want to get in touch?</h3>
+                <h3>I'd love to hear from you.</h3>
+            </div>
+            <div class="contact-right">
+                <form id="contact-form">
+                    <label for="contact-subject">Subject</label>
+                    <input type="text" id="contact-subject" name="subject" placeholder="What's this about?">
+                    <div class="error-text" id="subject-error"></div>
+                
+                    <label for="contact-content">Message</label>
+                    <textarea id="contact-content" name="message" placeholder="Write your message here..."></textarea>
+                    <div class="error-text" id="message-error"></div>
+                
+                    <div class="button contact-submit-button">
+                        <a id="contact-submit">Send</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

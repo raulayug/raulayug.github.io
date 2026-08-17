@@ -14,10 +14,6 @@
     --lighten:     #FFF 15%;
 
     /* Font Sizes */
-    --size-hero:     3rem;
-    --size-h1:       2.5rem;
-    --size-h2:       2rem;
-    --size-h3:       1.5rem;
     --size-large:    1.25rem;
     --size-regular:  1rem;
     --size-small:    0.75rem;
@@ -36,32 +32,16 @@
 html {
     scroll-snap-type: y mandatory;
     scroll-behavior: smooth;
-    font-size: 18px;
+    font-size: 24px;
 }
 
 section {
     scroll-snap-align: start;
-    height: 100dvh;
+    height: calc(100lvh);
     padding-top: var(--header-height);
 }
-
-h1, h2, h3 {
-   font-weight: bold; 
-}
-
-h1 {
-    font-size: var(--size-h1);
-}
-
-h2 {
-    font-size: var(--size-h2);
-}
-
-h3 {
-    font-size: var(--size-h3);
-}
-
 hr {
+
     align-self: stretch;
     border-width: 0.05rem;
     margin: 0.5rem 0;
@@ -274,7 +254,7 @@ p {
         li a {
             display: block;
             align-content: center;
-            padding: 1rem 0;
+            padding: 1.2rem 0;
             width: 100%;
             height: 100%;
             text-decoration: none;
@@ -947,14 +927,14 @@ p {
 /* Laptop */
 @media (max-width: 1024px) {
     html {
-        font-size: 12px;
+        font-size: 16px;
     }
 }
 
 /* Tablet */
 @media (max-width: 768px) {
     html {
-        font-size: 9px;
+        font-size: 16px;
     }
 
     #writeup .writeup-content {
@@ -1001,6 +981,6 @@ p {
 /* Mobile */
 @media (max-width: 425px) {
     html {
-        font-size: 7px;
+        font-size: 16px;
     }
 }

@@ -189,17 +189,12 @@ function hamburgerClose() {
 function getExpandedArticleHeight(article) {
     const worksBody = article.closest('.works-body');
     const worksBodyHeight = worksBody.getBoundingClientRect().height;
-
-    const articleTitle = article.querySelector('.article-title');
-    const articleTitleHeight = articleTitle.getBoundingClientRect().height;
-
-    const articleCount = worksBody.querySelectorAll('.article-container').length;
-
     const padding = parseFloat(getComputedStyle(worksBody).paddingTop) * 2;
 
-    return (worksBodyHeight
-            - (articleTitleHeight * articleCount)
-            - padding);
+    const totalTitlesHeight = [...worksBody.querySelectorAll('.article-title')]
+        .reduce((sum, title) => sum + title.getBoundingClientRect().height, 0);
+
+    return worksBodyHeight - totalTitlesHeight - padding;
 }
 
 function collapseArticle(article) {
@@ -219,9 +214,9 @@ function expandArticle(article) {
 
 function initArticles() {
     document.querySelectorAll('.article-container.open').forEach(article => {
-        const body = article.querySelector('.article-body');
-        body.style.maxHeight = getExpandedArticleHeight(article) + 'px';
-        body.style.height = getExpandedArticleHeight(article) + 'px';
+        const articleBody = article.querySelector('.article-body');
+        articleBody.style.maxHeight = getExpandedArticleHeight(article) + 'px';
+        articleBody.style.height = articleBody.style.maxHeight;
     });
 }
 
@@ -231,8 +226,6 @@ function onArticleTitleClick(title) {
     const openArticle = worksBody.querySelector('.article-container.open');
     collapseArticle(openArticle);
     expandArticle(clickedArticle);
-
-    initArticles();
 }
 
 function updateArticlesOnResize() {
@@ -351,7 +344,6 @@ function contact() {
 */
 // --- Header ---
 headerHamburgerButton.addEventListener('click', () => hamburgerOpen());
-// close on nav link click
 headerRightLinks.forEach(link => {
     link.addEventListener('click', () => hamburgerClose());
 });

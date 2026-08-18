@@ -374,7 +374,6 @@ p {
         }
     
         .writeup-right {
-            width: 20rem;
         
             img {
                 object-fit: cover;
@@ -547,7 +546,7 @@ p {
             }
 
             p {
-                margin-bottom: 0.3rem;
+                margin-bottom: 0.2rem;
             }
 
             .article-container {
@@ -750,6 +749,7 @@ p {
         .skills-right {
             padding: 1rem 2rem;
             flex: 1;
+            overflow-y: scroll;
 
             .course-container {
                 display: flex;
@@ -779,11 +779,6 @@ p {
                     justify-content: center;
                     flex-flow: column;
                     padding: 0;
-
-                    .subtitle {
-                        font-size: var(--size-large);
-                        font-weight: bold;
-                    }
                 }
             }
 
@@ -947,7 +942,7 @@ p {
 /* 4K */
 @media (max-width: 1920px) {
     html {
-        font-size: 16px;
+        font-size: 18px;
     }
 }
 
@@ -961,7 +956,7 @@ p {
 /* Tablet */
 @media (max-width: 768px) {
     html {
-        font-size: 16px;
+        font-size: 14px;
     }
 
     .header {
@@ -1018,6 +1013,13 @@ p {
             padding-right: 0; 
             padding-top: var(--size-h1); 
         }
+
+        .writeup-right {
+            img {
+                width: 18rem;
+                margin-bottom: 0.5rem;
+            }
+        }
     }
 
     #education .education-content {
@@ -1030,6 +1032,7 @@ p {
         }
 
         .education-left img {
+            max-width: 12rem;
             margin-right: 0;
             margin-bottom: 1rem;
         }
@@ -1037,6 +1040,31 @@ p {
 
     #works .music-prod-playlists {
         flex-flow: column;
+    }
+
+    #skills {
+        .course-left {
+            display: none;
+        }
+
+        .course {
+            border-left: 4px solid var(--accent-4);
+            padding-left: 1rem;
+        }
+
+        .skills-content .skills-right .icon-container {   
+            gap: 0.5rem;
+
+            .icon {
+                width: 6rem;
+                height: 6rem;
+                font-size: var(--size-small);
+    
+                img {
+                    width: 4rem;
+                }
+            }
+        }
     }
 
     #contact {
@@ -1054,6 +1082,6 @@ p {
 /* Mobile */
 @media (max-width: 425px) {
     html {
-        font-size: 16px;
+        font-size: 12px;
     }
 }

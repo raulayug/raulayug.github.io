@@ -48,8 +48,6 @@ const skillsDivs = document.querySelectorAll('.skills-content .content');
 
 // --- Contact ---
 const contactButton = document.querySelector('#contact-submit');
-console.log(contactButton);
-
 
 /*
     --- OTHER INIT ---
@@ -60,8 +58,8 @@ let resizeTimer;
 
 // Music Production: Song Cards
 const modal = document.createElement('div');
-initSongCardModal();
-const worksSongChipColors = {
+initModal();
+const worksMediaChipColors = {
     // audio chips
     production: '#e8a045',
     mixing:     '#347FC4',
@@ -235,69 +233,78 @@ function updateArticlesOnResize() {
     }, 100);
 } 
 
-// --- Works: Song Cards ---
-function initSongChip(container) {
+// --- Works: Credit Chips ---
+function initCreditChips(container) {
     const keywords = container.getAttribute('data-chips').split(',');
     keywords.forEach(keyword => {
         const chip = document.createElement('span');
-        chip.classList.add('song-chip');
+        chip.classList.add('media-chip');
         chip.textContent = keyword.trim();
-        chip.style.backgroundColor = worksSongChipColors[keyword.trim()] || 'var(--accent-1)';
+        chip.style.backgroundColor = worksMediaChipColors[keyword.trim()] || 'var(--accent-1)';
         container.appendChild(chip);
     });
 }
 
-function initVideoChip(container) {
-    const keywords = container.getAttribute('data-chips').split(',');
-    keywords.forEach(keyword => {
-        const chip = document.createElement('span');
-        chip.classList.add('video-chip');
-        chip.textContent = keyword.trim();
-        chip.style.backgroundColor = worksSongChipColors[keyword.trim()] || 'var(--accent-1)';
-        container.appendChild(chip);
-    });
-}
-
-function initSongCardModal() {
-    modal.classList.add('spotify-modal');
+// --- Works: Modals ---
+function initModal() {
+    modal.classList.add('media-modal');
     modal.innerHTML = `
-        <div class="spotify-modal-backdrop"></div>
-        <div class="spotify-modal-content"></div>
+        <div class="media-modal-backdrop"></div>
+        <div class="media-modal-content"></div>
     `;
     document.body.appendChild(modal);
 }
 
-function onSongCardClick(card) {
-    const trackId = card.getAttribute('data-spotify');
-    const content = modal.querySelector('.spotify-modal-content');
-    
-    const existing = modal.querySelector('#spotify-embed');
+function openModal(iframeSrc, iframeAttributes = {}) {
+    const content = modal.querySelector('.media-modal-content');
+
+    const existing = modal.querySelector('iframe');
     if (existing) existing.remove();
 
     const iframe = document.createElement('iframe');
-    iframe.id = 'spotify-embed';
-    iframe.style.borderRadius = '12px';
-    iframe.width = '100%';
-    iframe.height = '352';
-    iframe.frameBorder = '0';
-    iframe.allow = 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
-    iframe.src = `https://open.spotify.com/embed/track/${trackId}`;
-    
+    iframe.src = iframeSrc;
+    Object.assign(iframe, iframeAttributes);
     content.appendChild(iframe);
     modal.classList.add('visible');
+}
+
+function closeModal() {
+    modal.classList.remove('visible');
+    setTimeout(() => {
+        const iframe = modal.querySelector('iframe');
+        if (iframe) iframe.remove();
+    }, 200);
+}
+
+function onSongCardClick(card) {
+    const trackId = card.getAttribute('data-spotify');
+    openModal(`https://open.spotify.com/embed/track/${trackId}`, {
+        style: 'border-radius: 12px',
+        width: '100%',
+        height: '352',
+        frameBorder: '0',
+        allow: 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture'
+    });
+}
+
+function onVideoCardClick(card) {
+    const videoId = card.getAttribute('data-youtube');
+    openModal(`https://www.youtube.com/embed/${videoId}?autoplay=1`, {
+        allow: 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture',
+        allowFullscreen: true
+    });
 }
 
 function onModalBackgroundClick() {
     modal.classList.remove('visible');
     setTimeout(() => {
-        const iframe = modal.querySelector('#spotify-embed');
+        const iframe = modal.querySelector('iframe');
         if (iframe) iframe.remove();
     }, 200);
 }
 
 // --- Contact ---
-const YOUR_EMAIL = "raulayug@gmail.com"; // replace if needed
-
+const YOUR_EMAIL = "raulayug@gmail.com";
 function contact() {
     const subjectInput = document.getElementById("contact-subject");
     const messageInput = document.getElementById("contact-content");
@@ -372,21 +379,31 @@ worksArticleTitles.forEach(title => {
     title.addEventListener('click', () => onArticleTitleClick(title));
 });
 
+// --- Works: Modals ---
+const workModalBackdrop = modal.querySelector('.media-modal-backdrop');
+workModalBackdrop.addEventListener('click', () => onModalBackgroundClick());
+
+// --- Works: Chips ---
+const workMediaChipContainer = document.querySelectorAll('.media-chip-container');
+workMediaChipContainer.forEach(container => initCreditChips(container));
+
 // --- Works: Song Cards ---
 const workSongCards = document.querySelectorAll('.song-card');
 workSongCards.forEach(card => {
     card.addEventListener('click', () => onSongCardClick(card));
 });
 
-const workSongModalBackdrop = modal.querySelector('.spotify-modal-backdrop');
-workSongModalBackdrop.addEventListener('click', () => onModalBackgroundClick());
-
-const workSongChipContainer = document.querySelectorAll('.song-chip-container');
-workSongChipContainer.forEach(container => initSongChip(container));
+// const workSongChipContainer = document.querySelectorAll('.song-chip-container');
+// workSongChipContainer.forEach(container => initCreditChips(container));
 
 // --- Works: Video Cards ---
-const workVideoChipContainer = document.querySelectorAll('.video-chip-container');
-workVideoChipContainer.forEach(container => initVideoChip(container));
+const workVideoCards = document.querySelectorAll('.video-card');
+workVideoCards.forEach(card => {
+    card.addEventListener('click', () => onVideoCardClick(card));
+});
+
+// const workVideoChipContainer = document.querySelectorAll('.video-chip-container');
+// workVideoChipContainer.forEach(container => initCreditChips(container));
 
 // --- Skills ---
 initTabSwitcher(skillsButtons, skillsDivs);

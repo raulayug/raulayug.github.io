@@ -10,6 +10,13 @@ root.style.setProperty('--header-height', header_height + 'px');
 /*    
     --- BUTTON INIT ---
 */
+// --- Header ---
+// 
+const headerHamburgerButton = document.querySelector('.hamburger');
+// Education | Leadership | Works | Skills | Contact
+const headerRightLis = document.querySelector('.header-right');
+const headerRightLinks = headerRightLis.querySelectorAll('a');
+
 // --- Writeup ---
 // "machine learning and signal processing"
 const heroMastersButton = document.querySelector('#hero-masters');
@@ -165,6 +172,17 @@ function initTabSwitcher(buttons, divs, onSwitch) {
             if (onSwitch) onSwitch();
         });
     });
+}
+
+// --- Header: Hamburger ---
+function hamburgerOpen() {
+    headerHamburgerButton.classList.toggle('open');
+    headerRightLis.classList.toggle('open');
+}
+
+function hamburgerClose() {
+    headerHamburgerButton.classList.remove('open');
+    headerRightLis.classList.remove('open');
 }
 
 // --- Works: Articles ---
@@ -331,6 +349,14 @@ function contact() {
 /*    
     --- EVENT LISTENERS ---
 */
+// --- Header ---
+headerHamburgerButton.addEventListener('click', () => hamburgerOpen());
+// close on nav link click
+headerRightLinks.forEach(link => {
+    link.addEventListener('click', () => hamburgerClose());
+});
+
+
 // --- Writeup ---
 heroMastersButton.addEventListener('click', () => navigate(DEST_MASTERS));
 heroMultimediaButton.addEventListener('click', () => navigate(DEST_MUSIC));

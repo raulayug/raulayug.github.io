@@ -54,7 +54,7 @@ p {
 }
 
 .box-shadow {
-    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 0.3rem rgba(0, 0, 0, 0.5);
 }
 
 .button {
@@ -97,7 +97,7 @@ p {
 }
 
 .drop-shadow {
-    filter: drop-shadow(0px 0px 8px rgba(0, 0, 0, 0.5))
+    filter: drop-shadow(0 0 0.3rem rgba(0, 0, 0, 0.5))
 }
 
 .hidden {
@@ -275,7 +275,7 @@ p {
             span {
                 display: block;
                 width: 100%;
-                height: 2px;
+                height: 0.15rem;
                 background-color: var(--white);
                 transition: transform 0.2s ease, opacity 0.2s ease;
             }
@@ -306,7 +306,7 @@ p {
         li a {
             display: block;
             align-content: center;
-            padding: 1.2rem 0;
+            padding: 1rem 0;
             width: 100%;
             height: 100%;
             text-decoration: none;
@@ -355,13 +355,13 @@ p {
                 text-decoration: none;
                 color: var(--accent-2);
                 background-image: linear-gradient(var(--white)), linear-gradient(var(--accent-2));
-                background-size: 100% 2px, 0 2px;
+                background-size: 100% 0.15rem, 0 0.15rem;
                 background-position: 100% 90%, 0 90%;
                 background-repeat: no-repeat;
             }
         
             p a:hover {
-                background-size: 0 2px, 100% 2px;
+                background-size: 0 0.15rem, 100% 0.15rem;
                 transition: background-size 0.2s ease-in-out;
             }
             /* ------------------ */
@@ -467,10 +467,10 @@ p {
     align-items: center;
 
     background: radial-gradient(circle, transparent 20%, var(--white) 20%, var(--white) 80%, transparent 80%, transparent),
-                radial-gradient(circle, transparent 20%, var(--white) 20%, var(--white) 80%, transparent 80%, transparent) 12.5px 12.5px,
-                linear-gradient(color-mix(var(--accent-3), #FFF 70%) 1px, transparent 0.8px) 0 -0.5px,
-                linear-gradient(90deg, color-mix(var(--accent-3), #FFF 70%) 1px, var(--white) 0.8px) -0.5px 0;
-    background-size: 25px 25px, 25px 25px, 12.5px 12.5px, 12.5px 12.5px;
+                radial-gradient(circle, transparent 20%, var(--white) 20%, var(--white) 80%, transparent 80%, transparent) 0.625rem 0.625rem,
+                linear-gradient(color-mix(var(--accent-3), #FFF 70%) 0.05rem, transparent 0.04rem) 0 -0.025rem,
+                linear-gradient(90deg, color-mix(var(--accent-3), #FFF 70%) 0.05rem, var(--white) 0.04rem) -0.025rem 0;
+    background-size: 1.25rem 1.25rem, 1.25rem 1.25rem, 0.625rem 0.625rem, 0.625rem 0.625rem;
 
 
     .leadership-content {
@@ -513,6 +513,10 @@ p {
                 color: var(--accent-3);
             }
         }
+
+        .content {
+            /* todo */
+        }
     }
 }
 
@@ -522,9 +526,9 @@ p {
     justify-content: center;
 
     background-color: var(--white);
-    background-size: 20px 20px;
-    background-image: linear-gradient(to right,  color-mix(var(--accent-2), #FFF 80%) 1px, transparent 1px),
-                      linear-gradient(to bottom, color-mix(var(--accent-2), #FFF 80%) 1px, transparent 1px);
+    background-size: 2rem 2rem;
+    background-image: linear-gradient(to right,  color-mix(var(--accent-2), #FFF 80%) 0.1rem, transparent 0.1rem),
+                      linear-gradient(to bottom, color-mix(var(--accent-2), #FFF 80%) 0.1rem, transparent 0.1rem);
 
     .works-content {
         color: var(--black);
@@ -540,7 +544,7 @@ p {
                 background-color: color-mix(var(--accent-2), var(--darken));
                 color: color-mix(var(--white), var(--darken));
 
-                margin-right: -8px;
+                margin-right: -0.5rem;
                 cursor: pointer;
             }
 
@@ -732,9 +736,9 @@ p {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: radial-gradient(var(--accent-4) 1.2px, transparent 1.2px), radial-gradient(var(--accent-4) 1.2px, color-mix(var(--accent-4), var(--white) 95%) 1.2px);
-    background-size: 20px 20px;
-    background-position: 0 0,10px 10px;
+    background-image: radial-gradient(var(--accent-4) 0.12rem, transparent 0.12rem), radial-gradient(var(--accent-4) 0.12rem, color-mix(var(--accent-4), var(--white) 95%) 0.12rem);
+    background-size: 2rem 2rem;
+    background-position: 0 0, 1rem 1rem;
 
     .skills-content {
         display: flex;
@@ -1070,7 +1074,7 @@ p {
         }
 
         .course {
-            border-left: 4px solid var(--accent-4);
+            border-left: 0.2rem solid var(--accent-4);
             padding-left: 1rem;
         }
 

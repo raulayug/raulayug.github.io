@@ -560,6 +560,11 @@ p {
             .container {
                 display: flex;
                 gap: 0.5rem;
+
+                img {
+                    flex: 1;
+                    width: unset;
+                }
             }
 
             img {
@@ -567,8 +572,8 @@ p {
                 object-position: bottom;
                 
                 min-width: 0;
+                width: 100%;
                 margin-bottom: 0.2rem;
-                flex: 1;
             }
 
             img:hover {
@@ -632,7 +637,6 @@ p {
 
                         .image-with-description {
                             img {
-                                width: 100%;
                                 aspect-ratio: 4/3;
                                 object-position: bottom;
                                 max-height: 20rem;
@@ -666,7 +670,6 @@ p {
 
                 .image-with-description {
                     img {
-                        width: 100%;
                         aspect-ratio: 1;
                         max-height: 20rem;
                     }
@@ -675,7 +678,58 @@ p {
         }
 
         #leadership-amp {
+            /* AMP */
+            .row:nth-child(1) {
+                gap: 0.5rem;
+                text-align: left;
 
+                .image-with-description {
+                    flex: 0 0 20%;
+                }
+
+                .text-content {
+                    flex: 1;
+                    margin-left: 0.5rem;
+                }
+            }
+
+            /* SEC */
+            .row:nth-child(2) {
+                text-align: right;
+
+                .image-with-description {
+                    margin-left: 1rem;
+
+                    .container {
+                        height: 12vw;
+
+                        img {
+                            flex: unset;
+                            width: auto;
+                        }
+                    }
+                }
+            }
+
+            /* AM Head */
+            .row:nth-child(3) {
+                text-align: center;
+            }
+
+            /* Workshop Photos */
+            .row:nth-child(4) {
+                .image-with-description {
+                    width: 100%;
+                }
+            }
+
+            /* AEVP */
+            .row:nth-child(5) {
+                .image-with-description {
+                    flex: 0 0 45%;
+                    margin-right: 1rem;
+                }
+            }
         }
     }
 }
@@ -1231,11 +1285,12 @@ p {
     }
 
     #leadership .leadership-content {
+        h2,
+        p {
+            text-align: center;
+        }
+        
         #leadership-raushaus {
-            h2,
-            p {
-                text-align: center;
-            }
 
             /* RausHaus */
             .row:nth-child(1),
@@ -1271,6 +1326,58 @@ p {
                 }
 
                 width: 100%;
+            }
+        }
+
+        #leadership-amp {
+            .row:nth-child(1),
+            .row:nth-child(2) {
+                justify-content: center;
+
+                .text-content {
+                    flex: 0 0 100%;
+                }
+            }
+            
+            /* AMP */
+            .row:nth-child(1) {
+                flex-wrap: wrap-reverse;
+
+                .image-with-description {
+                    flex: 0 0 45%;
+                    align-items: center;
+                }
+            }
+
+            /* SEC */
+            .row:nth-child(2) {
+                flex-wrap: wrap;
+                
+                .image-with-description .container {
+                    justify-content: center;
+                    height: 20vw;
+                }
+            }
+
+            /* Workshop Photos */
+            .row:nth-child(4) {
+                .container {
+                    flex-wrap: wrap;
+                    justify-content: center;
+                }
+
+                img {
+                    flex: 0 0 80%;
+                }
+            }
+
+            /* AEVP */
+            .row:nth-child(5) {
+                flex-wrap: wrap;
+
+                .image-with-description {
+                    flex: 0 0 100%;
+                }
             }
         }
     }

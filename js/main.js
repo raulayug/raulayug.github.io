@@ -255,16 +255,28 @@ function initModal() {
     document.body.appendChild(modal);
 }
 
-function openModal(iframeSrc, iframeAttributes = {}) {
+function openModal(content_type, src, iframeAttributes = {}, caption = '') {
     const content = modal.querySelector('.media-modal-content');
+    content.innerHTML = '';
 
-    const existing = modal.querySelector('iframe');
-    if (existing) existing.remove();
+    if (content_type === 'iframe') {
+        const iframe = document.createElement('iframe');
+        iframe.src = src;
+        Object.assign(iframe, iframeAttributes);
+        content.appendChild(iframe);
+    } else if (content_type === 'image') {
+        const img = document.createElement('img');
+        img.src = src;
+        content.appendChild(img);
 
-    const iframe = document.createElement('iframe');
-    iframe.src = iframeSrc;
-    Object.assign(iframe, iframeAttributes);
-    content.appendChild(iframe);
+        if (caption) {
+            const cap = document.createElement('div');
+            cap.classList.add('media-modal-caption');
+            cap.textContent = caption;
+            content.appendChild(cap);
+        }
+    }
+
     modal.classList.add('visible');
 }
 
@@ -278,7 +290,7 @@ function closeModal() {
 
 function onSongCardClick(card) {
     const trackId = card.getAttribute('data-spotify');
-    openModal(`https://open.spotify.com/embed/track/${trackId}`, {
+    openModal('iframe', `https://open.spotify.com/embed/track/${trackId}`, {
         style: 'border-radius: 12px',
         width: '100%',
         height: '352',
@@ -289,10 +301,16 @@ function onSongCardClick(card) {
 
 function onVideoCardClick(card) {
     const videoId = card.getAttribute('data-youtube');
-    openModal(`https://www.youtube.com/embed/${videoId}?autoplay=1`, {
+    openModal('iframe', `https://www.youtube.com/embed/${videoId}?autoplay=1`, {
         allow: 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture',
         allowFullscreen: true
     });
+}
+
+function onImageClick(image) {
+    const src = image.getAttribute('src');
+    const alt = image.getAttribute('alt');
+    openModal('image', src, {}, alt);
 }
 
 function onModalBackgroundClick() {
@@ -368,8 +386,13 @@ educationUndergradButton.addEventListener('click', () => navigate(DEST_UNDERGRAD
 // --- Leadership ---
 initTabSwitcher(leadershipButtons, leadershipDivs);
 
+
 // --- Works ---
 initTabSwitcher(worksButtons, worksDivs, initArticles);
+const expandableImage = document.querySelectorAll('.expandable-image');
+expandableImage.forEach(image => {
+    image.addEventListener('click', () => onImageClick(image));
+});
 
 // --- Works: Articles ---
 window.addEventListener('resize', () => updateArticlesOnResize());
@@ -393,17 +416,11 @@ workSongCards.forEach(card => {
     card.addEventListener('click', () => onSongCardClick(card));
 });
 
-// const workSongChipContainer = document.querySelectorAll('.song-chip-container');
-// workSongChipContainer.forEach(container => initCreditChips(container));
-
 // --- Works: Video Cards ---
 const workVideoCards = document.querySelectorAll('.video-card');
 workVideoCards.forEach(card => {
     card.addEventListener('click', () => onVideoCardClick(card));
 });
-
-// const workVideoChipContainer = document.querySelectorAll('.video-chip-container');
-// workVideoChipContainer.forEach(container => initCreditChips(container));
 
 // --- Skills ---
 initTabSwitcher(skillsButtons, skillsDivs);

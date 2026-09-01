@@ -33,7 +33,7 @@
 html {
     scroll-snap-type: y mandatory;
     scroll-behavior: smooth;
-    font-size: 24px;
+    font-size: 18px;
 }
 
 section {
@@ -107,6 +107,10 @@ p {
 .hide-scrollbar {
     scrollbar-width: none; 
     -ms-overflow-style: none; 
+}
+
+::-webkit-scrollbar {
+    width: 1rem;
 }
 
 /* Song and Video Cards */
@@ -217,15 +221,29 @@ p {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: min(50rem, 90dvw);
     z-index: 201;
 
     iframe {
-        width: 100%;
+        /* width: 100%; */
+        width: min(50rem, 90dvw);
         aspect-ratio: 16 / 9;
         border: none;
         border-radius: 1rem;
     }
+
+    img {
+        border-radius: 1rem;
+        max-height: 80dvh;
+        max-width: 80dvw;
+        object-fit: contain;
+    }
+}
+
+.media-modal-caption {
+    font-size: var(--size-large);
+    color: var(--white);
+    filter: drop-shadow(0 0 0.3rem rgba(255, 255, 255, 0.5));
+    text-align: center;
 }
 
 
@@ -474,21 +492,36 @@ p {
 
 
     .leadership-content {
+        display: flex;
+        flex-flow: column;
+        
         background-color: var(--accent-3);
         color: var(--white);
 
-        width: 80dvw;
+        width: 80%;
         height: 80dvh;
         
         border-radius: 1rem;
         padding: 2rem;
 
+        ::-webkit-scrollbar-track {
+            background: color-mix(var(--accent-3), #FFF 10%);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: color-mix(var(--accent-3), #FFF 30%);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: color-mix(var(--accent-3), #FFF 40%);
+        }
+
         .leadership-topbar {
             display: flex;
             align-items: flex-start;
-            
+
+            min-height: fit-content;
             overflow-x: scroll;
-            margin-bottom: 1rem;
 
             .button {
                 white-space: nowrap;
@@ -514,8 +547,130 @@ p {
             }
         }
 
-        .content {
-            /* todo */
+        .leadership-tabs {
+            overflow-y: auto;
+            padding: 0 5%;
+        }
+
+        .image-with-description {
+            flex: 1;
+            font-size: var(--size-small);
+            text-align: center;
+
+            .container {
+                display: flex;
+                gap: 0.5rem;
+            }
+
+            img {
+                object-fit: contain;
+                object-position: bottom;
+                
+                min-width: 0;
+                margin-bottom: 0.2rem;
+                flex: 1;
+            }
+
+            img:hover {
+                cursor: pointer;
+                transform: translateY(-0.1rem);
+                transition: transform 0.2s;
+            }
+        }
+
+        .row {
+            display: flex;
+            align-items: center;
+            padding-top: 0.1rem;
+            margin-bottom: 1rem;
+
+            h2 {
+                margin-bottom: 0.3rem;
+            }
+            
+            p {
+                margin-bottom: 0.2rem;
+            }
+        }
+
+        #leadership-raushaus {
+            /* RausHaus */
+            .row:nth-child(1) {
+                text-align: right;
+
+                .image-with-description {
+                    width: 50%;
+                    margin-left: 1rem;
+                }
+            }
+
+            /* Studio Space */
+            .row:nth-child(2) {
+                text-align: left;
+
+                .image-with-description {
+                    width: 50%;
+                    margin-right: 1rem;
+                }
+            }
+
+            /* Flagship Projects */
+            .row:nth-child(3) {
+                display: flex;
+                flex-flow: column;
+
+                .body {
+                    display: flex;
+                    gap: 1rem;
+                    width: 80%;
+
+                    .col {
+                        display: flex;
+                        flex-flow: column;
+
+                        flex: 1;
+
+                        .image-with-description {
+                            img {
+                                width: 100%;
+                                aspect-ratio: 4/3;
+                                object-position: bottom;
+                            }
+                        }
+
+                        p {
+                            text-align: center;
+                            flex: 1;
+                        }
+                    }
+                }
+            }
+
+            /* Events */
+            .row:nth-child(4) {
+                display: flex;
+                flex-flow: column;
+
+                text-align: center;
+
+                margin: 0 auto;
+                width: 80%;
+
+                .posters {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 1rem;
+
+                    margin-top: 0.5rem;
+                }
+
+                .image-with-description {
+                    img {
+                        width: 100%;
+                        aspect-ratio: 1;
+                    }
+                }
+            }
         }
     }
 }
@@ -526,9 +681,21 @@ p {
     justify-content: center;
 
     background-color: var(--white);
-    background-size: 2rem 2rem;
-    background-image: linear-gradient(to right,  color-mix(var(--accent-2), #FFF 80%) 0.1rem, transparent 0.1rem),
-                      linear-gradient(to bottom, color-mix(var(--accent-2), #FFF 80%) 0.1rem, transparent 0.1rem);
+    background-size: 1.2rem 1.2rem;
+    background-image: linear-gradient(to right,  color-mix(var(--accent-2), #FFF 80%) 0.05rem, transparent 0.05rem),
+                      linear-gradient(to bottom, color-mix(var(--accent-2), #FFF 80%) 0.05rem, transparent 0.05rem);
+
+    ::-webkit-scrollbar-track {
+        background: color-mix(var(--accent-2), #FFF 80%);
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: color-mix(var(--accent-2), #FFF 60%);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: color-mix(var(--accent-2), #FFF 50%);
+    }
 
     .works-content {
         color: var(--black);
@@ -615,27 +782,10 @@ p {
                     align-items: flex-start;
                     flex-flow: column;
 
-                    overflow-y: scroll hidden;
                     min-height: 0;
                     max-height: 0;
                     overflow: hidden;
                     transition: max-height 0.2s ease;
-
-                    &::-webkit-scrollbar {
-                        width: 1rem;
-                    }
-
-                    &::-webkit-scrollbar-track {
-                        background: color-mix(var(--accent-2), #FFF 80%);
-                    }
-
-                    &::-webkit-scrollbar-thumb {
-                        background: color-mix(var(--accent-2), #FFF 60%);
-                    }
-
-                    &::-webkit-scrollbar-thumb:hover {
-                        background: color-mix(var(--accent-2), #FFF 50%);
-                    }
 
                     hr {
                         border-color: color-mix(var(--accent-2), #FFF 50%);
@@ -736,9 +886,9 @@ p {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: radial-gradient(var(--accent-4) 0.12rem, transparent 0.12rem), radial-gradient(var(--accent-4) 0.12rem, color-mix(var(--accent-4), var(--white) 95%) 0.12rem);
-    background-size: 2rem 2rem;
-    background-position: 0 0, 1rem 1rem;
+    background-image: radial-gradient(var(--accent-4) 0.072rem, transparent 0.072rem), radial-gradient(var(--accent-4) 0.072rem, color-mix(var(--accent-4), var(--white) 95%) 0.072rem);
+    background-size: 1.2rem 1.2rem;
+    background-position: 0 0, 0.6rem 0.6rem;
 
     .skills-content {
         display: flex;
@@ -775,7 +925,19 @@ p {
         .skills-right {
             padding: 1rem 2rem;
             flex: 1;
-            overflow-y: scroll;
+            overflow-y: auto;
+        
+            &::-webkit-scrollbar-track {
+                background: color-mix(var(--accent-4), #FFF 80%);
+            }
+        
+            &::-webkit-scrollbar-thumb {
+                background: color-mix(var(--accent-4), #FFF 60%);
+            }
+        
+            &::-webkit-scrollbar-thumb:hover {
+                background: color-mix(var(--accent-4), #FFF 50%);
+            }
 
             .course-container {
                 display: flex;
@@ -968,7 +1130,7 @@ p {
 /* 4K */
 @media (max-width: 1920px) {
     html {
-        font-size: 18px;
+        font-size: 16px;
     }
 }
 
@@ -1037,7 +1199,6 @@ p {
             align-items: center;
             text-align: center;
             padding-right: 0; 
-            padding-top: var(--size-h1); 
         }
 
         .writeup-right {
@@ -1064,8 +1225,47 @@ p {
         }
     }
 
-    #works .music-prod-playlists {
-        flex-flow: column;
+    #leadership .leadership-content {
+        #leadership-raushaus {
+            h2,
+            p {
+                text-align: center;
+            }
+
+            /* RausHaus */
+            .row:nth-child(1),
+            .row:nth-child(2) {
+                flex-direction: column;
+
+                .image-with-description {
+                    margin: 0.3rem 0 0 0;
+                    width: 80%;
+                }
+            }
+
+            /* Studio Space */
+            .row:nth-child(2) {
+                flex-direction: column-reverse;
+            }
+
+            /* Flagship Projects */
+            .row:nth-child(3) {
+                .body {
+                    width: 100%;
+                }
+            }
+
+            /* Events */
+            .row:nth-child(4) {
+                width: 100%;
+            }
+        }
+    }
+
+    #works {
+        &.music-prod-playlists  {
+            flex-flow: column;
+        }
     }
 
     #skills {

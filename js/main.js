@@ -1,20 +1,11 @@
 /*    
-    --- HEADER HEIGHT PADDING ---
-*/
-var root = document.querySelector(':root');
-var header = document.querySelector('.header');
-var header_height = header.getBoundingClientRect().height;
-root.style.setProperty('--header-height', header_height + 'px');
-
-
-/*    
     --- BUTTON INIT ---
 */
 // --- Header ---
 // 
 const headerHamburgerButton = document.querySelector('.hamburger');
 // Education | Leadership | Works | Skills | Contact
-const headerRightLis = document.querySelector('.header-right');
+const headerRightLis = document.querySelector('.header .right');
 const headerRightLinks = headerRightLis.querySelectorAll('a');
 
 // --- Writeup ---

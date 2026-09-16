@@ -31,15 +31,7 @@
 }
 
 html {
-    scroll-snap-type: y mandatory;
-    scroll-behavior: smooth;
     font-size: 18px;
-}
-
-section {
-    scroll-snap-align: start;
-    height: calc(100lvh);
-    padding-top: var(--header-height);
 }
 
 hr {

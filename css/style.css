@@ -771,6 +771,29 @@ p {
                             }
                         }
 
+                        .image-container.double-image {
+                            position: relative;
+                            aspect-ratio: 1 / 1;
+                            margin: 0 auto;
+
+                            img {
+                                position: absolute;
+                                width: 65%;
+                                height: 65%;
+                                object-fit: contain;
+                            
+                                &:first-child {
+                                    top: 0;
+                                    left: 0;
+                                }
+                            
+                                &:last-child {
+                                    bottom: 0;
+                                    right: 0;
+                                }
+                            }   
+                        }
+
                         p {
                             text-align: center;
                             flex: 1;
@@ -1452,6 +1475,11 @@ p {
                         max-width: 60%;
                     }
                 }
+            }
+
+            .image-container.double-image img {
+                width: 55%;
+                height: 55%;
             }
         }
     }

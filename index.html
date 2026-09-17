@@ -5,16 +5,16 @@
 <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
 <link rel="manifest" href="/site.webmanifest">
 <head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wdth,wght,ROND@6..144,25..151,1..1000,0..100&display=swap');
+    </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rau Layug</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="js/main.js" defer></script>
 </head>
-<body>
+<body class="google-sans-flex-normal">
     <div class="header">
         <div class="left">
             <h1><a href="#writeup">Rau Layug</a></h1>
@@ -38,8 +38,8 @@
     <section id="hero">
         <div class="content">
             <div class="left">
-                <h1>Hi, I'm Rau!</h1>
-                <p>I'm a CS Masters' graduate specializing in <a id="hero-software" href="software-development.html">machine learning, signal processing, and multimedia</a>, with hands-on experience in <a id="hero-media" href="media-production.html">audio and visual production</a>. Outside of technical work, I founded and run <a id="hero-leadership" href="leadership.html">RausHaus Productions</a>.</p>
+                <h1 class="google-sans-flex-bold-round">Hi, I'm Rau!</h1>
+                <p>I'm a Computer Science Masters' graduate specializing in <a id="hero-software" href="software-development.html">machine learning and signal processing</a>, with hands-on experience in <a id="hero-media" href="media-production.html">audio and visual production</a>, and tested <a id="hero-leadership" href="leadership.html">administration and leadership</a>, culminating in my founding of RausHaus Productions.</p>
             </div>
 
             <div class="right">
@@ -48,19 +48,54 @@
         </div>
     </section>
 
-    <section id="education">
+    <section id="pillars-education">
         <div class="content">
-
-            <!-- education -->
-            <div class="education">
-                education
-            </div>
-
-            <!-- pillars -->
+            <!-- PILLARS -->
             <div class="pillars">
-                pillars
+                <h1 class="google-sans-flex-bold-round">Working Experience</h1>
+                <div class="pillar-container">                    
+                    <div class="pillar">
+                        <h2>Software Development</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro neque dignissimos iure, consectetur asperiores nihil commodi fuga necessitatibus eum fugiat nostrum sapiente eius esse. Numquam, atque! Nesciunt at quibusdam ipsa beatae nostrum dignissimos qui minima ex iusto doloribus iste maxime excepturi perspiciatis numquam quod consectetur totam quos atque laboriosam, ipsum laudantium eligendi recusandae possimus modi. Delectus magni blanditiis fugiat dolores eos tempore deleniti asperiores perferendis quidem. Iste provident in at odio suscipit, ad architecto qui dolor minus, maxime placeat itaque!</p>
+                    </div>
+                    <div class="pillar">
+                        <h2>Media Production</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro neque dignissimos iure, consectetur asperiores nihil commodi fuga necessitatibus eum fugiat nostrum sapiente eius esse. Numquam, atque! Nesciunt at quibusdam ipsa beatae nostrum dignissimos qui minima ex iusto doloribus iste maxime excepturi perspiciatis numquam quod consectetur totam quos atque laboriosam, ipsum laudantium eligendi recusandae possimus modi. Delectus magni blanditiis fugiat dolores eos tempore deleniti asperiores perferendis quidem. Iste provident in at odio suscipit, ad architecto qui dolor minus, maxime placeat itaque!</p>
+                    </div>
+                    <div class="pillar">
+                        <h2>Leadership</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro neque dignissimos iure, consectetur asperiores nihil commodi fuga necessitatibus eum fugiat nostrum sapiente eius esse. Numquam, atque! Nesciunt at quibusdam ipsa beatae nostrum dignissimos qui minima ex iusto doloribus iste maxime excepturi perspiciatis numquam quod consectetur totam quos atque laboriosam, ipsum laudantium eligendi recusandae possimus modi. Delectus magni blanditiis fugiat dolores eos tempore deleniti asperiores perferendis quidem. Iste provident in at odio suscipit, ad architecto qui dolor minus, maxime placeat itaque!</p>
+                    </div>
+                </div>
             </div>
-
+            
+            <!-- EDUCATION -->
+            <div class="education">
+                <h1 class="google-sans-flex-bold-round">Education</h1>
+                <h3>Ateneo de Manila University</h3>
+                <div class="timeline">
+                    <div class="entry">
+                        <div class="marker"></div>
+                        <div class="text">
+                            <div class="card">
+                                <h3>Master of Science, Computer Science</h3>
+                                <h4>DOST-SEI ERDT Scholar</h4>
+                                <p><b>GPA:</b> 3.67</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="entry">
+                        <div class="marker"></div>
+                        <div class="text">
+                            <div class="card">
+                                <h3>Bachelor of Science, Computer Science</h3>
+                                <h4>Specialization in Interactive Multimedia</h4>
+                                <p><b>GPA:</b> 3.74 (Magna Cum Laude)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- top shape -->
@@ -81,10 +116,18 @@
     <section id="contact">
         <div class="content">
             <div class="left">
-                contact-left
+                <h2 class="google-sans-flex-bold-round">Send me a message!</h2>
+                <p>Have a project in mind?<br>
+                    Want to get in touch? <br>
+                    I'd love to hear from you.
+                </p>
             </div>
             <div class="right">
-                contact-right
+                <form class="contact-form">
+                    <input type="text" id="subject" placeholder="Subject" required>
+                    <textarea id="message" placeholder="Your message" rows="6" required></textarea>
+                    <button type="button" id="contactButton">Send</button>
+                </form>
             </div>
         </div>
     </section>
@@ -92,31 +135,34 @@
     <section id="footer">
         <div class="content">
             <div class="info">
+                <h3 class="google-sans-flex-bold-round">Website Information</h3>
                 <ul>
-                    <li>Made by Rau Layug from scratch.</li>
-                    <li>Hosted using github webpages.</li>
-                    <li>Domain from namecheap.</li>
+                    <li>Made by Rau Layug from scratch</li>
+                    <li>Hosted using GitHub Pages</li>
+                    <li>Domain from namecheap</li>
                 </ul>
             </div>
             <div class="quick-links">
-                <h3>Quick Links</h3>
+                <h3 class="google-sans-flex-bold-round">Quick Links</h3>
                 <ul>
-                    <li>Home</li>
-                    <li>Contact</li>
-                    <li>Software Development</li>
-                    <li>Media Production</li>
-                    <li>Leadership</li>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="leadership.html">Leadership</a></li>
+                    <li><a href="media-production.html">Media Production</a></li>
+                    <li><a href="software-development.html">Software Development</a></li>
                 </ul>
             </div>
             <div class="socials">
-                <h3>Socials</h3>
-                <li>Instagram</li>
-                <li>LinkedIn</li>
-                <li>raulayug@gmail.com</li>
+                <h3 class="google-sans-flex-bold-round">Socials</h3>
+                <ul>
+                    <li><a href="https://www.instagram.com/raulayug/">Instagram</a></li>
+                    <li><a href="https://www.linkedin.com/in/raulayug/">LinkedIn</a></li>
+                    <li><a href="mailto:raulayug@gmail.com">raulayug@gmail.com</a></li>
+                </ul>
             </div>
-            <div class="to-top">
-                Back to top
-            </div>
+        </div>
+        <div class="back-to-top">
+            <button id="backToTopButton" aria-label="Back to top">↑</button>
         </div>
     </section>
 </body>

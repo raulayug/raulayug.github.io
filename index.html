@@ -15,7 +15,22 @@
     <script src="js/main.js" defer></script>
 </head>
 <body class="google-sans-flex-normal">
-    <div class="header">
+    <div class="scroll-indicator">
+        <button class="scroll-line" data-target="#header" aria-label="Go to Home section">
+            <span class="scroll-line-visual"></span>
+            <span class="scroll-line-label">Home</span>
+        </button>
+        <button class="scroll-line" data-target="#experience" aria-label="Go to Pillars section">
+            <span class="scroll-line-visual"></span>
+            <span class="scroll-line-label">Experience</span>
+        </button>
+        <button class="scroll-line" data-target="#contact" aria-label="Go to Contact section">
+            <span class="scroll-line-visual"></span>
+            <span class="scroll-line-label">Contact</span>
+        </button>
+    </div>
+
+    <div id="header">
         <div class="left">
             <h1><a href="#writeup">Rau Layug</a></h1>
         </div>
@@ -46,9 +61,11 @@
                 <div><img class="box-shadow" src="./assets/images/toga.webp" alt="toga image"></div>
             </div>
         </div>
+
+        <button id="scroll-down-button" aria-label="Scroll to pillars section">↓</button>
     </section>
 
-    <section id="pillars-education">
+    <section id="experience">
         <div class="content">
             <!-- PILLARS -->
             <div class="pillars">
@@ -131,7 +148,7 @@
             </div>
         </div>
     </section>
-
+    
     <section id="footer">
         <div class="content">
             <div class="info">

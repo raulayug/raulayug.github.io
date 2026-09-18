@@ -1,4 +1,4 @@
-/* --- GLOBALS --- */
+/* --- GLOBALS --- */ 
 :root {
     /* Colors */
     --white:       #F5F5F5;
@@ -6,17 +6,16 @@
     --grey:        #DDDDDD;
 
     --accent-1:    #347FC4;
-    /* --accent-1b:   #347FC420; */
     --accent-1b:   color-mix(in srgb, var(--accent-1), var(--white) 90%);
+
     --accent-2:    #EF233C;
     --accent-2b:   color-mix(in srgb, var(--accent-2), var(--white) 90%);
-    /* --accent-2b:   #EF233C20; */
+
     --accent-3:    #709775;
     --accent-3b:   color-mix(in srgb, var(--accent-3), var(--white) 90%);
-    /* --accent-3b:   #70977520; */
+
     --accent-4:    #F5B829;
     --accent-4b:   color-mix(in srgb, var(--accent-4), var(--white) 90%);
-    /* --accent-4b:   #F5B82920; */
 
     --darken:      #000 15%;
     --lighten:     #FFF 15%;
@@ -41,6 +40,13 @@ html {
     font-size: 18px;
     color: var(--black);
     background-color: var(--white);
+    scroll-behavior: smooth;
+
+    scrollbar-width: none; 
+    -ms-overflow-style: none; 
+    &::-webkit-scrollbar {
+        display: none;
+    }
 }
 
 .box-shadow {
@@ -236,7 +242,7 @@ html {
 /*
     --- PAGE SECTIONS ---
 */
-.header {
+#header {
     display: flex;
     color: var(--white);
     background-color: var(--accent-1);
@@ -366,9 +372,49 @@ html {
             }
         }
     }
+
+    #scroll-down-button {
+        position: fixed;
+        left: 50%;
+        bottom: 2rem;
+        transform: translateX(-50%);
+
+        opacity: 60%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 3rem;
+        height: 3rem;
+        padding-bottom: 0.25rem;
+        border-radius: 50%;
+        border: none;
+
+        background-color: var(--black);
+        color: var(--white);
+        font-family: monospace;
+        font-size: 2rem;
+        cursor: pointer;
+
+        z-index: 10;
+        transition: transform 0.2s ease-in-out,
+                    opacity 0.3s ease-in-out;
+
+        &:hover {
+            transform: translateX(-50%) scale(1.15);
+            opacity: 90%;
+        }
+
+        &.hide {
+            transform: translateX(-50%) scale(0.1);
+            opacity: 0;
+            /* pointer-events: none; */
+        }
+    }
 }
 
-#pillars-education {
+#experience {
     position: relative;
     background-color: var(--accent-1b);
 
@@ -786,6 +832,77 @@ html {
         }
     }
 
+}
+
+.scroll-indicator {
+    position: fixed;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+
+    display: flex;
+    flex-flow: column;
+    align-items: flex-end;
+    z-index: 10;
+
+    .scroll-line {
+        position: relative;
+
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        width: 3rem; /* the actual hit area, bigger than the visible line */
+        padding: 0.5rem 0 0.5rem 0.5rem;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+
+        .scroll-line-visual {
+            width: 1.5rem;
+            height: 0.15rem;
+            background-color: var(--black);
+            opacity: 0.3;
+            transition: width 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+
+        .scroll-line-label {
+            position: absolute;
+            top: 50%;
+            right: 90%;
+            transform: translateY(-50%);
+
+            padding: 0.4rem 0.75rem;
+            border-radius: 0.3rem;
+            background-color: var(--black);
+            color: var(--white);
+            font-family: monospace;
+            font-size: 0.8rem;
+            white-space: nowrap;
+
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        &:hover {
+            .scroll-line-visual {
+                width: 1.8rem;
+                height: 0.2rem;
+                opacity: 0.6;
+            }
+
+            .scroll-line-label {
+                opacity: 0.8;
+            }
+        }
+
+        &.active .scroll-line-visual {
+            width: 1.8rem;
+            height: 0.2rem;
+            opacity: 0.6;
+        }
+    }
 }
 
 /* Mobile */

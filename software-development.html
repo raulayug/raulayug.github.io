@@ -5,16 +5,106 @@
 <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
 <link rel="manifest" href="/site.webmanifest">
 <head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wdth,wght,ROND@6..144,25..151,1..1000,0..100&display=swap');
+    </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rau Layug</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="js/main.js" defer></script>
 </head>
-<body>
-    
+<body class="google-sans-flex-normal">
+    <div class="scroll-indicator">
+        <button class="scroll-line google-sans-flex-bold-round" data-target="#education" aria-label="Go to Education section">
+            <span class="scroll-line-visual"></span>
+            <span class="scroll-line-label">Education</span>
+        </button>
+        <button class="scroll-line google-sans-flex-bold-round" data-target="#projects" aria-label="Go to Projects section">
+            <span class="scroll-line-visual"></span>
+            <span class="scroll-line-label">Projects</span>
+        </button>
+        <button class="scroll-line google-sans-flex-bold-round" data-target="#skills" aria-label="Go to Skills section">
+            <span class="scroll-line-visual"></span>
+            <span class="scroll-line-label">Skills</span>
+        </button>
+    </div>
+
+    <div id="header">
+        <div class="text">
+            <h1><a href="#writeup">Rau Layug</a></h1>
+        </div>
+        <div class="hamburger-container">
+            <button class="hamburger" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        <ul class="picture">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="software-development.html">Software</a></li>
+            <li><a href="media-production.html">Media</a></li>
+            <li><a href="leadership.html">Leadership</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+    </div>
+
+    <section class="education">
+        <div class="content">
+
+        </div>
+    </section>
+
+    <section class="projects">
+        <div class="content">
+
+        </div>
+    </section>
+
+    <section class="skills">
+        <div class="content">
+            <div class="courses">
+                
+            </div>
+            <div class="software">
+                
+            </div>
+        </div>
+    </section>
+
+    <section id="footer">
+        <div class="content">
+            <div class="info">
+                <h3 class="google-sans-flex-bold-round">Website Information</h3>
+                <ul>
+                    <li>Made by Rau Layug from scratch</li>
+                    <li>Hosted using GitHub Pages</li>
+                    <li>Domain from namecheap</li>
+                </ul>
+            </div>
+            <div class="quick-links">
+                <h3 class="google-sans-flex-bold-round">Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="leadership.html">Leadership</a></li>
+                    <li><a href="media-production.html">Media Production</a></li>
+                    <li><a href="software-development.html">Software Development</a></li>
+                </ul>
+            </div>
+            <div class="socials">
+                <h3 class="google-sans-flex-bold-round">Socials</h3>
+                <ul>
+                    <li><a href="https://www.instagram.com/raulayug/" target="_blank">Instagram</a></li>
+                    <li><a href="https://www.linkedin.com/in/raulayug/" target="_blank">LinkedIn</a></li>
+                    <li><a href="mailto:raulayug@gmail.com">raulayug@gmail.com</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="back-to-top">
+            <button id="backToTopButton" aria-label="Back to top">↑</button>
+        </div>
+    </section>
 </body>
 </html>

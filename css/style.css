@@ -37,7 +37,7 @@
 }
 
 html {
-    font-size: 18px;
+    font-size: 20px;
     color: var(--black);
     background-color: var(--white);
     scroll-behavior: smooth;
@@ -69,9 +69,79 @@ html {
     display: none !important;
 }
 
-/*
-    --- FONTS ---
-*/
+/* --- SCROLL --- */
+.scroll-indicator {
+    position: fixed;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+
+    display: flex;
+    flex-flow: column;
+    align-items: flex-end;
+    z-index: 10;
+
+    .scroll-line {
+        position: relative;
+
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        width: 3rem;
+        padding: 0.5rem 0 0.5rem 0.5rem;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+
+        .scroll-line-visual {
+            width: 1.5rem;
+            height: 0.15rem;
+            background-color: var(--black);
+            opacity: 0.3;
+            transition: width 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+
+        .scroll-line-label {
+            position: absolute;
+            top: 50%;
+            right: 90%;
+            transform: translateY(-50%);
+
+            padding: 0.4rem 0.75rem;
+            border-radius: 0.3rem;
+            background-color: var(--black);
+            color: var(--white);
+            font: inherit;
+            font-size: 0.8rem;
+            white-space: nowrap;
+
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        &:hover {
+            .scroll-line-visual {
+                width: 1.8rem;
+                height: 0.2rem;
+                opacity: 0.6;
+            }
+
+            .scroll-line-label {
+                opacity: 0.8;
+            }
+        }
+
+        &.active .scroll-line-visual {
+            width: 1.8rem;
+            height: 0.2rem;
+            opacity: 0.6;
+        }
+    }
+}
+
+/* --- FONTS --- */
 .google-sans-flex-normal {
   font-family: "Google Sans Flex", sans-serif;
   font-optical-sizing: auto;
@@ -108,7 +178,7 @@ html {
     "ROND" 100;
 }
 
-/* Song and Video Cards */
+/* --- MEDIA CARDS --- */
 .song-card,
 .video-card {
     display: flex;
@@ -162,7 +232,7 @@ html {
     }
 }
 
-/* Song and Video Chips / Credits */
+/* --- MEDIA CONTAINERS --- */
 .song-chip-container,
 .video-chip-container,
 .media-chip-container {
@@ -186,7 +256,7 @@ html {
     color: var(--white);
 }
 
-/* Spotify & YouTube Modal */
+/* --- MEDIA MODALS --- */
 .media-modal {
     position: fixed;
     inset: 0;
@@ -238,10 +308,7 @@ html {
     text-align: center;
 }
 
-
-/*
-    --- PAGE SECTIONS ---
-*/
+/* --- GLOBAL SECTIONS --- */
 #header {
     display: flex;
     color: var(--white);
@@ -318,6 +385,99 @@ html {
     }
 }
 
+#footer {
+    background-color: var(--black);
+    color: var(--white);
+    padding: 2.5rem 0;
+
+    .content {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+        width: 80%;
+        margin: auto;
+
+        div {
+            display: flex;
+            flex-flow: column;
+
+            h3 {
+                margin-bottom: 0.6rem;
+            }
+
+            ul {
+                margin-left: 1rem;
+                font-size: 0.9rem;
+                list-style: none;
+            }
+
+            li {
+                margin-bottom: 0.4rem;
+            }
+            
+            a {
+                text-decoration: none;
+                color: var(--white);
+            }
+
+            a:hover {
+                text-decoration: underline;
+                text-underline-offset: 0.3rem;;
+            }
+        }
+
+        .quick-links {
+            ul {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                column-gap: 1rem;
+                row-gap: 0.4rem;
+            }
+
+            li:last-child {
+                grid-column-start: 1;
+                grid-column-end: 3;
+            }
+
+            li {
+                margin: 0;
+            }
+        }
+    }
+
+    .back-to-top {
+        position: relative;
+
+        button {
+            position: absolute;
+            right: 1.5rem;
+            top: calc(-1.5rem - 0.5rem);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 3rem;
+            height: 3rem;
+            padding-bottom: 0.25rem;
+            border-radius: 50%;
+            border: none;
+                
+            background-color: var(--white);
+            font-family: monospace;
+            font-size: 2rem;
+            cursor: pointer;
+                
+            &:hover {
+                transform: scale(1.15);
+                transition: transform 0.2s ease-in-out;
+            }
+        }
+    }
+}
+
+
+/* --- INDEX SECTIONS --- */
 #hero {
     position: relative;
     height: 80vh;
@@ -332,7 +492,7 @@ html {
         height: 100%;
         margin: auto;
 
-        .left {
+        .text {
             display: flex;
             flex-flow: column;
             justify-content: center;
@@ -362,7 +522,7 @@ html {
             }
         }
 
-        .right {
+        .picture {
             display: flex;
             width: 30%;
 
@@ -442,6 +602,8 @@ html {
                     display: flex;
                     flex-flow: column;
                     align-items: stretch;
+
+                    flex: 1;
                     
                     padding: 1rem 2rem;
                     border-radius: 1rem;
@@ -453,19 +615,27 @@ html {
                     top: 0;
                     transition: all 200ms;
                     
-                    h2 {
+                    .title {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        
                         text-align: center;
                         opacity: 90%;
+                        height: 4.2rem;
                     }
 
-                    p {
+                    .desc {
                         opacity: 70%;
+                        flex: 1;
                     }
 
                     &:hover {
                         cursor: pointer;
                         color: var(--black);
-                        top: -0.2rem;
+
+                        transform: scale(102%);
+                        z-index: 100;
 
                         p, h2 {
                             opacity: 100%;
@@ -673,101 +843,31 @@ html {
     }
 }
 
-#footer {
-    background-color: var(--black);
-    color: var(--white);
-    padding: 2.5rem 0;
+/* --- SOFTWARE SECTIONS --- */
 
-    .content {
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: nowrap;
-        width: 80%;
-        margin: auto;
+#education {
+    /* 
+    
+    SCHOOL ICON
 
-        div {
-            display: flex;
-            flex-flow: column;
-
-            h3 {
-                margin-bottom: 0.6rem;
-            }
-
-            ul {
-                margin-left: 1rem;
-                font-size: 0.9rem;
-                list-style: none;
-            }
-
-            li {
-                margin-bottom: 0.4rem;
-            }
-            
-            a {
-                text-decoration: none;
-                color: var(--white);
-            }
-
-            a:hover {
-                text-decoration: underline;
-                text-underline-offset: 0.3rem;;
-            }
-        }
-
-        .quick-links {
-            ul {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                column-gap: 1rem;
-                row-gap: 0.4rem;
-            }
-
-            li:last-child {
-                grid-column-start: 1;
-                grid-column-end: 3;
-            }
-
-            li {
-                margin: 0;
-            }
-        }
-    }
-
-    .back-to-top {
-        position: relative;
-
-        button {
-            position: absolute;
-            right: 1.5rem;
-            top: calc(-1.5rem - 0.5rem);
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            width: 3rem;
-            height: 3rem;
-            padding-bottom: 0.25rem;
-            border-radius: 50%;
-            border: none;
-                
-            background-color: var(--white);
-            font-family: monospace;
-            font-size: 2rem;
-            cursor: pointer;
-                
-            &:hover {
-                transform: scale(1.15);
-                transition: transform 0.2s ease-in-out;
-            }
-        }
-    }
+    COURSE
+    DATE
+    GPA
+    Thesis (button)
+    Awards
+    
+    */
 }
 
-/*
-    --- VIEWS ---
-*/
+#projects {
 
+}
+
+#skills {
+
+}
+
+/* --- Views --- */
 /* 4K */
 @media (max-width: 1920px) {
     html {
@@ -832,77 +932,6 @@ html {
         }
     }
 
-}
-
-.scroll-indicator {
-    position: fixed;
-    top: 50%;
-    right: 1rem;
-    transform: translateY(-50%);
-
-    display: flex;
-    flex-flow: column;
-    align-items: flex-end;
-    z-index: 10;
-
-    .scroll-line {
-        position: relative;
-
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-
-        width: 3rem; /* the actual hit area, bigger than the visible line */
-        padding: 0.5rem 0 0.5rem 0.5rem;
-        border: none;
-        background-color: transparent;
-        cursor: pointer;
-
-        .scroll-line-visual {
-            width: 1.5rem;
-            height: 0.15rem;
-            background-color: var(--black);
-            opacity: 0.3;
-            transition: width 0.3s ease-in-out, opacity 0.3s ease-in-out;
-        }
-
-        .scroll-line-label {
-            position: absolute;
-            top: 50%;
-            right: 90%;
-            transform: translateY(-50%);
-
-            padding: 0.4rem 0.75rem;
-            border-radius: 0.3rem;
-            background-color: var(--black);
-            color: var(--white);
-            font-family: monospace;
-            font-size: 0.8rem;
-            white-space: nowrap;
-
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.2s ease-in-out;
-        }
-
-        &:hover {
-            .scroll-line-visual {
-                width: 1.8rem;
-                height: 0.2rem;
-                opacity: 0.6;
-            }
-
-            .scroll-line-label {
-                opacity: 0.8;
-            }
-        }
-
-        &.active .scroll-line-visual {
-            width: 1.8rem;
-            height: 0.2rem;
-            opacity: 0.6;
-        }
-    }
 }
 
 /* Mobile */

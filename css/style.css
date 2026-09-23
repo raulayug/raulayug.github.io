@@ -136,26 +136,23 @@ h2 { opacity: 85%; }
     p { margin-bottom: 0.5rem; }
 }
 
+/* --- START EXPERIMENT ZONE --- */
 #aspects {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+
     .aspect {
-        transition: height 0.4s ease;
-    }
-
-    .aspect.expanded {
-        height: 100vh;
-    }
-
-    .aspect.expanded .details {
-        display: block;
-    }
-
-    > * {
         height: 30vh;
         padding: 0 2.5%;
 
         display: flex;
         flex-direction: column;
         justify-content: center;
+
+        overflow: hidden;
+        transition: height 0.1s ease;
 
         color: var(--white);
 
@@ -165,19 +162,62 @@ h2 { opacity: 85%; }
         }
     }
 
+    /* linear interpolation: starting + (ending - starting) * progress */
     .description {
         height: 10vh;
         background-color: var(--black);
         color: var(--white);
+        height: calc(10% + (0% - 10%) * var(--expand-progress));
     }
 
-    .details {
-        display: none;
+    #software-development {
+        background-color: var(--accent-1);
+        height: calc(30% + (100% - 30%) * var(--expand-progress));
+    }
+    
+    #media-production {
+        background-color: var(--accent-2);
+        height: calc(30% + (0% - 30%) * var(--expand-progress));
     }
 
-    .software-development { background-color: var(--accent-1); }
-    .media-production { background-color: var(--accent-2); }
-    .leadership { background-color: var(--accent-3); }
+    #leadership {
+        background-color: var(--accent-3);
+        height: calc(30% + (0% - 30%) * var(--expand-progress));
+    }
+}
+
+.pin-wrapper {
+    height: 140vh; /* tune to taste */
+}
+
+.aspect-content {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100vh;
+    padding: 5vh 2.5%;
+    background-color: var(--accent-1);
+    color: var(--white);
+    transform: translateY(calc(100% * (1 - var(--reveal-progress, 0))));
+    z-index: 2;
+}
+
+.aspect-content.released {
+    position: static;
+    transform: none;
+}
+/* ---  END EXPERIMENT ZONE --- */
+
+#footer {
+    background-color: var(--black);
+    color: var(--white);
+    height: 50vh;
+    padding: 0 20%;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* --- VIEWS --- */

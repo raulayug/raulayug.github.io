@@ -136,77 +136,49 @@ h2 { opacity: 85%; }
     p { margin-bottom: 0.5rem; }
 }
 
-/* --- START EXPERIMENT ZONE --- */
-#aspects {
+/* NEW ADDITIONS */
+.aspects-menu {
     position: sticky;
     top: 0;
     height: 100vh;
     overflow: hidden;
-
-    .aspect {
-        height: 30vh;
-        padding: 0 2.5%;
-
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-
-        overflow: hidden;
-        transition: height 0.1s ease;
-
-        color: var(--white);
-
-        h1 {
-            opacity: 90%;
-            font-size: 10vw;
-        }
-    }
-
-    /* linear interpolation: starting + (ending - starting) * progress */
-    .description {
-        height: 10vh;
-        background-color: var(--black);
-        color: var(--white);
-        height: calc(10% + (0% - 10%) * var(--expand-progress));
-    }
-
-    #software-development {
-        background-color: var(--accent-1);
-        height: calc(30% + (100% - 30%) * var(--expand-progress));
-    }
-    
-    #media-production {
-        background-color: var(--accent-2);
-        height: calc(30% + (0% - 30%) * var(--expand-progress));
-    }
-
-    #leadership {
-        background-color: var(--accent-3);
-        height: calc(30% + (0% - 30%) * var(--expand-progress));
-    }
+    display: flex;
+    flex-direction: column;
 }
 
-.pin-wrapper {
-    height: 140vh; /* tune to taste */
-}
-
-.aspect-content {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    min-height: 100vh;
-    padding: 5vh 2.5%;
-    background-color: var(--accent-1);
+.aspects-menu .description {
+    height: calc(10% * (1 - var(--expand-progress, 0)));
+    padding: 0 2.5%;
+    background-color: var(--black);
     color: var(--white);
-    transform: translateY(calc(100% * (1 - var(--reveal-progress, 0))));
-    z-index: 2;
+    overflow: hidden;
 }
 
-.aspect-content.released {
-    position: static;
-    transform: none;
+.aspect-pillar {
+    height: calc(30% * (1 - var(--expand-progress, 0)));
+    padding: 0 2.5%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    color: var(--white);
 }
+
+.aspect-pillar.active {
+    height: calc(30% + (100% - 30%) * var(--expand-progress, 0));
+}
+
+.aspect-pillar .header,
+.aspect-pillar .content {
+    flex-shrink: 0;
+    transition: opacity 0.1s linear;
+}
+
+.aspect-pillar h1 { opacity: 90%; font-size: 10vw; }
+
+.aspect-pillar[data-aspect="software-development"] { background-color: var(--accent-1); }
+.aspect-pillar[data-aspect="media-production"] { background-color: var(--accent-2); }
+.aspect-pillar[data-aspect="leadership"] { background-color: var(--accent-3); }
+
 /* ---  END EXPERIMENT ZONE --- */
 
 #footer {

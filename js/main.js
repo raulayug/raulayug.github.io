@@ -66,40 +66,41 @@ function createAspectAnimator(aspectDiv, options = {}) {
     function applyLocalProgress(localScrolled) {
         const scrolled = clamp(localScrolled, 0, b4);
 
-        let headerOpacity = 1;
-        let contentOpacity = 1;
-
-        // b1: expand
+        // phase 1: expand
         if (scrolled <= b1) {
             expandProgress = expandDistance > 0 ? scrolled / expandDistance : 1;
-            contentOpacity = 1;
+            header.style.marginTop = `${headerMarginTop}px`;
+            header.style.marginBottom = `${headerMarginBottom}px`;
+            header.style.opacity = 1;
+            content.style.opacity = 1;
         }
-        // b2: scroll
+        // phase 2: scroll (reveal content)
         else if (scrolled <= b2) {
             expandProgress = 1;
-            scrollProgress = scrollDistance > 0 ? (scrolled - b1) / scrollDistance : 1;
+            const scrollProgress = scrollDistance > 0 ? (scrolled - b1) / scrollDistance : 1;
+            header.style.marginTop = `${headerMarginTop - scrollProgress * scrollDistance}px`;
+            header.style.marginBottom = `${headerMarginBottom}px`;
+            header.style.opacity = 1;
+            content.style.opacity = 1;
         }
-        // b3: fade-out content
+        // phase 3: fade out content (position frozen, fully scrolled)
         else if (scrolled <= b3) {
             expandProgress = 1;
-            scrollProgress = 1;
-            contentOpacity = fadeDistance > 0 ? 1 - (scrolled - b2) / fadeDistance : 0;
-            headerOpacity = 0;
+            const contentOpacity = fadeDistance > 0 ? 1 - (scrolled - b2) / fadeDistance : 0;
+            header.style.marginTop = `${headerMarginTop - scrollDistance}px`;
+            header.style.marginBottom = `${headerMarginBottom}px`;
+            header.style.opacity = 0;
+            content.style.opacity = clamp(contentOpacity, 0, 1);
         }
-        // b4: unexpand
+        // phase 4: un-expand + header fade-in, together
         else if (scrolled <= b4) {
             const t = expandDistance > 0 ? (scrolled - b3) / expandDistance : 1;
             expandProgress = 1 - clamp(t, 0, 1);
-            scrollProgress = 0;
-            headerOpacity = clamp(t, 0, 1);
-            contentOpacity = 0;
+            header.style.marginTop = `${headerMarginTop}px`; // snapped back, not animated
+            header.style.marginBottom = `${headerMarginBottom}px`;
+            header.style.opacity = clamp(t, 0, 1);
+            content.style.opacity = 0;
         }
-
-        expandProgress = clamp(expandProgress, 0, 1);
-        header.style.marginTop = `${headerMarginTop - clamp(scrollProgress, 0, 1) * scrollDistance}px`;
-        header.style.marginBottom = `${headerMarginBottom}px`;
-        header.style.opacity = clamp(headerOpacity, 0, 1);
-        content.style.opacity = clamp(contentOpacity, 0, 1);   
     }
 
     function getExpandProgress() {

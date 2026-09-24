@@ -3,28 +3,6 @@ function clamp(value, min, max) {
     return Math.min(Math.max(value, min), max);
 }
 
-function setDescriptionMargin() {
-    document.querySelectorAll('.description h2').forEach((h2) => {
-        const descriptionHeight = window.innerHeight * 0.1;
-        const h2Height = h2.getBoundingClientRect().height;
-        h2.style.marginTop = `${(descriptionHeight - h2Height) / 2}px`;
-    });
-}
-
-function setAspectMargins() {
-    document.querySelectorAll('.aspect').forEach((aspect) => {
-        let aspectHeader = aspect.querySelector('.header');
-        let aspectContent = aspect.querySelector('.content');
-
-        let aspectDivHeight = window.innerHeight * 0.3;
-        let aspectHeaderHeight = aspectHeader.getBoundingClientRect().height;
-        let margin = (aspectDivHeight - aspectHeaderHeight) / 2;
-
-        aspectHeader.style.margin = `${margin}px 0`;
-        aspectContent.style.paddingBottom = `${margin}px`;
-    });
-}
-
 // Initializes an individual aspect div animator.
 // returns aspectAnimator functions
 function createAspectAnimator(aspectDiv, options = {}) {
@@ -112,8 +90,12 @@ function createAspectAnimator(aspectDiv, options = {}) {
         return b4;
     }
 
+    function getExpandDistance() {
+        return expandDistance;
+    }
+
     measure();
-    return { measure, applyLocalProgress, getTotalDistance, getExpandProgress };
+    return { measure, applyLocalProgress, getTotalDistance, getExpandProgress, getExpandDistance };
 }
 
 function initAspectSequence() {
@@ -121,6 +103,7 @@ function initAspectSequence() {
     const menuDiv = section.querySelector('.aspects-menu');
     const aspectDivs = Array.from(menuDiv.querySelectorAll('.aspect'));
     const aspectDivAnimators = aspectDivs.map((aspectDiv) => createAspectAnimator(aspectDiv));
+    const aspectNames = aspectDivs.map((aspectDiv) => aspectDiv.dataset.aspect);
 
     let aspectDivScrollStart = [];
     let totalScrollDistance = 0;
@@ -134,6 +117,28 @@ function initAspectSequence() {
         totalScrollDistance = 0;
         aspectDivAnimators.forEach((a) => { aspectDivScrollStart.push(totalScrollDistance); totalScrollDistance += a.getTotalDistance(); });
         section.style.height = `${window.innerHeight + totalScrollDistance}px`;
+    }
+
+    function setDescriptionMargin() {
+        document.querySelectorAll('.description h2').forEach((h2) => {
+            const descriptionHeight = window.innerHeight * 0.1;
+            const h2Height = h2.getBoundingClientRect().height;
+            h2.style.marginTop = `${(descriptionHeight - h2Height) / 2}px`;
+        });
+    }
+
+    function setAspectMargins() {
+        document.querySelectorAll('.aspect').forEach((aspect) => {
+            let aspectHeader = aspect.querySelector('.header');
+            let aspectContent = aspect.querySelector('.content');
+
+            let aspectDivHeight = window.innerHeight * 0.3;
+            let aspectHeaderHeight = aspectHeader.getBoundingClientRect().height;
+            let margin = (aspectDivHeight - aspectHeaderHeight) / 2;
+
+            aspectHeader.style.margin = `${margin}px 0`;
+            aspectContent.style.paddingBottom = `${margin}px`;
+        });
     }
 
     // Run on every scroll/window repaint
@@ -163,15 +168,38 @@ function initAspectSequence() {
         menuDiv.style.setProperty('--expand-progress', activeAspectExpandProgress);
     }
 
+    // Used for spyglass
+    function scrollToAspect(aspectName) {
+        const index = aspectNames.indexOf(aspectName);
+        if (index === -1) return;
+
+        const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+        const target = sectionTop + aspectDivScrollStart[index] + aspectDivAnimators[index].getExpandDistance();
+
+        window.scrollTo({ top: target, behavior: 'smooth' });
+    }
+
+    function handleHashNavigation() {
+        const hash = window.location.hash; // e.g. "#experience?media-production"
+        if (!hash.startsWith('#experience?')) return;
+        const aspectName = hash.split('?')[1];
+        scrollToAspect(aspectName);
+    }
+
     measureAll();
+    setDescriptionMargin();
+    setAspectMargins();
+    
     window.addEventListener('resize', () => { measureAll(); updateProgress(); setDescriptionMargin();});
     window.addEventListener('scroll', () => window.requestAnimationFrame(updateProgress));
+    window.addEventListener('hashchange', handleHashNavigation);
+
+    if (window.location.hash) {
+        requestAnimationFrame(handleHashNavigation);
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    setDescriptionMargin();
-    setAspectMargins();
-
     initAspectSequence();
 });
 

@@ -166,9 +166,9 @@ h2 { opacity: 85%; }
 
             &.active { height: calc(30% + (100% - 30%) * var(--expand-progress, 0)); }
 
-            &[data="software-development"] { background-color: var(--accent-1); }
-            &[data="media-production"] { background-color: var(--accent-2); }
-            &[data="leadership"] { background-color: var(--accent-3); }
+            &[data-aspect="software-development"] { background-color: var(--accent-1); }
+            &[data-aspect="media-production"] { background-color: var(--accent-2); }
+            &[data-aspect="leadership"] { background-color: var(--accent-3); }
         }
     }
 

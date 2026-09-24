@@ -66,7 +66,7 @@ function createAspectAnimator(aspectDiv, options = {}) {
     function applyLocalProgress(localScrolled) {
         const scrolled = clamp(localScrolled, 0, b4);
 
-        // phase 1: expand
+        // b1: expand
         if (scrolled <= b1) {
             expandProgress = expandDistance > 0 ? scrolled / expandDistance : 1;
             header.style.marginTop = `${headerMarginTop}px`;
@@ -74,7 +74,7 @@ function createAspectAnimator(aspectDiv, options = {}) {
             header.style.opacity = 1;
             content.style.opacity = 1;
         }
-        // phase 2: scroll (reveal content)
+        // b2: scroll (reveal content)
         else if (scrolled <= b2) {
             expandProgress = 1;
             const scrollProgress = scrollDistance > 0 ? (scrolled - b1) / scrollDistance : 1;
@@ -83,7 +83,7 @@ function createAspectAnimator(aspectDiv, options = {}) {
             header.style.opacity = 1;
             content.style.opacity = 1;
         }
-        // phase 3: fade out content (position frozen, fully scrolled)
+        // b3: fade-out content
         else if (scrolled <= b3) {
             expandProgress = 1;
             const contentOpacity = fadeDistance > 0 ? 1 - (scrolled - b2) / fadeDistance : 0;
@@ -92,11 +92,11 @@ function createAspectAnimator(aspectDiv, options = {}) {
             header.style.opacity = 0;
             content.style.opacity = clamp(contentOpacity, 0, 1);
         }
-        // phase 4: un-expand + header fade-in, together
+        // b4: un-expand
         else if (scrolled <= b4) {
             const t = expandDistance > 0 ? (scrolled - b3) / expandDistance : 1;
             expandProgress = 1 - clamp(t, 0, 1);
-            header.style.marginTop = `${headerMarginTop}px`; // snapped back, not animated
+            header.style.marginTop = `${headerMarginTop}px`;
             header.style.marginBottom = `${headerMarginBottom}px`;
             header.style.opacity = clamp(t, 0, 1);
             content.style.opacity = 0;

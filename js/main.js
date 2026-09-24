@@ -1,3 +1,4 @@
+// Experience
 function clamp(value, min, max) {
     return Math.min(Math.max(value, min), max);
 }
@@ -173,6 +174,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     initAspectSequence();
 });
+
+
+// Contact
+const contactDiv = document.getElementById('contact');
+const footerDiv = document.getElementById('footer');
+// Need to add eventlistener for resize
+let footerHeight = footerDiv.getBoundingClientRect().height;
+contactDiv.style.height = `${window.innerHeight - footerHeight}px`;
 
 // Footer
 const backToTopButton = document.getElementById('backToTopButton');

@@ -69,7 +69,11 @@ function initScrollSpyglass() {
 
 function initExperienceAspectAnimation(aspectDiv, options = {}) {
     // tune to taste
-    const { expandDistanceRatio = 0.3, fadeDistanceRatio = 0.02 } = options;
+    const {
+        expandDistanceRatio = 0.3,
+        fadeDistanceRatio = 0.02,
+        headerFadeDistanceRatio = 1.5 // header reaches opacity 0 at this many vh of local scroll
+    } = options;
 
     const header = aspectDiv.querySelector('.header');
     const content = aspectDiv.querySelector('.content');
@@ -82,7 +86,6 @@ function initExperienceAspectAnimation(aspectDiv, options = {}) {
     let b1 = 0, b2 = 0, b3 = 0, b4 = 0;
 
     let expandProgress = 0;
-    let scrollProgress = 0;
 
     function measure() {
         const initialHeight = window.innerHeight * 0.3;
@@ -119,9 +122,14 @@ function initExperienceAspectAnimation(aspectDiv, options = {}) {
         else if (scrolled <= b2) {
             expandProgress = 1;
             const scrollProgress = scrollDistance > 0 ? (scrolled - b1) / scrollDistance : 1;
+
+            const headerFadeEnd = Math.min(window.innerHeight * headerFadeDistanceRatio, b2);
+            const headerFadeRange = Math.max(headerFadeEnd - b1, 1); // avoid divide-by-zero
+            const headerOpacity = clamp(1 - (scrolled - b1) / headerFadeRange, 0, 1);
+
             header.style.marginTop = `${headerMarginTop - scrollProgress * scrollDistance}px`;
             header.style.marginBottom = `${headerMarginBottom}px`;
-            header.style.opacity = 1;
+            header.style.opacity = headerOpacity;
             content.style.opacity = 1;
         }
         // b3: fade-out content

@@ -79,6 +79,10 @@ html {
 
 h2 { opacity: 85%; }
 
+.accent-1 { color: var(--accent-1); }
+.accent-2 { color: var(--accent-2); }
+.accent-3 { color: var(--accent-3); }
+
 /* --- SCROLL INDIATOR --- */
 
 .scroll-indicator {

@@ -29,6 +29,10 @@ html {
     scroll-snap-type: y mandatory;
     scroll-behavior: smooth;
     overflow-y: scroll;
+
+    scrollbar-width: none; 
+    -ms-overflow-style: none; 
+
     font-size: 18px;
 }
 
@@ -88,7 +92,7 @@ h2 { opacity: 85%; }
 .scroll-indicator {
     position: fixed;
     top: 50%;
-    right: 1rem;
+    right: 0.5rem;
     transform: translateY(-50%);
 
     display: flex;

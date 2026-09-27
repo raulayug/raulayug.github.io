@@ -285,6 +285,7 @@ h2 { opacity: 85%; }
             &:focus {
                 outline: none;
                 background-color: var(--white);
+                border-color: var(--black);
             }
         }
 
@@ -306,6 +307,20 @@ h2 { opacity: 85%; }
             }
         }
     }
+
+    .input-error {
+        border-color: var(--accent-2);
+    }
+
+    .shake {
+        animation: shake 0.3s ease-in-out;
+    }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-3px); }
+    40%, 80% { transform: translateX(3px); }
 }
 
 #footer {

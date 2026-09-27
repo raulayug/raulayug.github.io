@@ -253,10 +253,58 @@ function initExperience() {
 function initContact() {
     const contactDiv = document.getElementById('contact');
     const footerDiv = document.getElementById('footer');
+
     let footerHeight = footerDiv.getBoundingClientRect().height;
     contactDiv.style.height = `${window.innerHeight - footerHeight}px`;
 
+    const contactButton = document.getElementById('contactButton');
+    const subjectInput = document.getElementById('subject');
+    const messageInput = document.getElementById('message');
 
+    const EMAIL = 'raulayug@gmail.com';
+
+    function setFieldError(field, hasError) {
+        field.classList.toggle('input-error', hasError);
+    }
+
+    function clearFieldError(event) {
+        setFieldError(event.target, false);
+    }
+
+    function triggerShake(field) {
+        field.classList.remove('shake');
+        void field.offsetWidth;
+        field.classList.add('shake');
+    }
+
+    function handleContactSubmit() {
+        const subjectValue = subjectInput.value.trim();
+        const messageValue = messageInput.value.trim();
+
+        const subjectMissing = subjectValue === '';
+        const messageMissing = messageValue === '';
+
+        setFieldError(subjectInput, subjectMissing);
+        setFieldError(messageInput, messageMissing);
+
+        if (subjectMissing) triggerShake(subjectInput);
+        if (messageMissing) triggerShake(messageInput);
+
+        if (subjectMissing || messageMissing) {
+            return;
+        }
+
+        const subject = encodeURIComponent(subjectValue);
+        const body = encodeURIComponent(messageValue);
+        window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
+    }
+
+    contactButton.addEventListener('click', handleContactSubmit);
+
+    // Clear a field's error state as soon as the user starts fixing it,
+    // rather than making them re-click Send to find out it's resolved.
+    subjectInput.addEventListener('input', clearFieldError);
+    messageInput.addEventListener('input', clearFieldError);
 }
 
 function initFooter() {

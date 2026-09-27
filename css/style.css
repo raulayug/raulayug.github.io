@@ -9,9 +9,6 @@
     --accent-2:    #EE1B34;
     --accent-3:    #507C5E;
 
-    --darken:      #000 15%;
-    --lighten:     #FFF 15%;
-
     /* Font Sizes */
     --size-large:    1.25rem;
     --size-regular:  1rem;
@@ -33,9 +30,6 @@ html {
     scroll-behavior: smooth;
     overflow-y: scroll;
     font-size: 18px;
-}
-
-section {
 }
 
 /* --- FONTS --- */
@@ -251,9 +245,63 @@ h2 { opacity: 85%; }
 }
 
 #contact {
-    background-color: var(--white);
+    padding: 0 20%;
     color: var(--black);
-    height: 80vh;
+    background-color: var(--white);
+
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    justify-content: center;
+
+    .text {
+        flex: 0 1 40%;
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 0.25rem;
+        }
+    }
+
+    form {
+        flex: 1 1 60%;
+
+        display: flex;
+        flex-flow: column;
+        gap: 1rem;
+
+        input,
+        textarea {
+            padding: 1rem;
+            border: 0.15rem solid var(--black);
+            border-radius: 0.5rem;
+            
+            background-color: color-mix(in srgb, var(--black) 10%, var(--white));
+
+            &:focus {
+                outline: none;
+                background-color: var(--white);
+            }
+        }
+
+        button {
+            align-self: flex-start;
+            padding: 0.7rem 1.25rem;
+            font-weight: bold;
+
+            border: none;
+            border-radius: 0.5rem;
+
+            background-color: var(--black);
+            color: var(--white);
+
+            &:hover {
+                cursor: pointer;
+                opacity: 0.85;
+                transition: opacity 0.2s ease-in-out;
+            }
+        }
+    }
 }
 
 #footer {

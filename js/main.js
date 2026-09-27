@@ -253,6 +253,8 @@ function initContact() {
     const footerDiv = document.getElementById('footer');
     let footerHeight = footerDiv.getBoundingClientRect().height;
     contactDiv.style.height = `${window.innerHeight - footerHeight}px`;
+
+    
 }
 
 function initFooter() {

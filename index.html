@@ -50,7 +50,6 @@
         <div class="image">
             <img src="/assets/images/toga.webp" alt="">
         </div>
-        
         <div class="text">
             <h2 class="ibm-plex-serif-medium-italic">Hi! I'm Rau,</h2>
             <h1 class="google-sans-flex-extrabold">THE TECHNICAL <br>BEHIND THE CREATIVE</h1>
@@ -126,9 +125,17 @@
     </section>
 
     <section id="contact">
-        <h1 class="google-sans-flex-extrabold">
-            CONTACT SECTION
-        </h1>
+        <div class="text">
+            <h1 class="google-sans-flex-extrabold">Send me a message!</h1>
+            <h3 class="google-sans-flex-normal">Have a project in mind?<br>
+                Want to get in touch? <br>
+                I'd love to hear from you. </h3>
+        </div>
+        <form class="contact-form">
+            <input type="text" id="subject" class="google-sans-flex-normal" placeholder="Subject" required>
+            <textarea id="message" class="google-sans-flex-normal" placeholder="Your message" rows="6" required></textarea>
+            <button type="button" id="contactButton" class="google-sans-flex-normal">Send</button>
+        </form>
     </section>
 
     <section id="footer">

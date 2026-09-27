@@ -1,16 +1,6 @@
 let activeAspectIndex = 0;
 let aspectNames;
 
-function scrollToAspect(aspectName) {
-    const index = aspectNames.indexOf(aspectName);
-    if (index === -1) return;
-
-    const sectionTop = section.getBoundingClientRect().top + window.scrollY;
-    const target = sectionTop + aspectDivScrollStart[index] + aspectDivAnimators[index].getExpandDistance();
-
-    window.scrollTo({ top: target, behavior: 'smooth' });
-}
-
 function clamp(value, min, max) {
     return Math.min(Math.max(value, min), max);
 }
@@ -19,7 +9,7 @@ function initScrollSpyglass() {
     const scrollIndicator = document.querySelector('.scroll-indicator');
     const scrollLines = document.querySelectorAll('.scroll-line');
 
-    const HERO = 0, ABOUT = 1, EXPERIENCE = 2, CONTACT = 3;
+    const HERO = 0, ABOUT = 1, EXPERIENCE = 2, CONTACT = 6; // tick in spyglass
     const heroEl = document.getElementById('hero');
     const aboutEl = document.getElementById('about');
     const experienceEl = document.getElementById('experience');
@@ -32,7 +22,7 @@ function initScrollSpyglass() {
         const threshold = window.innerHeight / 3;
         const experienceEntryBuffer = window.innerHeight * 0.05;
 
-        let candidate = activeIndex;
+        let candidate;
         [[HERO, heroEl], [ABOUT, aboutEl], [EXPERIENCE, experienceEl], [CONTACT, contactEl]]
             .forEach(([index, el]) => {
                 if (el.getBoundingClientRect().top <= threshold) candidate = index;
@@ -42,8 +32,8 @@ function initScrollSpyglass() {
         const insideExperience = experienceRect.top <= -experienceEntryBuffer && experienceRect.bottom > threshold;
 
         // for SOFTWARE, MEDIA, LEADERSHIP
-        if (insideExperience && activeAspectIndex) {
-            candidate = EXPERIENCE + activeAspectIndex;
+        if (insideExperience) {
+            candidate = EXPERIENCE + 1 + activeAspectIndex;
         }
 
         activeIndex = candidate;
@@ -61,7 +51,7 @@ function initScrollSpyglass() {
         if (raw.includes('?')) {
             const [sectionId, aspectName] = raw.split('?');
             if (sectionId === 'experience') {
-                scrollToAspect(aspectName);
+                window.scrollToAspect(aspectName);
                 return;
             }
         }
@@ -172,8 +162,8 @@ function initExperienceAspectAnimation(aspectDiv) {
 }
 
 function initExperience() {
-    const section = document.getElementById('experience');
-    const menuDiv = section.querySelector('.aspects-menu');
+    const experience = document.getElementById('experience');
+    const menuDiv = experience.querySelector('.aspects-menu');
     const aspectDivs = Array.from(menuDiv.querySelectorAll('.aspect'));
     const aspectDivAnimators = aspectDivs.map((aspectDiv) => initExperienceAspectAnimation(aspectDiv));
     aspectNames = aspectDivs.map((aspectDiv) => aspectDiv.dataset.aspect);
@@ -189,7 +179,7 @@ function initExperience() {
         aspectDivScrollStart = [];
         totalScrollDistance = 0;
         aspectDivAnimators.forEach((a) => { aspectDivScrollStart.push(totalScrollDistance); totalScrollDistance += a.getTotalDistance(); });
-        section.style.height = `${window.innerHeight + totalScrollDistance}px`;
+        experience.style.height = `${window.innerHeight + totalScrollDistance}px`;
     }
 
     function setDescriptionMargin() {
@@ -213,7 +203,7 @@ function initExperience() {
     }
 
     function updateProgress() {
-        const sectionRect = section.getBoundingClientRect();
+        const sectionRect = experience.getBoundingClientRect();
         const distanceScrolled = clamp(-sectionRect.top, 0, totalScrollDistance);
 
         for (let i = 0; i < aspectDivAnimators.length; i++) {
@@ -230,6 +220,16 @@ function initExperience() {
         menuDiv.style.setProperty('--expand-progress', activeAspectExpandProgress);
     }
 
+    function scrollToAspect(aspectName) {
+        const index = aspectNames.indexOf(aspectName);
+        if (index === -1) return;
+
+        const sectionTop = experience.getBoundingClientRect().top + window.scrollY;
+        const target = sectionTop + aspectDivScrollStart[index] + aspectDivAnimators[index].getExpandDistance();
+
+        window.scrollTo({ top: target, behavior: 'smooth' });
+    }
+
     function handleHashNavigation() {
         const hash = window.location.hash; // e.g. "#experience?media-production"
         if (!hash.startsWith('#experience?')) return;
@@ -240,6 +240,8 @@ function initExperience() {
     measureAll();
     setDescriptionMargin();
     setAspectMargins();
+
+    window.scrollToAspect = scrollToAspect;
 
     window.addEventListener('resize', () => { measureAll(); updateProgress(); setDescriptionMargin();});
     window.addEventListener('scroll', () => window.requestAnimationFrame(updateProgress));
@@ -254,7 +256,7 @@ function initContact() {
     let footerHeight = footerDiv.getBoundingClientRect().height;
     contactDiv.style.height = `${window.innerHeight - footerHeight}px`;
 
-    
+
 }
 
 function initFooter() {

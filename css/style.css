@@ -635,6 +635,7 @@ h2 { opacity: 85%; }
     }
 
     #footer {
+        .content { justify-content: space-around; }
         .content li { font-size: 0.8rem; }
         .content .info { display: none; }
     }

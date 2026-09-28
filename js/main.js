@@ -312,14 +312,16 @@ function initContact() {
     const contactDiv = document.getElementById('contact');
     const footerDiv = document.getElementById('footer');
 
-    let footerHeight = footerDiv.getBoundingClientRect().height;
-    contactDiv.style.height = `${window.innerHeight - footerHeight}px`;
-
     const contactButton = document.getElementById('contactButton');
     const subjectInput = document.getElementById('subject');
     const messageInput = document.getElementById('message');
 
     const EMAIL = 'raulayug@gmail.com';
+
+    function computeContactHeight() {
+        let footerHeight = footerDiv.getBoundingClientRect().height;
+        contactDiv.style.height = `${window.innerHeight - footerHeight}px`;
+    }
 
     function setFieldError(field, hasError) {
         field.classList.toggle('input-error', hasError);
@@ -358,9 +360,11 @@ function initContact() {
     }
 
     contactButton.addEventListener('click', handleContactSubmit);
-
     subjectInput.addEventListener('input', clearFieldError);
     messageInput.addEventListener('input', clearFieldError);
+    window.addEventListener('resize', computeContactHeight);
+
+    computeContactHeight();
 }
 
 function initFooter() {

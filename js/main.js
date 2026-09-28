@@ -301,8 +301,6 @@ function initContact() {
 
     contactButton.addEventListener('click', handleContactSubmit);
 
-    // Clear a field's error state as soon as the user starts fixing it,
-    // rather than making them re-click Send to find out it's resolved.
     subjectInput.addEventListener('input', clearFieldError);
     messageInput.addEventListener('input', clearFieldError);
 }
@@ -316,8 +314,13 @@ function initFooter() {
 
 document.addEventListener('DOMContentLoaded', () => {
     initScrollSpyglass();
-    
-    initExperience();
     initContact();
     initFooter();
+
+    window.addEventListener('load', () => {
+        document.fonts.ready.then(() => {
+            initExperience();
+            if (window.location.hash) experience.handleHashNavigation();
+        });
+    });
 });

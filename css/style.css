@@ -1,29 +1,13 @@
 /* --- GLOBALS --- */
 :root {
-    /* Colors */
     --white:       #F5F5F5;
     --black:       #262626;
-    --grey:        #DDDDDD;
-
     --accent-1:    #2F72B1;
     --accent-2:    #EE1B34;
     --accent-3:    #507C5E;
-
-    /* Font Sizes */
-    --size-large:    1.25rem;
-    --size-regular:  1rem;
-    --size-small:    0.75rem;
-    --size-border:   0.15rem;
-
-    /* Header Size */
-    --header-height: 0px;
 }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 html {
     scroll-snap-type: y mandatory;
@@ -336,16 +320,14 @@ h2 { opacity: 85%; }
         display: flex;
         justify-content: space-between;
         flex-wrap: nowrap;
-        width: 80%;
         margin: auto;
+        width: 85%;
 
         div {
             display: flex;
             flex-flow: column;
 
-            h3 {
-                margin-bottom: 0.6rem;
-            }
+            h3 { margin-bottom: 0.6rem; }
 
             ul {
                 margin-left: 1rem;
@@ -353,19 +335,15 @@ h2 { opacity: 85%; }
                 list-style: none;
             }
 
-            li {
-                margin-bottom: 0.4rem;
-            }
+            li { margin-bottom: 0.4rem; }
             
             a {
                 text-decoration: none;
                 color: var(--white);
+                text-underline-offset: 0.3rem;; 
             }
 
-            a:hover {
-                text-decoration: underline;
-                text-underline-offset: 0.3rem;;
-            }
+            a:hover { text-decoration: underline; }
         }
 
         .quick-links {
@@ -421,28 +399,50 @@ h2 { opacity: 85%; }
 /* --- VIEWS --- */
 /* 4K */
 @media (max-width: 1920px) {
-    html {
-        font-size: 16px;
-    }
+    html { font-size: 16px; }
 }
 
 /* Laptop */
 @media (max-width: 1024px) {
-    html {
-        font-size: 16px;
-    }
+    html { font-size: 16px; }
 }
 
 /* Tablet */
 @media (max-width: 768px) {
-    html {
-        font-size: 14px;
+    html { font-size: 14px; }
+
+    #hero {
+        flex-flow: column;
+        justify-content: center;
+        gap: 1rem;
+
+        .image { max-width: 40%; }
+        .text {
+            flex: 0;
+
+            h1 { font-size: 8vw; }
+            h2 { font-size: 4vw; }
+        }
+    }
+
+    #contact {
+        flex-flow: column;
+        align-items: stretch;
+        gap: 1rem;
+
+        .text { flex: 0; }
+        h3 { display: none; }
+        
+        form { flex: 0; }
+    }
+
+    #footer {
+        .content li { font-size: 0.8rem; }
+        .content .info { display: none; }
     }
 }
 
 /* Mobile */
 @media (max-width: 425px) {
-    html {
-        font-size: 12px;
-    }
+    html { font-size: 12px; }
 }

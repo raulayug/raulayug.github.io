@@ -179,23 +179,14 @@ h2 { opacity: 85%; }
             transition: opacity 0.2s ease-in-out;
         }
 
-        &:hover {
-            .scroll-line-visual {
-                width: 1.8rem;
-                height: 0.2rem;
-                opacity: 0.6;
-            }
-
-            .scroll-line-label {
-                opacity: 0.8;
-            }
-        }
-
+        &:hover .scroll-line-visual,
         &.active .scroll-line-visual {
             width: 1.8rem;
             height: 0.2rem;
             opacity: 0.6;
         }
+
+        &:hover .scroll-line-label { opacity: 0.8; }
     }
 }
 

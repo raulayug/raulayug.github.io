@@ -5,6 +5,64 @@ function clamp(value, min, max) {
     return Math.min(Math.max(value, min), max);
 }
 
+function initModals() {
+    function openModal(content_type, src, iframeAttributes = {}, caption = '') {
+        const content = modal.querySelector('.modal-content');
+        content.innerHTML = '';
+
+        if (content_type === 'iframe') {
+            const iframe = document.createElement('iframe');
+            iframe.src = src;
+            Object.assign(iframe, iframeAttributes);
+            content.appendChild(iframe);
+        } else if (content_type === 'image') {
+            const img = document.createElement('img');
+            img.src = src;
+            content.appendChild(img);
+
+            if (caption) {
+                const modalCaption = document.createElement('div');
+                modalCaption.classList.add('modal-caption');
+                modalCaption.classList.add('google-sans-flex-normal');
+                modalCaption.textContent = caption;
+                content.appendChild(modalCaption);
+            }
+        }
+
+        modal.classList.add('visible');
+    }
+
+    function closeModal() {
+        modal.classList.remove('visible');
+        setTimeout(() => {
+            const iframe = modal.querySelector('iframe');
+            if (iframe) iframe.remove();
+        }, 200);
+    }
+
+    function onImageClick(image) {
+        const src = image.getAttribute('src');
+        const alt = image.getAttribute('alt');
+        openModal('image', src, {}, alt);
+    }
+
+    const expandableImages = document.querySelectorAll('.expandable-image');
+    expandableImages.forEach(image => {
+        image.addEventListener('click', () => onImageClick(image));
+    });
+
+    const modal = document.createElement('div');
+    modal.classList.add('modal');
+    modal.innerHTML = `
+        <div class="modal-backdrop"></div>
+        <div class="modal-content"></div>
+    `;
+    document.body.appendChild(modal);
+    
+    const modalBackdrop = document.querySelector('.modal-backdrop');
+    modalBackdrop.addEventListener('click', () => closeModal());
+}
+
 function initScrollSpyglass() {
     const scrollIndicator = document.querySelector('.scroll-indicator');
     const scrollLines = document.querySelectorAll('.scroll-line');
@@ -316,6 +374,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollSpyglass();
     initContact();
     initFooter();
+    initModals();
 
     window.addEventListener('load', () => {
         document.fonts.ready.then(() => {

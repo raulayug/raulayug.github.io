@@ -221,7 +221,7 @@ h2 { opacity: 85%; }
             color: var(--white);
 
             .header, .content { flex-shrink: 0; transition: opacity 0.1s linear; }
-            h1 { opacity: 90%; font-size: 10vw; }
+            .header h1 { opacity: 90%; font-size: 10vw; }
 
             &.active { height: calc(30% + (100% - 30%) * var(--expand-progress, 0)); }
 
@@ -229,10 +229,71 @@ h2 { opacity: 85%; }
             &[data-aspect="media-production"] { background-color: var(--accent-2); }
             &[data-aspect="leadership"] { background-color: var(--accent-3); }
         }
+
+        .content { padding: 0 2.5% 2.5%; }
     }
 
-    .content {
-        padding-bottom: 5rem;   
+    /* software development */
+    :nth-child(1 of .aspects-menu) {
+        .education {
+            .schooling-content {
+                display: flex;
+                justify-content: center;
+
+                img {
+                    min-width: 14rem;
+                    max-width: 20%;
+                    object-fit: contain;
+                    margin: 1.5rem;
+                }
+
+                .timeline { list-style: none; }
+
+                .timeline-entry {
+                    position: relative;
+                    padding: 0 0 1.5rem 2.5rem;
+                    --marker-size: 1rem;
+                    --marker-top: 0.35rem;
+                    --line-x: 0.5rem;
+
+                    /* dot */
+                    .timeline-marker {
+                        position: absolute;
+                        left: var(--line-x);
+                        top: var(--marker-top);
+                        width: var(--marker-size);
+                        height: var(--marker-size);
+                        transform: translateX(-50%);
+                        border-radius: 50%;
+                        background-color: currentColor;
+                        z-index: 1;
+                    }
+
+                    /* bar */
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        left: var(--line-x);
+                        top: calc(var(--marker-top) + var(--marker-size) / 2);
+                        bottom: calc(-1 * (var(--marker-top) + var(--marker-size) / 2));
+                        width: 0.15rem;
+                        transform: translateX(-50%);
+                        background-color: currentColor;
+                        opacity: 0.6;
+                    }
+
+                    &:last-child::before { display: none; }
+                }
+
+                * { line-height: 1.25; }
+                .school { font-size: 1.6rem; }
+                .degree { font-size: 1.2rem; }
+                .metadata {font-size: 1.1rem; }
+                .metadata, .list-title, .list { opacity: 0.8; }
+                .list-title { font-weight: bold; margin-top: 0.2rem; }
+                .list { padding-left: 1.1rem; max-width: 35rem;}
+            }
+        }
     }
 }
 
@@ -423,6 +484,10 @@ h2 { opacity: 85%; }
             h1 { font-size: 8vw; }
             h2 { font-size: 4vw; }
         }
+    }
+
+    #experience {
+        .schooling-content { flex-flow: column; align-items: center; }
     }
 
     #contact {

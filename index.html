@@ -48,7 +48,7 @@
 
     <section id="hero">
         <div class="image">
-            <img src="/assets/images/toga.webp" alt="">
+            <img src="/assets/images/hero/toga.webp" alt="">
         </div>
         <div class="text">
             <h2 class="ibm-plex-serif-medium-italic">Hi! I'm Rau,</h2>
@@ -76,7 +76,7 @@
     </section>
 
     <section id="experience">
-        <div class="aspects-menu">
+        <div id="experience-override" class="aspects-menu">
 
             <!-- DESCRIPTION -->
             <div class="description">
@@ -95,7 +95,7 @@
                     <div class="education">
                         <h2 class="ibm-plex-serif-medium-italic">Schooling</h2>
                         <div class="schooling-content">
-                            <img src="/assets/images/ADMU Logo.webp" alt="ADMU Logo">
+                            <img src="/assets/images/software-development/admu-logo.webp" alt="ADMU Logo">
 
                             <ol class="timeline">
                                 <li class="timeline-entry">
@@ -111,8 +111,8 @@
                                         <p class="list-title">Conference</p>
                                         <ul class="list">
                                             <li>2026 Joint International Conference on Digital Arts, Media and Technology with ECTI Northern Section Conference on Electrical, Electronics, Computer and Telecommunication Engineering (ECTI DAMT & NCON)</li>
-                                            <li>Acceptance: </li>
-                                            <li>Publication: </li>
+                                            <li>Acceptance: AI and Machine Learning, Digital Arts and Media</li>
+                                            <li>Publication: AI and Machine Learning</li>
                                         </ul>
                                         <p class="list-title">SOSE Recognition Program</p>
                                         <ul class="list">
@@ -144,9 +144,9 @@
                         <div class="research-content">
                             <div class="research google-sans-flex-normal" data-tab-name="Master's Thesis">
                                 <h3 class="title">Real-Time Speaker Sensitive Audio Gating via Supervised Frame-Level Speaker Recognition</h3>
-                                <p class="desc">Presents a modification to the foundation of a noise gate plug-in to create a more intelligent and context-aware system focused on target-speaker identification. A supervised, text-independent, and frame-wise personal voice activity detection model based on <a href="https://www.researchgate.net/publication/345141910_Personal_VAD_Speaker-Conditioned_Voice_Activity_Detection">Ding et al. (2019)</a> is proposed and refined to process audio in real-time with minimal CPU utilization.</p>
+                                <p class="desc">Presents a modification to the foundation of a noise gate plug-in to create a more intelligent and context-aware system focused on target-speaker identification. A supervised, text-independent, and frame-wise personal voice activity detection model based on <a href="https://www.researchgate.net/publication/345141910_Personal_VAD_Speaker-Conditioned_Voice_Activity_Detection" target="_blank">Ding et al. (2019)</a> is proposed and refined to process audio in real-time with minimal CPU utilization.</p>
                                 <p class="desc">The model outperformed a standard noise gate, demonstrating the feasibility of applying deep learning models in real-time audio systems and the potential of personal voice activity detection as a control mechanism for adaptive audio effects.</p>
-                                <p class="technology">Python, PyTorch, Torch, Google Colab, C++, JUCE Framework</p>
+                                <p class="tech">Python, PyTorch, Torch, Google Colab, C++, JUCE Framework</p>
                                 <hr>
                                 <a href="https://ieeexplore.ieee.org/abstract/document/11460001/" class="button" target="_blank">IEEE Publication</a>
                             </div>
@@ -155,7 +155,7 @@
                                 <p class="desc">Compares K-Means, DBSCAN, and Affinity Propagation clustering on Queen's discography using full and reduced musical feature sets extracted from preprocessed MIDI data.</p>
                                 <p class="desc">Preprocessing included MIDI feature extraction, dataset pruning, and feature engineering. A custom analysis tool was also created in Google Sheets to compute quantitative data and aid in qualitative analysis.</p>
                                 <p class="desc">The reduced feature set paired with Affinity Propagation gave the most analytically valuable results.</p>
-                                <p class="technology">Python, scikit-learn, jSymbolic, Google Sheets</p>
+                                <p class="tech">Python, scikit-learn, jSymbolic, Google Sheets</p>
                                 <hr>
                                 <a href="/assets/images/research/undergrad-thesis-poster.jpg" class="button" target="_blank">Thesis Poster</a>
                             </div>
@@ -163,31 +163,75 @@
                                 <h3 class="title">Comparative Analysis of the Impact of Host Operating System on the Performance of Type 2 Hypervisors</h3>
                                 <p class="desc">Compares Windows 11, macOS, and Linux Mint as host operating systems for a Type 2 hypervisor, using a triple-boot setup on a single machine. Results show the impact of each host OS on virtual machine performance, thermal behavior, and resource utilization.</p>
                                 <p class="desc">Findings highlight trade-offs between raw performance, thermal efficiency, and resource allocation across the three systems, offering guidance and trade-offs on selecting an optimal host OS for virtualization.</p>
-                                <p class="technology">VirtualBox, Boot Camp, Geekbench, PassMark, RAMSpeed, MPrime</p>
+                                <p class="tech">VirtualBox, Boot Camp, Geekbench, PassMark, RAMSpeed, MPrime</p>
                             </div>
                             <div class="research google-sans-flex-normal" data-tab-name="Webscraping & Sentiment Analysis">
                                 <h3 class="title">Examining Player Popularity and Fan Discourse Surrounding Gilas Pilipinas on YouTube and Rappler</h3>
                                 <p class="desc">Examines player popularity and fan discourse surrounding Gilas Pilipinas on YouTube and Rappler from July to September 2024. Using web scraping and sentiment analysis, the study identifies the most discussed players, sentiment trends per player, frequently associated keywords and language patterns, and key differences in tone and discourse style between the two platforms.</p>
                                 <p class="desc">Findings highlight how platform and audience shape sports discourse, offering insight into the cultural dynamics of Gilas Pilipinas fandom in the Philippines.</p>
-                                <p class="technology">Python, Beautiful Soup, YouTube API, NLTK, scikit-learn</p>
+                                <p class="tech">Python, Beautiful Soup, YouTube API, NLTK, scikit-learn</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h1 class="google-sans-flex-extrabold">My Resume</h1>
+                    <a href="/assets/software-development/rau-layug-cv.pdf" target="_blank" class="button google-sans-flex-normal">Rau Layug - CV</a>
+
+                    <h1 class="google-sans-flex-extrabold">Projects</h1>
+                    <div class="projects google-sans-flex-normal">
+                        
+                        <!-- Portfolio Website -->
+                        <div class="project left">
+                            <div class="media">
+                                <img class="expandable-image border-out" src="assets/images/software-development/portfolio-website.png" alt="personal portfolio website">
+                            </div>
+                            <div class="text" data-flex-basis="50">
+                                <h2 class="ibm-plex-serif-medium-italic">Portfolio Website</h2>
+                                <p class="desc">Designed and built a personal portfolio site from scratch in vanilla HTML, CSS, and JavaScript.</p>
+                                <p class="desc">Features responsive design, media modals, a custom scrollbar, and scroll hijacking.</p>
+                                <p class="desc">Deployed on GitHub Pages with a custom domain configured via Namecheap DNS.</p>
+                                <p class="tech">HTML, CSS, JavaScript</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Voice Gate -->
+                        <div class="project right">
+                            <div class="media">
+                                <div class="voice-gate-grid">
+                                    <img class="expandable-image border-out" src="assets/images/software-development/inference-thread.jpeg" alt="aaa">
+                                    <img class="expandable-image border-out" src="assets/images/software-development/main-thread.jpeg" alt="aaa">
+                                    <img class="expandable-image border-in" src="assets/images/software-development/embedding-menu.jpeg" alt="aaa">
+                                    <img class="expandable-image border-in" src="assets/images/software-development/voice-gate-ui.jpeg" alt="aaa">
+                                </div>
+                            </div>
+                            <div class="text" data-flex-basis="50">
+                                <h2 class="ibm-plex-serif-medium-italic">Voice Gate Audio Plugin</h2>
+                                <p class="desc">A VST/AU plugin prototype that identifies the active speaker in real time and gates the signal accordingly, allowing a target voice through while suppressing unwanted speakers or background talkers.</p>
+                                <p class="desc">Product of my Master's Thesis.</p>
+                                <p class="tech">Torch, C++, JUCE Framework</p>
                             </div>
                         </div>
 
-                        <h2 class="ibm-plex-serif-medium-italic">My Resume</h2>
-                        <a href="/assets/Rau Layug - CV.pdf" target="_blank" class="button google-sans-flex-normal">Rau Layug - CV</a>
-                    </div>
-
-                    <h1 class="google-sans-flex-extrabold">Projects</h1>
-                    <div class="projects">
-                        <h2 class="ibm-plex-serif-medium-italic">Portfolio Website</h2>
-                        <!-- <img class="expandable-image" src="assets/images/leadership/raushaus/studio1.png" alt="editing a live session"> -->
-                        <h2 class="ibm-plex-serif-medium-italic">Voice Gate Audio Plugin</h2>
-                        <h2 class="ibm-plex-serif-medium-italic">Karaoke-Style Video Captioning Pipeline</h2>
+                        <!-- Captioning Pipeline -->
+                        <div class="project left">
+                            <div class="media">
+                                <img class="expandable-image" src="assets/images/leadership/raushaus/studio1.png" alt="editing a live session">
+                            </div>
+                            <div class="text" data-flex-basis="60">
+                                <h2 class="ibm-plex-serif-medium-italic">Karaoke-Style Video Captioning Pipeline</h2>
+                                <p class="desc">This pipeline automates the creation of karaoke-style subtitles for music video releases.</p>
+                                <p class="desc">Vocal audio and corresponding lyrics are fed into <a href="https://github.com/jianfch/stable-ts" target="_blank">stable-ts</a>, an OpenAI Whisper-based tool, to align word timing. Output is batch converted to .ass subtitle format, verified in Aegisub, and batch converted to .ytt for upload to YouTube.</p>
+                                <p class="desc">This tool has been customized for RausHaus Productions' kareoke-style video releases, streamlining a process that would otherwise require manual subtitle timing for every release.</p>
+                                <p class="tech">Python, stable-ts, Aegisub, YTSubConverter</p>
+                            </div>
+                        </div>
                     </div>
 
                     <h1 class="google-sans-flex-extrabold">Skills</h1>
-                    <h2 class="ibm-plex-serif-medium-italic">Tools</h2>
-                    <h2 class="ibm-plex-serif-medium-italic">Courses</h2>
+                    <div class="skills">
+                        <h2 class="ibm-plex-serif-medium-italic">Tools</h2>
+                        <h2 class="ibm-plex-serif-medium-italic">Courses</h2>
+                    </div>
                 </div>
             </div>
 

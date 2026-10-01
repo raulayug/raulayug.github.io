@@ -6,6 +6,21 @@ function clamp(value, min, max) {
 }
 
 function initModals() {
+    function initModalElement() {
+        let modal = document.createElement('div');
+        modal.classList.add('modal');
+        modal.innerHTML = `
+            <div class="modal-backdrop"></div>
+            <div class="modal-content"></div>
+        `;
+        document.body.appendChild(modal);
+        
+        let modalBackdrop = document.querySelector('.modal-backdrop');
+        modalBackdrop.addEventListener('click', () => closeModal());
+
+        return modal;
+    }
+    
     function openModal(content_type, src, iframeAttributes = {}, caption = '') {
         const content = modal.querySelector('.modal-content');
         content.innerHTML = '';
@@ -15,18 +30,19 @@ function initModals() {
             iframe.src = src;
             Object.assign(iframe, iframeAttributes);
             content.appendChild(iframe);
-        } else if (content_type === 'image') {
+        }
+        else if (content_type === 'image') {
             const img = document.createElement('img');
             img.src = src;
             content.appendChild(img);
+        }
 
-            if (caption) {
-                const modalCaption = document.createElement('div');
-                modalCaption.classList.add('modal-caption');
-                modalCaption.classList.add('google-sans-flex-normal');
-                modalCaption.textContent = caption;
-                content.appendChild(modalCaption);
-            }
+        if (caption) {
+            const modalCaption = document.createElement('div');
+            modalCaption.classList.add('modal-caption');
+            modalCaption.classList.add('google-sans-flex-normal');
+            modalCaption.textContent = caption;
+            content.appendChild(modalCaption);
         }
 
         modal.classList.add('visible');
@@ -40,27 +56,146 @@ function initModals() {
         }, 200);
     }
 
+    // Images
+    function initExpandableImages() {
+        const expandableImages = document.querySelectorAll('.expandable-image');
+        expandableImages.forEach(image => {
+            image.addEventListener('click', () => onImageClick(image));
+        });
+    }
+
     function onImageClick(image) {
         const src = image.getAttribute('src');
         const alt = image.getAttribute('alt');
         openModal('image', src, {}, alt);
     }
 
-    const expandableImages = document.querySelectorAll('.expandable-image');
-    expandableImages.forEach(image => {
-        image.addEventListener('click', () => onImageClick(image));
-    });
+    //  Videos
+    async function initPlayableVideos() {
+        const playableVideos = document.querySelectorAll('.media-card.video');
 
-    const modal = document.createElement('div');
-    modal.classList.add('modal');
-    modal.innerHTML = `
-        <div class="modal-backdrop"></div>
-        <div class="modal-content"></div>
-    `;
-    document.body.appendChild(modal);
-    
-    const modalBackdrop = document.querySelector('.modal-backdrop');
-    modalBackdrop.addEventListener('click', () => closeModal());
+        playableVideos.forEach(async (video) => {
+            const youtubeData = await fetchYoutubeData(video.dataset.id);
+            let title = youtubeData.title;
+            let thumbnail_url = youtubeData.thumbnail_url;
+
+            video.innerHTML = `
+                <img class="thumbnail" src=${thumbnail_url}>
+                <h3 class="title">${title}</h3>
+            `;
+
+            if (video.hasAttribute('data-chips')) { initCreditChip(video); }
+
+            video.addEventListener('click', () => onVideoClick(video));
+        });
+    }
+
+    async function fetchYoutubeData(youtubeId) {
+        const oembedUrl = `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${youtubeId}&format=json`;
+
+        try {
+            const response = await fetch(oembedUrl);
+            if (!response.ok) throw new Error('oEmbed request failed');
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            return null;
+        }
+    }
+
+    function onVideoClick(video) {
+        let message = video.dataset.message;
+        let videoId = video.dataset.id;
+
+        openModal('iframe',
+                  `https://www.youtube.com/embed/${videoId}?autoplay=1`,
+                  { allow: 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture', allowFullscreen: true },
+                  caption=message
+                );   
+    }
+
+    // Spotify
+    async function initPlayableSongs() {
+        const playableSongs = document.querySelectorAll('.media-card.song');
+
+        playableSongs.forEach(async (song) => {
+            const id = song.dataset.id;
+            const artist = song.dataset.artist;
+
+            const spotifyData = await fetchSpotifyData(id);
+            const title = spotifyData ? spotifyData.title : 'Untitled';
+            const thumbnailUrl = spotifyData ? spotifyData.thumbnail_url : '';
+
+            song.innerHTML = `
+                <img class="thumbnail" src="${thumbnailUrl}">
+                <h3 class="title">${title}</h3>
+                <p class="artist">${artist}</p>
+            `;
+
+            if (song.hasAttribute('data-chips')) { initCreditChip(song); }
+
+            song.addEventListener('click', () => onSongCardClick(song));
+        });
+    }
+
+    async function fetchSpotifyData(spotifyId) {
+        const oembedUrl = `https://open.spotify.com/oembed?url=https://open.spotify.com/track/${spotifyId}`;
+
+        try {
+            const response = await fetch(oembedUrl);
+            if (!response.ok) throw new Error('Spotify oEmbed request failed');
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            return null;
+        }
+    }
+
+    function onSongCardClick(card) {
+        const trackId = card.getAttribute('data-id');
+        openModal('iframe', `https://open.spotify.com/embed/track/${trackId}`, {
+            style: 'border-radius: 12px',
+            width: '100%',
+            height: '352',
+            frameBorder: '0',
+            allow: 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture'
+        });
+    }
+
+    // Credit Chips
+    function initCreditChip(item) {
+        const creditChipColors = {
+            // audio chips
+            production: '#e8a045',
+            mixing:     '#347FC4',
+            mastering:  '#EF233C',
+            drums:      '#558564',
+
+            // video chips
+            management: '#EF233C',
+            audio:      '#e8a045',
+            editing:    '#347FC4',
+        };
+
+        const dataChipContainer = document.createElement('div');
+        dataChipContainer.classList.add('chip-container');
+
+        const keywords = item.getAttribute('data-chips').split(',');
+        keywords.forEach(keyword => {
+            const chip = document.createElement('span');
+            chip.classList.add('media-chip');
+            chip.textContent = keyword.trim();
+            chip.style.backgroundColor = creditChipColors[keyword.trim()] || 'var(--accent-1)';
+            dataChipContainer.appendChild(chip);
+        });
+
+        item.appendChild(dataChipContainer);
+    }
+
+    const modal = initModalElement();
+    initExpandableImages();
+    initPlayableVideos();
+    initPlayableSongs();
 }
 
 function initScrollSpyglass() {
@@ -124,6 +259,21 @@ function initScrollSpyglass() {
     scrollIndicator.addEventListener('mouseleave', () => { isIndicatorHovered = false; renderActiveState(); });
     window.addEventListener('scroll', () => updateScrollIndicator());
     updateScrollIndicator();
+}
+
+function initExperienceSkills() {
+    function initSkillElement(el) {
+        el.innerHTML = `
+            <a href="${el.dataset.href}" target="_blank">
+                <img src="assets/images/software-development/skills/${el.dataset.picture}.png" alt="${el.dataset.picture} logo">
+                <p>${el.dataset.name}</p>
+            </a>
+        `;
+    }
+
+    let categoryElements = document.querySelectorAll('.category-element');
+    categoryElements.forEach((el) => initSkillElement(el));
+    console.log(categoryElements);
 }
 
 function initExperienceAspectAnimation(aspectDiv) {
@@ -306,6 +456,8 @@ function initExperience() {
     
     window.addEventListener('hashchange', handleHashNavigation);
     if (window.location.hash) { requestAnimationFrame(handleHashNavigation); }
+
+    initExperienceSkills();
 }
 
 function initContact() {
@@ -376,14 +528,10 @@ function initFooter() {
 
 document.addEventListener('DOMContentLoaded', () => {
     initScrollSpyglass();
+    window.addEventListener('load', () => {
+        document.fonts.ready.then(() => { initExperience(); if (window.location.hash) experience.handleHashNavigation(); });
+    });
     initContact();
     initFooter();
     initModals();
-
-    window.addEventListener('load', () => {
-        document.fonts.ready.then(() => {
-            initExperience();
-            if (window.location.hash) experience.handleHashNavigation();
-        });
-    });
 });

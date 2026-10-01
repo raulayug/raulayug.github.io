@@ -535,6 +535,16 @@ h2 { opacity: 85%; }
         }
     }
 
+    /* media production */
+    [data-aspect="media-production"] {
+        .portfolio-container {
+            display: flex;
+            gap: 1rem;
+            flex-flow: row wrap;
+            justify-content: center;
+        }
+    }
+
     .skills {
         margin: 0.5rem 0;
 

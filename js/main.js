@@ -263,9 +263,14 @@ function initScrollSpyglass() {
 
 function initExperienceSkills() {
     function initSkillElement(el) {
+        const aspectAncestor = el.closest('[data-aspect]');
+        const category = aspectAncestor ? aspectAncestor.dataset.aspect : null;
+
+        const src = `assets/images/${category}/skills/${el.dataset.picture}.png`;
+
         el.innerHTML = `
             <a href="${el.dataset.href}" target="_blank">
-                <img src="assets/images/software-development/skills/${el.dataset.picture}.png" alt="${el.dataset.picture} logo">
+                <img src="${src}" alt="${el.dataset.picture} logo">
                 <p>${el.dataset.name}</p>
             </a>
         `;

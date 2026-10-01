@@ -102,20 +102,31 @@ h2 { opacity: 85%; }
         display: flex;
         flex-flow: row nowrap;
         gap: 0.25rem;
-    }
+        overflow: hidden;
 
-    .media-chip {
-        font-size: 0.7rem;
-        padding: 0.2rem 0.3rem;
-        border-radius: 0.2rem;
-        color: var(--white);
+        .media-chip {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.3rem;
+            border-radius: 0.2rem;
+            color: var(--white);
+        }
+
+        .chip-more {
+            display: flex;
+            align-items: center;
+            font-size: 0.6rem;
+            color: var(--black);
+            background-color: rgba(255, 255, 255, 0.75);
+            border-radius: 50%;
+        }
     }
 
     &.song {
         max-width: 14rem;
 
         .thumbnail { margin-bottom: 0.2rem; }
-        .details { min-height: 4.6rem; }
+        .details { margin-bottom: 0.2rem; }
+        .title { text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
         .title { font-weight: bold; }
         .artist { opacity: 85%; }
     }

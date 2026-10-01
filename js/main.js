@@ -1,7 +1,7 @@
 let activeAspectIndex = 0;
 let aspectNames;
 
-const creditChipColors = {
+const chipColors = {
     // audio chips
     production: '#e8a045',
     mixing:     '#347FC4',
@@ -99,7 +99,7 @@ function initCardsAndModals() {
                 const chip = document.createElement('span');
                 chip.classList.add('media-chip');
                 chip.textContent = keyword.trim();
-                chip.style.backgroundColor = creditChipColors[keyword.trim()] || 'var(--accent-1)';
+                chip.style.backgroundColor = chipColors[keyword.trim()] || 'var(--accent-1)';
                 chipContainerElem.appendChild(chip);
             });
 
@@ -115,7 +115,7 @@ function initCardsAndModals() {
                 const chip = document.createElement('span');
                 chip.classList.add('media-chip');
                 chip.textContent = keyword.trim();
-                chip.style.backgroundColor = creditChipColors[keyword.trim()] || 'var(--accent-1)';
+                chip.style.backgroundColor = chipColors[keyword.trim()] || 'var(--accent-1)';
                 instrumContainerElem.appendChild(chip);
             });
 
@@ -222,19 +222,53 @@ function initCardsAndModals() {
 
     // Credit Chips
     function initCreditChip(item) {
-        const dataChipContainer = document.createElement('div');
-        dataChipContainer.classList.add('chip-container');
+        const chipContainer = document.createElement('div');
+        chipContainer.classList.add('chip-container');
 
-        const keywords = item.getAttribute('data-chips').split(',').sort();
-        keywords.forEach(keyword => {
-            const chip = document.createElement('span');
-            chip.classList.add('media-chip');
-            chip.textContent = keyword.trim();
-            chip.style.backgroundColor = creditChipColors[keyword.trim()] || 'var(--accent-1)';
-            dataChipContainer.appendChild(chip);
-        });
+        const instrumContainer = document.createElement('div');
+        instrumContainer.classList.add('chip-container');
 
-        item.appendChild(dataChipContainer);
+        const chipText = item.dataset.chips;
+        const instrumText = item.dataset.instrum;
+
+        if (chipText) {
+            const keywords = chipText.split(',').sort();
+            keywords.forEach(keyword => {
+                const chip = document.createElement('span');
+                chip.classList.add('media-chip');
+                chip.textContent = keyword.trim();
+                chip.style.backgroundColor = chipColors[keyword.trim()] || 'var(--accent-1)';
+                chipContainer.appendChild(chip);
+            });
+        }
+
+        if (instrumText) {
+            const keywords = instrumText.split(',').sort();
+            keywords.forEach(keyword => {
+                const chip = document.createElement('span');
+                chip.classList.add('media-chip');
+                chip.textContent = keyword.trim();
+                chip.style.backgroundColor = chipColors[keyword.trim()] || 'var(--accent-1)';
+                instrumContainer.appendChild(chip);
+            });
+        }
+
+        item.appendChild(chipContainer);
+        item.appendChild(instrumContainer);
+        truncateChips(instrumContainer, 3);
+    }
+
+    function truncateChips(container, maxVisible) {
+        const chips = Array.from(container.querySelectorAll('.media-chip'));
+        if (chips.length <= maxVisible) return;
+
+        const hiddenCount = chips.length - maxVisible;
+        chips.slice(maxVisible).forEach((chip) => chip.remove());
+
+        const moreChip = document.createElement('span');
+        moreChip.className = 'media-chip chip-more';
+        moreChip.textContent = `+${hiddenCount}`;
+        container.appendChild(moreChip);
     }
 
     const modal = initModalElement();

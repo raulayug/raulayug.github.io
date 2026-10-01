@@ -8,12 +8,12 @@ const chipColors = {
     mastering:  '#EF233C',
 
     // instrum
-    drums:      '#558564',
-    percussion: '#6E69C9',
-    keys:       '#c24fba',
     guitar:     '#b5781b',
-    synth:      '#3c3eb3',
+    drums:      '#558564',
     bass:       '#279c9e',
+    synth:      '#3c3eb3',
+    keys:       '#c24fba',
+    percussion: '#6E69C9',
 
     // video chips
     management: '#EF233C',
@@ -21,11 +21,57 @@ const chipColors = {
     editing:    '#347FC4',
 };
 
+const chipOrder = [
+    // audio chips
+    'production',
+    'mixing',
+    'mastering',
+
+    // instrum
+    'guitar',
+    'drums',
+    'bass',
+    'synth',
+    'keys',
+    'percussion',
+
+    // video chips
+    'management',
+    'audio',
+    'editing'
+];
+
 function clamp(value, min, max) {
     return Math.min(Math.max(value, min), max);
 }
 
 function initCardsAndModals() {
+    function parseTextToKeywords(text, filter='') {
+        if (filter == 'prod') {
+            return text
+                .split(',')
+                .map(keyword => keyword.trim())
+                .map(keyword => keyword.toLowerCase())
+                .filter(keyword => ['production', 'mixing', 'mastering'].includes(keyword))
+                .sort((a, b) => chipOrder.indexOf(a) - chipOrder.indexOf(b));
+        }
+        else if (filter == 'instrum') {
+            return text
+                .split(',')
+                .map(keyword => keyword.trim())
+                .map(keyword => keyword.toLowerCase())
+                .filter(keyword => ['guitar', 'drums', 'bass', 'synth', 'keys', 'percussion'].includes(keyword))
+                .sort((a, b) => chipOrder.indexOf(a) - chipOrder.indexOf(b));
+        }
+        else {
+            return text
+                .split(',')
+                .map(keyword => keyword.trim())
+                .map(keyword => keyword.toLowerCase())
+                .sort((a, b) => chipOrder.indexOf(a) - chipOrder.indexOf(b));
+        }
+    }
+    
     function initModalElement() {
         let modal = document.createElement('div');
         modal.classList.add('modal');
@@ -45,7 +91,6 @@ function initCardsAndModals() {
         const content = modal.querySelector('.modal-content');
         let captionText = '';
         let chipsText = '';
-        let instrumText = '';
         content.innerHTML = '';
 
         if (item.classList.contains('expandable-image')) {
@@ -90,7 +135,7 @@ function initCardsAndModals() {
 
 
         if (chipsText) {
-            const keywords = chipsText.split(',').sort();
+            let keywords = parseTextToKeywords(chipsText, 'prod');
             const chipContainerElem = document.createElement('div');
             chipContainerElem.classList.add('modal-chip-container');
             chipContainerElem.classList.add('google-sans-flex-normal');
@@ -103,10 +148,7 @@ function initCardsAndModals() {
                 chipContainerElem.appendChild(chip);
             });
 
-            content.appendChild(chipContainerElem);
-        }
-        if (instrumText) {
-            const keywords = instrumText.split(',').sort();
+            keywords = parseTextToKeywords(chipsText, 'instrum');
             const instrumContainerElem = document.createElement('div');
             instrumContainerElem.classList.add('modal-chip-container');
             instrumContainerElem.classList.add('google-sans-flex-normal');
@@ -119,6 +161,7 @@ function initCardsAndModals() {
                 instrumContainerElem.appendChild(chip);
             });
 
+            content.appendChild(chipContainerElem);
             content.appendChild(instrumContainerElem);
         }
         if (captionText) {
@@ -229,10 +272,10 @@ function initCardsAndModals() {
         instrumContainer.classList.add('chip-container');
 
         const chipText = item.dataset.chips;
-        const instrumText = item.dataset.instrum;
 
         if (chipText) {
-            const keywords = chipText.split(',').sort();
+            let keywords = parseTextToKeywords(chipText, 'prod');
+            console.log('chip keywords:', keywords);
             keywords.forEach(keyword => {
                 const chip = document.createElement('span');
                 chip.classList.add('media-chip');
@@ -240,10 +283,9 @@ function initCardsAndModals() {
                 chip.style.backgroundColor = chipColors[keyword.trim()] || 'var(--accent-1)';
                 chipContainer.appendChild(chip);
             });
-        }
 
-        if (instrumText) {
-            const keywords = instrumText.split(',').sort();
+            keywords = parseTextToKeywords(chipText, 'instrum');
+            console.log('instrum keywords:', keywords);
             keywords.forEach(keyword => {
                 const chip = document.createElement('span');
                 chip.classList.add('media-chip');
@@ -611,10 +653,10 @@ function initFooter() {
 
 document.addEventListener('DOMContentLoaded', () => {
     initScrollSpyglass();
+    initCardsAndModals();
     window.addEventListener('load', () => {
         document.fonts.ready.then(() => { initExperience(); if (window.location.hash) experience.handleHashNavigation(); });
     });
     initContact();
     initFooter();
-    initCardsAndModals();
 });

@@ -101,7 +101,7 @@ h2 { opacity: 85%; }
         margin-top: 0.2rem;
         display: flex;
         flex-flow: row nowrap;
-        gap: 0.25rem;
+        gap: 0.2rem;
         overflow: hidden;
 
         .media-chip {
@@ -564,9 +564,40 @@ h2 { opacity: 85%; }
     [data-aspect="media-production"] {
         .portfolio-container {
             display: flex;
-            gap: 1rem;
-            flex-flow: row wrap;
-            justify-content: center;
+            flex-flow: column;
+            border: solid 0.2rem var(--white);
+
+            h2 {
+                padding: 0.5rem;
+                background-color: var(--white);
+                color: var(--accent-2);
+                opacity: 100%;
+
+                &:before {
+                    content: "▼";
+                    margin-right: 0.25rem;
+                    font-style: normal;
+                }
+            }
+
+            .filter {
+                margin: 1rem 1rem 0;
+                display: flex;
+
+                .button {
+                    background-color: var(--black);
+                    padding: 0.5rem 0.75rem;
+                    border-radius: 0.5rem;
+                }
+            }
+
+            .works-wrapper {
+                display: flex;
+                gap: 1rem;
+                margin: 1rem;
+                flex-flow: row wrap;
+                justify-content: center;
+            }
         }
     }
 

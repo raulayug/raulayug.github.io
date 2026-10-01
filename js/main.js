@@ -1,11 +1,31 @@
 let activeAspectIndex = 0;
 let aspectNames;
 
+const creditChipColors = {
+    // audio chips
+    production: '#e8a045',
+    mixing:     '#347FC4',
+    mastering:  '#EF233C',
+
+    // instrum
+    drums:      '#558564',
+    percussion: '#6E69C9',
+    keys:       '#c24fba',
+    guitar:     '#b5781b',
+    synth:      '#3c3eb3',
+    bass:       '#279c9e',
+
+    // video chips
+    management: '#EF233C',
+    audio:      '#e8a045',
+    editing:    '#347FC4',
+};
+
 function clamp(value, min, max) {
     return Math.min(Math.max(value, min), max);
 }
 
-function initModals() {
+function initCardsAndModals() {
     function initModalElement() {
         let modal = document.createElement('div');
         modal.classList.add('modal');
@@ -21,28 +41,92 @@ function initModals() {
         return modal;
     }
     
-    function openModal(content_type, src, iframeAttributes = {}, caption = '') {
+    function openModal(item) {
         const content = modal.querySelector('.modal-content');
+        let captionText = '';
+        let chipsText = '';
+        let instrumText = '';
         content.innerHTML = '';
 
-        if (content_type === 'iframe') {
-            const iframe = document.createElement('iframe');
-            iframe.src = src;
-            Object.assign(iframe, iframeAttributes);
-            content.appendChild(iframe);
+        if (item.classList.contains('expandable-image')) {
+            const imageElement = document.createElement('img');
+            imageElement.src = item.getAttribute('src');
+            content.appendChild(imageElement);
+
+            captionText = item.getAttribute('alt');
         }
-        else if (content_type === 'image') {
-            const img = document.createElement('img');
-            img.src = src;
-            content.appendChild(img);
+        else if (item.classList.contains('video')) {
+            const iframeAttributes = {
+                allow: 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture',
+                allowFullscreen: true
+            };
+            
+            const iframeElement = document.createElement('iframe');
+            iframeElement.src = `https://www.youtube.com/embed/${item.dataset.id}?autoplay=1`;
+            Object.assign(iframeElement, iframeAttributes);
+            content.appendChild(iframeElement);
+
+            dataChipsText = item.dataset.dataChips;
+            captionText = item.dataset.message;
+        }
+        else if (item.classList.contains('song')) {
+            const iframeAttributes = {
+                style: 'border-radius: 12px',
+                width: '100%',
+                height: '352',
+                frameBorder: '0',
+                allow: 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture'
+            };
+
+            const iframeElement = document.createElement('iframe');
+            iframeElement.src = `https://open.spotify.com/embed/track/${item.dataset.id}`;
+            Object.assign(iframeElement, iframeAttributes);
+            content.appendChild(iframeElement);
+
+            chipsText = item.dataset.chips;
+            instrumText = item.dataset.instrum;
+            captionText = item.dataset.message;
         }
 
-        if (caption) {
-            const modalCaption = document.createElement('div');
-            modalCaption.classList.add('modal-caption');
-            modalCaption.classList.add('google-sans-flex-normal');
-            modalCaption.textContent = caption;
-            content.appendChild(modalCaption);
+
+        if (chipsText) {
+            const keywords = chipsText.split(',').sort();
+            const chipContainerElem = document.createElement('div');
+            chipContainerElem.classList.add('modal-chip-container');
+            chipContainerElem.classList.add('google-sans-flex-normal');
+            
+            keywords.forEach(keyword => {
+                const chip = document.createElement('span');
+                chip.classList.add('media-chip');
+                chip.textContent = keyword.trim();
+                chip.style.backgroundColor = creditChipColors[keyword.trim()] || 'var(--accent-1)';
+                chipContainerElem.appendChild(chip);
+            });
+
+            content.appendChild(chipContainerElem);
+        }
+        if (instrumText) {
+            const keywords = instrumText.split(',').sort();
+            const instrumContainerElem = document.createElement('div');
+            instrumContainerElem.classList.add('modal-chip-container');
+            instrumContainerElem.classList.add('google-sans-flex-normal');
+            
+            keywords.forEach(keyword => {
+                const chip = document.createElement('span');
+                chip.classList.add('media-chip');
+                chip.textContent = keyword.trim();
+                chip.style.backgroundColor = creditChipColors[keyword.trim()] || 'var(--accent-1)';
+                instrumContainerElem.appendChild(chip);
+            });
+
+            content.appendChild(instrumContainerElem);
+        }
+        if (captionText) {
+            const captionElement = document.createElement('div');
+            captionElement.classList.add('modal-caption');
+            captionElement.classList.add('google-sans-flex-normal');
+            captionElement.textContent = captionText;
+            content.appendChild(captionElement);
         }
 
         modal.classList.add('visible');
@@ -60,17 +144,11 @@ function initModals() {
     function initExpandableImages() {
         const expandableImages = document.querySelectorAll('.expandable-image');
         expandableImages.forEach(image => {
-            image.addEventListener('click', () => onImageClick(image));
+            image.addEventListener('click', () => openModal(image));
         });
     }
 
-    function onImageClick(image) {
-        const src = image.getAttribute('src');
-        const alt = image.getAttribute('alt');
-        openModal('image', src, {}, alt);
-    }
-
-    //  Videos
+    // Videos
     async function initPlayableVideos() {
         const playableVideos = document.querySelectorAll('.media-card.video');
 
@@ -86,7 +164,7 @@ function initModals() {
 
             if (video.hasAttribute('data-chips')) { initCreditChip(video); }
 
-            video.addEventListener('click', () => onVideoClick(video));
+            video.addEventListener('click', () => openModal(video));
         });
     }
 
@@ -103,17 +181,6 @@ function initModals() {
         }
     }
 
-    function onVideoClick(video) {
-        let message = video.dataset.message;
-        let videoId = video.dataset.id;
-
-        openModal('iframe',
-                  `https://www.youtube.com/embed/${videoId}?autoplay=1`,
-                  { allow: 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture', allowFullscreen: true },
-                  caption=message
-                );   
-    }
-
     // Spotify
     async function initPlayableSongs() {
         const playableSongs = document.querySelectorAll('.media-card.song');
@@ -128,13 +195,15 @@ function initModals() {
 
             song.innerHTML = `
                 <img class="thumbnail" src="${thumbnailUrl}">
-                <h3 class="title">${title}</h3>
-                <p class="artist">${artist}</p>
+                <div class="details">
+                    <h3 class="title">${title}</h3>
+                    <p class="artist">${artist}</p>
+                </div>
             `;
 
             if (song.hasAttribute('data-chips')) { initCreditChip(song); }
 
-            song.addEventListener('click', () => onSongCardClick(song));
+            song.addEventListener('click', () => openModal(song));
         });
     }
 
@@ -151,36 +220,12 @@ function initModals() {
         }
     }
 
-    function onSongCardClick(card) {
-        const trackId = card.getAttribute('data-id');
-        openModal('iframe', `https://open.spotify.com/embed/track/${trackId}`, {
-            style: 'border-radius: 12px',
-            width: '100%',
-            height: '352',
-            frameBorder: '0',
-            allow: 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture'
-        });
-    }
-
     // Credit Chips
     function initCreditChip(item) {
-        const creditChipColors = {
-            // audio chips
-            production: '#e8a045',
-            mixing:     '#347FC4',
-            mastering:  '#EF233C',
-            drums:      '#558564',
-
-            // video chips
-            management: '#EF233C',
-            audio:      '#e8a045',
-            editing:    '#347FC4',
-        };
-
         const dataChipContainer = document.createElement('div');
         dataChipContainer.classList.add('chip-container');
 
-        const keywords = item.getAttribute('data-chips').split(',');
+        const keywords = item.getAttribute('data-chips').split(',').sort();
         keywords.forEach(keyword => {
             const chip = document.createElement('span');
             chip.classList.add('media-chip');
@@ -278,7 +323,6 @@ function initExperienceSkills() {
 
     let categoryElements = document.querySelectorAll('.category-element');
     categoryElements.forEach((el) => initSkillElement(el));
-    console.log(categoryElements);
 }
 
 function initExperienceAspectAnimation(aspectDiv) {
@@ -538,5 +582,5 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     initContact();
     initFooter();
-    initModals();
+    initCardsAndModals();
 });

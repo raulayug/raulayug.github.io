@@ -96,26 +96,27 @@ h2 { opacity: 85%; }
     background-color: #1F1F1F;
     color: var(--white);
 
-    .chip-container {
+    .chip-container,
+    .instrum-container {
+        margin-top: 0.2rem;
         display: flex;
-        flex-flow: row wrap;
-        gap: 0.25rem
+        flex-flow: row nowrap;
+        gap: 0.25rem;
     }
 
     .media-chip {
-        font-size: 0.8rem;
+        font-size: 0.7rem;
         padding: 0.2rem 0.3rem;
         border-radius: 0.2rem;
         color: var(--white);
     }
 
     &.song {
-        max-width: 12rem;
+        max-width: 14rem;
 
-        .details { min-height: 4.9rem; }
-
+        .thumbnail { margin-bottom: 0.2rem; }
+        .details { min-height: 4.6rem; }
         .title { font-weight: bold; }
-
         .artist { opacity: 85%; }
     }
 
@@ -175,6 +176,19 @@ h2 { opacity: 85%; }
         color: var(--white);
         filter: drop-shadow(0 0 0.3rem rgba(255, 255, 255, 0.5));
         text-align: center;
+    }
+
+    .modal-chip-container {
+        margin-top: 0.25rem;
+        display: flex;
+        gap: 0.25rem;
+
+        .media-chip {
+            font-weight: bold;
+            padding: 0.3rem 0.4rem;
+            border-radius: 0.3rem;
+            color: var(--white);
+        }
     }
 }
 
@@ -328,12 +342,12 @@ h2 { opacity: 85%; }
     }
 
     .content {
-        padding: 0 2.5%;
+        padding: 0 2.5% 5rem 2.5%;
         h1:not(:nth-child(1 of h1)) { margin-top: 2rem; }
     }
 
     /* software development */
-    :nth-child(1 of .aspects-menu) {
+    [data-aspect="software-development"] {
         .education {
             .schooling-content {
                 display: flex;

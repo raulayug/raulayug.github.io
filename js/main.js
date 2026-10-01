@@ -46,277 +46,323 @@ function clamp(value, min, max) {
 }
 
 function initCardsAndModals() {
-    function parseTextToKeywords(text, filter='') {
-        if (filter == 'prod') {
-            return text
-                .split(',')
-                .map(keyword => keyword.trim())
-                .map(keyword => keyword.toLowerCase())
-                .filter(keyword => ['production', 'mixing', 'mastering'].includes(keyword))
-                .sort((a, b) => chipOrder.indexOf(a) - chipOrder.indexOf(b));
+    return new Promise((resolve) => {
+        const asyncTasks = [
+            initPlayableSongs(),
+            initPlayableVideos()
+        ];
+
+        function parseTextToKeywords(text, filter='') {
+            if (filter == 'prod') {
+                return text
+                    .split(',')
+                    .map(keyword => keyword.trim())
+                    .map(keyword => keyword.toLowerCase())
+                    .filter(keyword => ['production', 'mixing', 'mastering'].includes(keyword))
+                    .sort((a, b) => chipOrder.indexOf(a) - chipOrder.indexOf(b));
+            }
+            else if (filter == 'instrum') {
+                return text
+                    .split(',')
+                    .map(keyword => keyword.trim())
+                    .map(keyword => keyword.toLowerCase())
+                    .filter(keyword => ['guitar', 'drums', 'bass', 'synth', 'keys', 'percussion'].includes(keyword))
+                    .sort((a, b) => chipOrder.indexOf(a) - chipOrder.indexOf(b));
+            }
+            else {
+                return text
+                    .split(',')
+                    .map(keyword => keyword.trim())
+                    .map(keyword => keyword.toLowerCase())
+                    .sort((a, b) => chipOrder.indexOf(a) - chipOrder.indexOf(b));
+            }
         }
-        else if (filter == 'instrum') {
-            return text
-                .split(',')
-                .map(keyword => keyword.trim())
-                .map(keyword => keyword.toLowerCase())
-                .filter(keyword => ['guitar', 'drums', 'bass', 'synth', 'keys', 'percussion'].includes(keyword))
-                .sort((a, b) => chipOrder.indexOf(a) - chipOrder.indexOf(b));
-        }
-        else {
-            return text
-                .split(',')
-                .map(keyword => keyword.trim())
-                .map(keyword => keyword.toLowerCase())
-                .sort((a, b) => chipOrder.indexOf(a) - chipOrder.indexOf(b));
-        }
-    }
-    
-    function initModalElement() {
-        let modal = document.createElement('div');
-        modal.classList.add('modal');
-        modal.innerHTML = `
-            <div class="modal-backdrop"></div>
-            <div class="modal-content"></div>
-        `;
-        document.body.appendChild(modal);
         
-        let modalBackdrop = document.querySelector('.modal-backdrop');
-        modalBackdrop.addEventListener('click', () => closeModal());
-
-        return modal;
-    }
-    
-    function openModal(item) {
-        const content = modal.querySelector('.modal-content');
-        let captionText = '';
-        let chipsText = '';
-        content.innerHTML = '';
-
-        if (item.classList.contains('expandable-image')) {
-            const imageElement = document.createElement('img');
-            imageElement.src = item.getAttribute('src');
-            content.appendChild(imageElement);
-
-            captionText = item.getAttribute('alt');
-        }
-        else if (item.classList.contains('video')) {
-            const iframeAttributes = {
-                allow: 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture',
-                allowFullscreen: true
-            };
-            
-            const iframeElement = document.createElement('iframe');
-            iframeElement.src = `https://www.youtube.com/embed/${item.dataset.id}?autoplay=1`;
-            Object.assign(iframeElement, iframeAttributes);
-            content.appendChild(iframeElement);
-
-            dataChipsText = item.dataset.dataChips;
-            captionText = item.dataset.message;
-        }
-        else if (item.classList.contains('song')) {
-            const iframeAttributes = {
-                style: 'border-radius: 12px',
-                width: '100%',
-                height: '352',
-                frameBorder: '0',
-                allow: 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture'
-            };
-
-            const iframeElement = document.createElement('iframe');
-            iframeElement.src = `https://open.spotify.com/embed/track/${item.dataset.id}`;
-            Object.assign(iframeElement, iframeAttributes);
-            content.appendChild(iframeElement);
-
-            chipsText = item.dataset.chips;
-            instrumText = item.dataset.instrum;
-            captionText = item.dataset.message;
-        }
-
-
-        if (chipsText) {
-            let keywords = parseTextToKeywords(chipsText, 'prod');
-            const chipContainerElem = document.createElement('div');
-            chipContainerElem.classList.add('modal-chip-container');
-            chipContainerElem.classList.add('google-sans-flex-normal');
-            
-            keywords.forEach(keyword => {
-                const chip = document.createElement('span');
-                chip.classList.add('media-chip');
-                chip.textContent = keyword.trim();
-                chip.style.backgroundColor = chipColors[keyword.trim()] || 'var(--accent-1)';
-                chipContainerElem.appendChild(chip);
-            });
-
-            keywords = parseTextToKeywords(chipsText, 'instrum');
-            const instrumContainerElem = document.createElement('div');
-            instrumContainerElem.classList.add('modal-chip-container');
-            instrumContainerElem.classList.add('google-sans-flex-normal');
-            
-            keywords.forEach(keyword => {
-                const chip = document.createElement('span');
-                chip.classList.add('media-chip');
-                chip.textContent = keyword.trim();
-                chip.style.backgroundColor = chipColors[keyword.trim()] || 'var(--accent-1)';
-                instrumContainerElem.appendChild(chip);
-            });
-
-            content.appendChild(chipContainerElem);
-            content.appendChild(instrumContainerElem);
-        }
-        if (captionText) {
-            const captionElement = document.createElement('div');
-            captionElement.classList.add('modal-caption');
-            captionElement.classList.add('google-sans-flex-normal');
-            captionElement.textContent = captionText;
-            content.appendChild(captionElement);
-        }
-
-        modal.classList.add('visible');
-    }
-
-    function closeModal() {
-        modal.classList.remove('visible');
-        setTimeout(() => {
-            const iframe = modal.querySelector('iframe');
-            if (iframe) iframe.remove();
-        }, 200);
-    }
-
-    // Images
-    function initExpandableImages() {
-        const expandableImages = document.querySelectorAll('.expandable-image');
-        expandableImages.forEach(image => {
-            image.addEventListener('click', () => openModal(image));
-        });
-    }
-
-    // Videos
-    async function initPlayableVideos() {
-        const playableVideos = document.querySelectorAll('.media-card.video');
-
-        playableVideos.forEach(async (video) => {
-            const youtubeData = await fetchYoutubeData(video.dataset.id);
-            let title = youtubeData.title;
-            let thumbnail_url = youtubeData.thumbnail_url;
-
-            video.innerHTML = `
-                <img class="thumbnail" src=${thumbnail_url}>
-                <h3 class="title">${title}</h3>
+        function initModalElement() {
+            let modal = document.createElement('div');
+            modal.classList.add('modal');
+            modal.innerHTML = `
+                <div class="modal-backdrop"></div>
+                <div class="modal-content"></div>
             `;
+            document.body.appendChild(modal);
+            
+            let modalBackdrop = document.querySelector('.modal-backdrop');
+            modalBackdrop.addEventListener('click', () => closeModal());
 
-            if (video.hasAttribute('data-chips')) { initCreditChip(video); }
-
-            video.addEventListener('click', () => openModal(video));
-        });
-    }
-
-    async function fetchYoutubeData(youtubeId) {
-        const oembedUrl = `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${youtubeId}&format=json`;
-
-        try {
-            const response = await fetch(oembedUrl);
-            if (!response.ok) throw new Error('oEmbed request failed');
-            const data = await response.json();
-            return data;
-        } catch (error) {
-            return null;
+            return modal;
         }
-    }
+        
+        function openModal(item) {
+            const content = modal.querySelector('.modal-content');
+            let captionText = '';
+            let chipsText = '';
+            content.innerHTML = '';
 
-    // Spotify
-    async function initPlayableSongs() {
-        const playableSongs = document.querySelectorAll('.media-card.song');
+            if (item.classList.contains('expandable-image')) {
+                const imageElement = document.createElement('img');
+                imageElement.src = item.getAttribute('src');
+                content.appendChild(imageElement);
 
-        playableSongs.forEach(async (song) => {
-            const id = song.dataset.id;
-            const artist = song.dataset.artist;
+                captionText = item.getAttribute('alt');
+            }
+            else if (item.classList.contains('video')) {
+                const iframeAttributes = {
+                    allow: 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture',
+                    allowFullscreen: true
+                };
+                
+                const iframeElement = document.createElement('iframe');
+                iframeElement.src = `https://www.youtube.com/embed/${item.dataset.id}?autoplay=1`;
+                Object.assign(iframeElement, iframeAttributes);
+                content.appendChild(iframeElement);
 
-            const spotifyData = await fetchSpotifyData(id);
-            const title = spotifyData ? spotifyData.title : 'Untitled';
-            const thumbnailUrl = spotifyData ? spotifyData.thumbnail_url : '';
+                dataChipsText = item.dataset.dataChips;
+                captionText = item.dataset.message;
+            }
+            else if (item.classList.contains('song')) {
+                const iframeAttributes = {
+                    style: 'border-radius: 12px',
+                    width: '100%',
+                    height: '352',
+                    frameBorder: '0',
+                    allow: 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture'
+                };
 
-            song.innerHTML = `
-                <img class="thumbnail" src="${thumbnailUrl}">
-                <div class="details">
-                    <h3 class="title">${title}</h3>
-                    <p class="artist">${artist}</p>
-                </div>
-            `;
+                const iframeElement = document.createElement('iframe');
+                iframeElement.src = `https://open.spotify.com/embed/track/${item.dataset.id}`;
+                Object.assign(iframeElement, iframeAttributes);
+                content.appendChild(iframeElement);
 
-            if (song.hasAttribute('data-chips')) { initCreditChip(song); }
+                chipsText = item.dataset.chips;
+                instrumText = item.dataset.instrum;
+                captionText = item.dataset.message;
+            }
 
-            song.addEventListener('click', () => openModal(song));
-        });
-    }
 
-    async function fetchSpotifyData(spotifyId) {
-        const oembedUrl = `https://open.spotify.com/oembed?url=https://open.spotify.com/track/${spotifyId}`;
+            if (chipsText) {
+                let keywords = parseTextToKeywords(chipsText, 'prod');
+                const chipContainerElem = document.createElement('div');
+                chipContainerElem.classList.add('modal-chip-container');
+                chipContainerElem.classList.add('google-sans-flex-normal');
+                
+                keywords.forEach(keyword => {
+                    const chip = document.createElement('span');
+                    chip.classList.add('media-chip');
+                    chip.textContent = keyword.trim();
+                    chip.style.backgroundColor = chipColors[keyword.trim()] || 'var(--accent-1)';
+                    chipContainerElem.appendChild(chip);
+                });
 
-        try {
-            const response = await fetch(oembedUrl);
-            if (!response.ok) throw new Error('Spotify oEmbed request failed');
-            const data = await response.json();
-            return data;
-        } catch (error) {
-            return null;
+                keywords = parseTextToKeywords(chipsText, 'instrum');
+                const instrumContainerElem = document.createElement('div');
+                instrumContainerElem.classList.add('modal-chip-container');
+                instrumContainerElem.classList.add('google-sans-flex-normal');
+                
+                keywords.forEach(keyword => {
+                    const chip = document.createElement('span');
+                    chip.classList.add('media-chip');
+                    chip.textContent = keyword.trim();
+                    chip.style.backgroundColor = chipColors[keyword.trim()] || 'var(--accent-1)';
+                    instrumContainerElem.appendChild(chip);
+                });
+
+                content.appendChild(chipContainerElem);
+                content.appendChild(instrumContainerElem);
+            }
+            if (captionText) {
+                const captionElement = document.createElement('div');
+                captionElement.classList.add('modal-caption');
+                captionElement.classList.add('google-sans-flex-normal');
+                captionElement.textContent = captionText;
+                content.appendChild(captionElement);
+            }
+
+            modal.classList.add('visible');
         }
-    }
 
-    // Credit Chips
-    function initCreditChip(item) {
-        const chipContainer = document.createElement('div');
-        chipContainer.classList.add('chip-container');
+        function closeModal() {
+            modal.classList.remove('visible');
+            setTimeout(() => {
+                const iframe = modal.querySelector('iframe');
+                if (iframe) iframe.remove();
+            }, 200);
+        }
 
-        const instrumContainer = document.createElement('div');
-        instrumContainer.classList.add('chip-container');
-
-        const chipText = item.dataset.chips;
-
-        if (chipText) {
-            let keywords = parseTextToKeywords(chipText, 'prod');
-            console.log('chip keywords:', keywords);
-            keywords.forEach(keyword => {
-                const chip = document.createElement('span');
-                chip.classList.add('media-chip');
-                chip.textContent = keyword.trim();
-                chip.style.backgroundColor = chipColors[keyword.trim()] || 'var(--accent-1)';
-                chipContainer.appendChild(chip);
+        // Images
+        function initExpandableImages() {
+            const expandableImages = document.querySelectorAll('.expandable-image');
+            expandableImages.forEach(image => {
+                image.addEventListener('click', () => openModal(image));
             });
+        }
 
-            keywords = parseTextToKeywords(chipText, 'instrum');
-            console.log('instrum keywords:', keywords);
-            keywords.forEach(keyword => {
-                const chip = document.createElement('span');
-                chip.classList.add('media-chip');
-                chip.textContent = keyword.trim();
-                chip.style.backgroundColor = chipColors[keyword.trim()] || 'var(--accent-1)';
-                instrumContainer.appendChild(chip);
+        // Videos
+        function initPlayableVideos() {
+            return new Promise((resolve) => {
+                const playableVideos = document.querySelectorAll('.media-card.video');
+
+                const videoPromises = Array.from(playableVideos).map(async (video) => {
+                    const youtubeData = await fetchYoutubeData(video.dataset.id);
+                    
+                    let title = youtubeData ? youtubeData.title : 'Untitled Video';
+                    let thumbnail_url = youtubeData ? youtubeData.thumbnail_url : 'fallback-thumbnail.jpg';
+
+                    video.innerHTML = `
+                        <img class="thumbnail" src="${thumbnail_url}">
+                        <h3 class="title">${title}</h3>
+                    `;
+
+                    if (video.hasAttribute('data-chips')) { 
+                        initCreditChip(video); 
+                    }
+
+                    video.addEventListener('click', () => openModal(video));
+                });
+
+                Promise.all(videoPromises).then(() => {
+                    console.log("All YouTube videos have loaded and fully rendered!");
+                    resolve();
+                });
             });
         }
 
-        item.appendChild(chipContainer);
-        item.appendChild(instrumContainer);
-        truncateChips(instrumContainer, 3);
-    }
+        async function fetchYoutubeData(youtubeId) {
+            const oembedUrl = `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${youtubeId}&format=json`;
 
-    function truncateChips(container, maxVisible) {
-        const chips = Array.from(container.querySelectorAll('.media-chip'));
-        if (chips.length <= maxVisible) return;
+            try {
+                const response = await fetch(oembedUrl);
+                if (!response.ok) throw new Error('oEmbed request failed');
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                return null;
+            }
+        }
 
-        const hiddenCount = chips.length - maxVisible;
-        chips.slice(maxVisible).forEach((chip) => chip.remove());
+        // Spotify
+        function initPlayableSongs() {
+            return new Promise((resolve) => {
+                const playableSongs = document.querySelectorAll('.media-card.song');
 
-        const moreChip = document.createElement('span');
-        moreChip.className = 'media-chip chip-more';
-        moreChip.textContent = `+${hiddenCount}`;
-        container.appendChild(moreChip);
-    }
+                const songPromises = Array.from(playableSongs).map(async (song) => {
+                    const id = song.dataset.id;
+                    const artist = song.dataset.artist;
 
-    const modal = initModalElement();
-    initExpandableImages();
-    initPlayableVideos();
-    initPlayableSongs();
+                    const spotifyData = await fetchSpotifyData(id);
+                    const title = spotifyData ? spotifyData.title : 'Untitled';
+                    const thumbnailUrl = spotifyData ? spotifyData.thumbnail_url : '';
+
+                    song.innerHTML = `
+                        <img class="thumbnail" src="${thumbnailUrl}">
+                        <div class="details">
+                            <h3 class="title">${title}</h3>
+                            <p class="artist">${artist}</p>
+                        </div>
+                    `;
+
+                    if (song.hasAttribute('data-chips')) { 
+                        initCreditChip(song); 
+                    }
+
+                    song.addEventListener('click', () => openModal(song));
+                });
+
+                Promise.all(songPromises).then(() => {
+                    console.log("All Spotify songs have loaded and fully rendered!");
+                    resolve();
+                });
+            });
+        }
+
+        async function fetchSpotifyData(spotifyId) {
+            const oembedUrl = `https://open.spotify.com/oembed?url=https://open.spotify.com/track/${spotifyId}`;
+
+            try {
+                const response = await fetch(oembedUrl);
+                if (!response.ok) throw new Error('Spotify oEmbed request failed');
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                return null;
+            }
+        }
+
+        // Credit Chips
+        function initCreditChip(item) {
+            const chipText = item.dataset.chips;
+
+            if (item.classList.contains('song')) {
+                const chipContainer = document.createElement('div');
+                chipContainer.classList.add('chip-container');
+                const instrumContainer = document.createElement('div');
+                instrumContainer.classList.add('chip-container');
+
+                if (chipText) {
+                    let keywords = parseTextToKeywords(chipText, 'prod');
+                    keywords.forEach(keyword => {
+                        const chip = document.createElement('span');
+                        chip.classList.add('media-chip');
+                        chip.textContent = keyword.trim();
+                        chip.style.backgroundColor = chipColors[keyword.trim()] || 'var(--accent-1)';
+                        chipContainer.appendChild(chip);
+                    });
+
+                    keywords = parseTextToKeywords(chipText, 'instrum');
+                    keywords.forEach(keyword => {
+                        const chip = document.createElement('span');
+                        chip.classList.add('media-chip');
+                        chip.textContent = keyword.trim();
+                        chip.style.backgroundColor = chipColors[keyword.trim()] || 'var(--accent-1)';
+                        instrumContainer.appendChild(chip);
+                    });
+                }
+
+                item.appendChild(chipContainer);
+                item.appendChild(instrumContainer);
+                truncateChips(instrumContainer, 3);
+            }
+            else if (item.classList.contains('video')) {
+                const chipContainer = document.createElement('div');
+                chipContainer.classList.add('chip-container');
+
+                if (chipText) {
+                    let keywords = parseTextToKeywords(chipText);
+                    keywords.forEach(keyword => {
+                        const chip = document.createElement('span');
+                        chip.classList.add('media-chip');
+                        chip.textContent = keyword.trim();
+                        chip.style.backgroundColor = chipColors[keyword.trim()] || 'var(--accent-1)';
+                        chipContainer.appendChild(chip);
+                    });
+                }
+
+                item.appendChild(chipContainer);
+            }
+        }
+
+        function truncateChips(container, maxVisible) {
+            const chips = Array.from(container.querySelectorAll('.media-chip'));
+            if (chips.length <= maxVisible) return;
+
+            const hiddenCount = chips.length - maxVisible;
+            chips.slice(maxVisible).forEach((chip) => chip.remove());
+
+            const moreChip = document.createElement('span');
+            moreChip.className = 'media-chip chip-more';
+            moreChip.textContent = `+${hiddenCount}`;
+            container.appendChild(moreChip);
+        }
+
+        const modal = initModalElement();
+        initExpandableImages();
+        initPlayableVideos();
+        initPlayableSongs();
+
+        Promise.all(asyncTasks).then(() => {
+            resolve();
+        });
+    });
 }
 
 function initScrollSpyglass() {
@@ -651,12 +697,15 @@ function initFooter() {
     });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     initScrollSpyglass();
-    initCardsAndModals();
-    window.addEventListener('load', () => {
-        document.fonts.ready.then(() => { initExperience(); if (window.location.hash) experience.handleHashNavigation(); });
-    });
     initContact();
     initFooter();
+    await initCardsAndModals();
+
+    if (document.readyState !== 'complete') { await new Promise(resolve => window.addEventListener('load', resolve)); }
+    await document.fonts.ready;
+
+    initExperience();
+    if (window.location.hash) experience.handleHashNavigation();
 });

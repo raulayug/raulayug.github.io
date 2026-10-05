@@ -1,6 +1,9 @@
 let activeAspectIndex = 0;
 let aspectNames;
 let aspectDivScrollStart;
+const SOFTWARE = 0;
+const MEDIA = 1;
+const LEADERSHIP = 2;
 let aspectDivAnimators;
 
 const chipColors = {
@@ -223,7 +226,6 @@ function initCardsAndModals() {
                 });
 
                 Promise.all(videoPromises).then(() => {
-                    console.log("All YouTube videos have loaded and fully rendered!");
                     resolve();
                 });
             });
@@ -271,7 +273,6 @@ function initCardsAndModals() {
                 });
 
                 Promise.all(songPromises).then(() => {
-                    console.log("All Spotify songs have loaded and fully rendered!");
                     resolve();
                 });
             });
@@ -449,6 +450,86 @@ function initExperienceSkills() {
     categoryElements.forEach((el) => initSkillElement(el));
 }
 
+function initExperienceMediaPortfolio() {
+
+    function initCollapseToggle(container) {
+        const heading = container.querySelector('h2');
+        const worksWrapper = container.querySelector('.works-wrapper');
+        const categoryName = heading.textContent.trim();
+
+        heading.classList.add('collapse-toggle');
+        heading.innerHTML = `<span class="chevron">▼</span> ${categoryName}`;
+        const chevron = heading.querySelector('.chevron');
+
+        function setCollapsed(isCollapsed) {
+            container.classList.toggle('collapsed', isCollapsed);
+            chevron.textContent = isCollapsed ? '▶' : '▼';
+
+            worksWrapper.style.height = `${worksWrapper.scrollHeight}px`;
+            requestAnimationFrame(() => {
+                worksWrapper.style.height = isCollapsed ? '0px' : `${worksWrapper.scrollHeight}px`;
+            });
+        }
+
+        heading.addEventListener('click', () => {
+            setCollapsed(!container.classList.contains('collapsed'));
+        });
+
+        worksWrapper.addEventListener('transitionend', () => {
+            aspectDivAnimators[MEDIA].measure();
+            window.remeasureExperienceLayout();
+        });
+    }
+
+    function initFilterToggle(portfolioContainer) {
+        const filterContainer = portfolioContainer.querySelector('.filter');
+        if (!filterContainer) return;
+
+        const button = filterContainer.querySelector('.button');
+        const panel = filterContainer.querySelector('.panel');
+        if (!panel) return;
+
+        const worksWrapper = portfolioContainer.querySelector('.works-wrapper');
+        const options = Array.from(panel.querySelectorAll('.option'));
+
+        function applyFilters() {
+            const activeFilters = options
+                .filter((btn) => btn.classList.contains('active'))
+                .map((btn) => btn.dataset.value);
+
+            button.classList.toggle('active', activeFilters.length > 0);
+
+            const cards = worksWrapper.querySelectorAll('.media-card');
+
+            cards.forEach((card) => {
+                const cardChips = (card.dataset.chips || '').split(',').map((c) => c.trim());
+                const matches = activeFilters.length === 0 || activeFilters.some((f) => cardChips.includes(f));
+                card.classList.toggle('filtered-out', !matches);
+            });
+
+            if (window.remeasureExperienceLayout) window.remeasureExperienceLayout();
+        }
+
+        options.forEach((option) => {
+            option.addEventListener('click', (event) => {
+                event.stopPropagation();
+                option.classList.toggle('active');
+                applyFilters();
+            });
+        });
+
+        document.addEventListener('click', (event) => {
+            if (!filterContainer.contains(event.target)) panel.classList.remove('open');
+        });
+    }
+
+    const portfolioContainers = document.querySelectorAll('.portfolio-container');
+    portfolioContainers.forEach((container) => {
+        initCollapseToggle(container);
+        initFilterToggle(container);
+    });
+}
+
 function initExperienceAspectAnimation(aspectDiv) {
     const expandDistanceRatio = 0.3;
     const contentFadeDistanceRatio = 0.2;
@@ -621,6 +702,8 @@ function initExperience() {
     setDescriptionMargin();
     setAspectMargins();
 
+    window.remeasureExperienceLayout = () => { measureAll(); updateProgress(); };
+
     window.addEventListener('resize', () => { measureAll(); updateProgress(); setDescriptionMargin();});
     window.addEventListener('scroll', () => window.requestAnimationFrame(updateProgress));
     
@@ -628,6 +711,7 @@ function initExperience() {
     if (window.location.hash) { requestAnimationFrame(handleHashNavigation); }
 
     initExperienceSkills();
+    initExperienceMediaPortfolio();
 }
 
 function initContact() {
@@ -706,5 +790,4 @@ document.addEventListener('DOMContentLoaded', async () => {
     await document.fonts.ready;
 
     initExperience();
-    if (window.location.hash) experience.handleHashNavigation();
 });

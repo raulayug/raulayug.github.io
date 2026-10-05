@@ -507,6 +507,7 @@ function initExperienceMediaPortfolio() {
                 card.classList.toggle('filtered-out', !matches);
             });
 
+            aspectDivAnimators[MEDIA].measure();
             if (window.remeasureExperienceLayout) window.remeasureExperienceLayout();
         }
 

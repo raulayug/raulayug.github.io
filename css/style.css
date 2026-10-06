@@ -269,6 +269,7 @@ h2 { opacity: 85%; }
     height: 100vh;
     padding: 0 10%;
     color: var(--black);
+    background-color: var(--white);
 
     display: flex;
     flex-wrap: nowrap;
@@ -330,6 +331,7 @@ h2 { opacity: 85%; }
     height: 100vh;
     padding: 0 20%;
     color: var(--black);
+    background-color: var(--white);
 
     display: flex;
     flex-flow: column;

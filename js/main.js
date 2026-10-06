@@ -463,7 +463,7 @@ function initExperienceMediaPortfolio() {
 
         function setCollapsed(isCollapsed) {
             container.classList.toggle('collapsed', isCollapsed);
-            chevron.textContent = isCollapsed ? '▶' : '▼';
+            chevron.textContent = isCollapsed ? '►' : '▼';
 
             worksWrapper.style.height = `${worksWrapper.scrollHeight}px`;
             requestAnimationFrame(() => {

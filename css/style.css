@@ -349,7 +349,7 @@ h2 { opacity: 85%; }
         height: 100%;
         z-index: -1;
         background: radial-gradient(
-            circle 18rem at 0 0,
+            circle 16rem at 0 30vh,
             var(--accent-1) 100%,
             transparent 0
             ),
@@ -730,9 +730,7 @@ h2 { opacity: 85%; }
                 .media-card.filtered-out { display: none; }
             }
 
-            .works-wrapper.graphics {
-                .expandable-image { max-width: 50%; border-radius: 1rem; margin: 1rem; }
-            }
+            .works-wrapper.graphics .expandable-image { max-width: 50%; border-radius: 1rem; margin: 1rem; }
 
             &.collapsed {
                 .filter {

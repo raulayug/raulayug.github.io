@@ -269,7 +269,6 @@ h2 { opacity: 85%; }
     height: 100vh;
     padding: 0 10%;
     color: var(--black);
-    background-color: var(--white);
 
     display: flex;
     flex-wrap: nowrap;
@@ -308,20 +307,21 @@ h2 { opacity: 85%; }
         width: 100%;
         height: 100%;
         z-index: -1;
-        background: radial-gradient(
+        background:
+            radial-gradient(
             circle 30rem at 0 0,
-            var(--accent-1) 100%,
+            color-mix(in srgb, var(--accent-1) 50%, transparent) 100%,
             transparent 0
             ),
             radial-gradient(
-            circle 16rem at 100vw 100vh,
-            var(--accent-2) 100%,
+            circle 16rem at 100vw 90vh,
+            color-mix(in srgb, var(--accent-2) 50%, transparent) 100%,
             transparent 0
-            );
+            ),
+            var(--white);
 
         top: 0;
         left: 0;
-        opacity: 0.5;
         filter: blur(5rem);
         mix-blend-mode: hue;
     }
@@ -331,7 +331,6 @@ h2 { opacity: 85%; }
     height: 100vh;
     padding: 0 20%;
     color: var(--black);
-    background-color: var(--white);
 
     display: flex;
     flex-flow: column;
@@ -350,25 +349,26 @@ h2 { opacity: 85%; }
         width: 100%;
         height: 100%;
         z-index: -1;
-        background: radial-gradient(
+        background:
+            radial-gradient(
             circle 16rem at 0 30vh,
-            var(--accent-1) 100%,
+            color-mix(in srgb, var(--accent-1) 50%, transparent) 100%,
             transparent 0
             ),
             radial-gradient(
-            circle 16rem at 100vw 0vh,
-            var(--accent-2) 100%,
+            circle 12rem at 100vw 45vh,
+            color-mix(in srgb, var(--accent-2) 50%, transparent) 100%,
             transparent 0
             ),
             radial-gradient(
-            circle 24rem at 50vw 100vh,
-            var(--accent-3) 100%,
+            circle 20rem at 50vw 100vh,
+            color-mix(in srgb, var(--accent-3) 50%, transparent) 100%,
             transparent 0
-            );
+            ),
+            var(--white);
 
         top: 0;
         left: 0;
-        opacity: 0.5;
         filter: blur(5rem);
         mix-blend-mode: hue;
     }

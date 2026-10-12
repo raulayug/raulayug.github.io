@@ -279,13 +279,10 @@ function initCardsAndModals() {
         }
 
         async function fetchSpotifyData(spotifyId) {
-            const oembedUrl = `https://open.spotify.com/oembed?url=https://open.spotify.com/track/${spotifyId}`;
-
             try {
-                const response = await fetch(oembedUrl);
-                if (!response.ok) throw new Error('Spotify oEmbed request failed');
-                const data = await response.json();
-                return data;
+                const response = await fetch(`/data/${spotifyId}.json`);
+                if (!response.ok) throw new Error('Local Spotify metadata missing');
+                return await response.json();
             } catch (error) {
                 return null;
             }

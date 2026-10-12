@@ -279,7 +279,7 @@ function initCardsAndModals() {
 
         async function fetchSpotifyData(spotifyId) {
             try {
-                const response = await fetch(`/data/${spotifyId}.json`);
+                const response = await fetch(`assets/spotify-data/${spotifyId}.json`);
                 if (!response.ok) throw new Error('Local Spotify metadata missing');
                 return await response.json();
             } catch (error) {

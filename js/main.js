@@ -429,7 +429,7 @@ function initExperienceSkills() {
         const aspectAncestor = el.closest('[data-aspect]');
         const category = aspectAncestor ? aspectAncestor.dataset.aspect : null;
 
-        const src = `assets/images/${category}/skills/${el.dataset.picture}.png`;
+        const src = `assets/images/${category}/skills/${el.dataset.picture}.webp`;
 
         el.innerHTML = `
             <a href="${el.dataset.href}" target="_blank">

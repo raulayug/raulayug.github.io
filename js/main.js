@@ -213,7 +213,7 @@ function initCardsAndModals() {
                     let thumbnail_url = youtubeData ? youtubeData.thumbnail_url : 'fallback-thumbnail.jpg';
 
                     video.innerHTML = `
-                        <img class="thumbnail" src="${thumbnail_url}">
+                        <img class="thumbnail" loading="lazy" src="${thumbnail_url}" alt="${youtubeData.title}">
                         <h3 class="title">${title}</h3>
                     `;
 
@@ -257,7 +257,7 @@ function initCardsAndModals() {
                     const thumbnailUrl = spotifyData ? spotifyData.thumbnail_url : '';
 
                     song.innerHTML = `
-                        <img class="thumbnail" src="${thumbnailUrl}">
+                        <img class="thumbnail" loading="lazy" src="${thumbnailUrl}" alt="${spotifyData.title}">
                         <div class="details">
                             <h3 class="title">${title}</h3>
                             <p class="artist">${artist}</p>
@@ -433,7 +433,7 @@ function initExperienceSkills() {
 
         el.innerHTML = `
             <a href="${el.dataset.href}" target="_blank">
-                <img src="${src}" alt="${el.dataset.picture} logo">
+                <img src="${src}" loading="lazy" alt="${el.dataset.picture} logo">
                 <p>${el.dataset.name}</p>
             </a>
         `;

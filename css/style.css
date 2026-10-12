@@ -221,14 +221,14 @@ h2 { opacity: 85%; }
         justify-content: flex-end;
 
         width: 3rem;
-        padding: 0.5rem 0 0.5rem 0.5rem;
+        padding: 0.8rem 0 0.5rem 0.5rem;
         border: none;
         background-color: transparent;
         cursor: pointer;
 
         .scroll-line-visual {
             width: 1.5rem;
-            height: 0.15rem;
+            height: 0.2rem;
             background-color: var(--black);
             opacity: 0.3;
             transition: width 0.3s ease-in-out, opacity 0.3s ease-in-out;
@@ -256,7 +256,7 @@ h2 { opacity: 85%; }
         &:hover .scroll-line-visual,
         &.active .scroll-line-visual {
             width: 1.8rem;
-            height: 0.2rem;
+            height: 0.25rem;
             opacity: 60%;
         }
 

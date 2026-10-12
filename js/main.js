@@ -53,6 +53,7 @@ function clamp(value, min, max) {
 function initCardsAndModals() {
     return new Promise((resolve) => {
         const asyncTasks = [
+            initExpandableImages(),
             initPlayableSongs(),
             initPlayableVideos()
         ];
@@ -355,9 +356,6 @@ function initCardsAndModals() {
         }
 
         const modal = initModalElement();
-        initExpandableImages();
-        initPlayableVideos();
-        initPlayableSongs();
 
         Promise.all(asyncTasks).then(() => {
             resolve();

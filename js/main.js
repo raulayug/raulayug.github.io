@@ -123,7 +123,6 @@ function initCardsAndModals() {
                 Object.assign(iframeElement, iframeAttributes);
                 content.appendChild(iframeElement);
 
-                dataChipsText = item.dataset.dataChips;
                 captionText = item.dataset.message;
             }
             else if (item.classList.contains('song')) {
@@ -141,7 +140,6 @@ function initCardsAndModals() {
                 content.appendChild(iframeElement);
 
                 chipsText = item.dataset.chips;
-                instrumText = item.dataset.instrum;
                 captionText = item.dataset.message;
             }
 

@@ -220,15 +220,15 @@ h2 { opacity: 85%; }
         align-items: center;
         justify-content: flex-end;
 
-        width: 3rem;
-        padding: 0.8rem 0 0.5rem 0.5rem;
+        width: 3.5rem;
+        padding: 0.8rem 0 0.5rem 1rem;
         border: none;
         background-color: transparent;
         cursor: pointer;
 
         .scroll-line-visual {
             width: 1.5rem;
-            height: 0.2rem;
+            height: 0.15rem;
             background-color: var(--black);
             opacity: 0.3;
             transition: width 0.3s ease-in-out, opacity 0.3s ease-in-out;
@@ -238,7 +238,7 @@ h2 { opacity: 85%; }
             position: absolute;
             top: 50%;
             right: 90%;
-            transform: translateY(-50%);
+            transform: translateY(-50%) translateX(0.5rem);
 
             padding: 0.4rem 0.75rem;
             border-radius: 0.3rem;
@@ -256,7 +256,7 @@ h2 { opacity: 85%; }
         &:hover .scroll-line-visual,
         &.active .scroll-line-visual {
             width: 1.8rem;
-            height: 0.25rem;
+            height: 0.2rem;
             opacity: 60%;
         }
 
